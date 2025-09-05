@@ -458,4 +458,4 @@ function MyUILib:BindToggleKey(window, key)
     end)
 end
 
-return MyUI
+return MyUILib
