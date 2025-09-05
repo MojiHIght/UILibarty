@@ -1,5 +1,4 @@
--- MyUILib.lua
--- Block 1 + Block 2 (Core + Button/Toggle/Slider)
+Moji Ui V.1
 
 local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
@@ -269,7 +268,7 @@ end
 -- 🟣 Elements (Block 3)
 ----------------------------------------------------------------
 
--- 🟣 Dropdown
+-- 🟣 Dropdown (Rayfield-style)
 function MyUILib:AddDropdown(tab, text, list, callback)
     local DropBtn = Instance.new("TextButton", tab.frame)
     DropBtn.Size = UDim2.new(1, -10, 0, 30)
@@ -279,32 +278,60 @@ function MyUILib:AddDropdown(tab, text, list, callback)
     DropBtn.Font = Enum.Font.Gotham
     DropBtn.TextSize = 12
     addCorner(DropBtn, 6)
+    addStroke(DropBtn, Color3.fromRGB(80,80,120))
 
+    -- Container ของ Options
     local DropFrame = Instance.new("Frame", tab.frame)
-    DropFrame.Size = UDim2.new(1, -10, 0, #list * 25)
+    DropFrame.Size = UDim2.new(1, -10, 0, 0) -- เริ่มต้นสูง 0
+    DropFrame.ClipsDescendants = true
     DropFrame.BackgroundColor3 = MyUILib.theme.Section
-    DropFrame.Visible = false
     addCorner(DropFrame, 6)
+    addStroke(DropFrame, Color3.fromRGB(80,80,120))
 
     local Layout = Instance.new("UIListLayout", DropFrame)
+    Layout.Padding = UDim.new(0, 3)
 
+    -- สร้าง Options
+    local optionButtons = {}
     for _, v in pairs(list) do
         local Opt = Instance.new("TextButton", DropFrame)
-        Opt.Size = UDim2.new(1, 0, 0, 25)
+        Opt.Size = UDim2.new(1, -6, 0, 25)
         Opt.Text = v
-        Opt.BackgroundColor3 = MyUILib.theme.Section
+        Opt.BackgroundColor3 = Color3.fromRGB(55, 55, 75)
         Opt.TextColor3 = MyUILib.theme.Text
         Opt.Font = Enum.Font.Gotham
         Opt.TextSize = 12
+        Opt.AutoButtonColor = false
+        addCorner(Opt, 4)
+
+        -- Hover effect
+        Opt.MouseEnter:Connect(function()
+            TweenService:Create(Opt, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(70,70,100)}):Play()
+        end)
+        Opt.MouseLeave:Connect(function()
+            TweenService:Create(Opt, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(55,55,75)}):Play()
+        end)
+
         Opt.MouseButton1Click:Connect(function()
             DropBtn.Text = text .. " : " .. v
-            DropFrame.Visible = false
+            -- ปิด Dropdown
+            TweenService:Create(DropFrame, TweenInfo.new(0.25), {
+                Size = UDim2.new(1, -10, 0, 0)
+            }):Play()
             pcall(callback, v)
         end)
+
+        table.insert(optionButtons, Opt)
     end
 
+    -- กดปุ่ม Dropdown → เปิด/ปิด
+    local isOpen = false
     DropBtn.MouseButton1Click:Connect(function()
-        DropFrame.Visible = not DropFrame.Visible
+        isOpen = not isOpen
+        local targetSize = isOpen and (#optionButtons * 30 + 6) or 0
+        TweenService:Create(DropFrame, TweenInfo.new(0.25), {
+            Size = UDim2.new(1, -10, 0, targetSize)
+        }):Play()
     end)
 end
 
