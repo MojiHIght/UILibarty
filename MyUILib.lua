@@ -1,8 +1,7 @@
--- Ultimate ProMax UI Library 💎
--- สำหรับ UNCs 99% Executor - จัดเต็มทุกลูกเล่น!
--- Created by: ProMax Team
+-- LibraryUI - Premium Clean Version
+-- Optimized for performance and functionality
 
-local ProMaxUI = {}
+local LibraryUI = {}
 
 -- Services
 local TweenService = game:GetService("TweenService")
@@ -11,141 +10,83 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 local SoundService = game:GetService("SoundService")
-local Lighting = game:GetService("Lighting")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Debris = game:GetService("Debris")
+local CoreGui = game:GetService("CoreGui")
 
 -- Variables
 local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
-local Mouse = Player:GetMouse()
 
--- High-End Executor Support
-local GuiParent = gethui and gethui() or PlayerGui
+-- Safe GUI Parent
+local GuiParent = (syn and syn.protect_gui and gethui and gethui()) or CoreGui or PlayerGui
 
 -- Configuration
-ProMaxUI.Config = {
-    AnimationSpeed = 0.4,
-    ParticleEffects = true,
+LibraryUI.Config = {
+    AnimationSpeed = 0.3,
     SoundEffects = true,
-    BlurIntensity = 15,
-    GlowIntensity = 20,
-    RainbowSpeed = 2,
-    SaveConfig = true
+    SaveConfig = true,
+    DefaultTheme = "Dark"
 }
 
--- Advanced Themes with Gradients & Effects
-ProMaxUI.Themes = {
-    UltraNeon = {
-        Name = "Ultra Neon",
-        Primary = Color3.fromRGB(10, 10, 15),
-        Secondary = Color3.fromRGB(15, 15, 25),
-        Tertiary = Color3.fromRGB(25, 25, 35),
-        Accent = Color3.fromRGB(147, 51, 234),
-        AccentHover = Color3.fromRGB(168, 85, 247),
-        Success = Color3.fromRGB(34, 197, 94),
-        Warning = Color3.fromRGB(251, 191, 36),
-        Error = Color3.fromRGB(239, 68, 68),
+-- Clean Theme System
+LibraryUI.Themes = {
+    Dark = {
+        Name = "Dark",
+        Background = Color3.fromRGB(25, 25, 35),
+        Secondary = Color3.fromRGB(35, 35, 45),
+        Accent = Color3.fromRGB(100, 150, 255),
         Text = Color3.fromRGB(255, 255, 255),
-        TextDim = Color3.fromRGB(156, 163, 175),
-        Border = Color3.fromRGB(75, 85, 99),
-        Glow = Color3.fromRGB(147, 51, 234),
-        Gradient1 = Color3.fromRGB(147, 51, 234),
-        Gradient2 = Color3.fromRGB(79, 70, 229)
+        TextSecondary = Color3.fromRGB(180, 180, 180),
+        Success = Color3.fromRGB(75, 200, 130),
+        Warning = Color3.fromRGB(255, 180, 60),
+        Error = Color3.fromRGB(255, 100, 100),
+        Border = Color3.fromRGB(60, 60, 70)
     },
-    CyberPunk = {
-        Name = "Cyber Punk",
-        Primary = Color3.fromRGB(5, 8, 15),
-        Secondary = Color3.fromRGB(10, 15, 25),
-        Tertiary = Color3.fromRGB(15, 25, 35),
-        Accent = Color3.fromRGB(0, 255, 157),
-        AccentHover = Color3.fromRGB(34, 255, 178),
-        Success = Color3.fromRGB(16, 185, 129),
-        Warning = Color3.fromRGB(245, 158, 11),
-        Error = Color3.fromRGB(220, 38, 127),
-        Text = Color3.fromRGB(236, 254, 255),
-        TextDim = Color3.fromRGB(94, 234, 212),
-        Border = Color3.fromRGB(6, 182, 212),
-        Glow = Color3.fromRGB(0, 255, 157),
-        Gradient1 = Color3.fromRGB(0, 255, 157),
-        Gradient2 = Color3.fromRGB(6, 182, 212)
+    Light = {
+        Name = "Light",
+        Background = Color3.fromRGB(245, 245, 250),
+        Secondary = Color3.fromRGB(235, 235, 240),
+        Accent = Color3.fromRGB(70, 120, 255),
+        Text = Color3.fromRGB(20, 20, 30),
+        TextSecondary = Color3.fromRGB(80, 80, 90),
+        Success = Color3.fromRGB(60, 180, 110),
+        Warning = Color3.fromRGB(255, 160, 40),
+        Error = Color3.fromRGB(255, 80, 80),
+        Border = Color3.fromRGB(200, 200, 210)
     },
-    DarkFuture = {
-        Name = "Dark Future",
-        Primary = Color3.fromRGB(7, 10, 15),
-        Secondary = Color3.fromRGB(12, 15, 25),
-        Tertiary = Color3.fromRGB(17, 25, 35),
-        Accent = Color3.fromRGB(236, 72, 153),
-        AccentHover = Color3.fromRGB(244, 114, 182),
-        Success = Color3.fromRGB(52, 211, 153),
-        Warning = Color3.fromRGB(251, 146, 60),
-        Error = Color3.fromRGB(248, 113, 113),
-        Text = Color3.fromRGB(248, 250, 252),
-        TextDim = Color3.fromRGB(148, 163, 184),
-        Border = Color3.fromRGB(51, 65, 85),
-        Glow = Color3.fromRGB(236, 72, 153),
-        Gradient1 = Color3.fromRGB(236, 72, 153),
-        Gradient2 = Color3.fromRGB(124, 58, 237)
-    },
-    GoldLux = {
-        Name = "Gold Luxury",
-        Primary = Color3.fromRGB(15, 12, 8),
-        Secondary = Color3.fromRGB(25, 20, 15),
-        Tertiary = Color3.fromRGB(35, 30, 22),
-        Accent = Color3.fromRGB(251, 191, 36),
-        AccentHover = Color3.fromRGB(252, 211, 77),
-        Success = Color3.fromRGB(132, 204, 22),
-        Warning = Color3.fromRGB(249, 115, 22),
-        Error = Color3.fromRGB(239, 68, 68),
+    Blue = {
+        Name = "Blue",
+        Background = Color3.fromRGB(15, 25, 40),
+        Secondary = Color3.fromRGB(25, 35, 50),
+        Accent = Color3.fromRGB(60, 140, 255),
         Text = Color3.fromRGB(255, 255, 255),
-        TextDim = Color3.fromRGB(212, 212, 212),
-        Border = Color3.fromRGB(120, 113, 108),
-        Glow = Color3.fromRGB(251, 191, 36),
-        Gradient1 = Color3.fromRGB(251, 191, 36),
-        Gradient2 = Color3.fromRGB(245, 158, 11)
-    },
-    Rainbow = {
-        Name = "Rainbow Flow",
-        Primary = Color3.fromRGB(8, 8, 12),
-        Secondary = Color3.fromRGB(15, 15, 20),
-        Tertiary = Color3.fromRGB(22, 22, 28),
-        Accent = Color3.fromRGB(255, 0, 128), -- Will be animated
-        AccentHover = Color3.fromRGB(255, 64, 150),
-        Success = Color3.fromRGB(46, 204, 113),
-        Warning = Color3.fromRGB(241, 196, 15),
-        Error = Color3.fromRGB(231, 76, 60),
-        Text = Color3.fromRGB(255, 255, 255),
-        TextDim = Color3.fromRGB(170, 170, 170),
-        Border = Color3.fromRGB(80, 80, 90),
-        Glow = Color3.fromRGB(255, 0, 128),
-        Gradient1 = Color3.fromRGB(255, 0, 128),
-        Gradient2 = Color3.fromRGB(128, 0, 255),
-        IsRainbow = true
+        TextSecondary = Color3.fromRGB(170, 180, 200),
+        Success = Color3.fromRGB(80, 200, 140),
+        Warning = Color3.fromRGB(255, 180, 60),
+        Error = Color3.fromRGB(255, 100, 100),
+        Border = Color3.fromRGB(40, 60, 80)
     }
 }
 
-ProMaxUI.CurrentTheme = ProMaxUI.Themes.UltraNeon
-ProMaxUI.Windows = {}
-ProMaxUI.Notifications = {}
+LibraryUI.CurrentTheme = LibraryUI.Themes.Dark
+LibraryUI.Windows = {}
+LibraryUI.Connections = {}
 
--- Advanced Sound System
+-- Sound System
 local Sounds = {
-    Click = "rbxassetid://421058925",
-    Hover = "rbxassetid://421058925",
-    Success = "rbxassetid://131961136",
-    Error = "rbxassetid://131961136", 
-    Notification = "rbxassetid://131961136",
-    Whoosh = "rbxassetid://131961136"
+    Click = "rbxassetid://6895079853",
+    Hover = "rbxassetid://6895079853",
+    Success = "rbxassetid://6026984644",
+    Error = "rbxassetid://6026984644"
 }
 
 -- Utility Functions
 local function PlaySound(soundName, volume)
-    if not ProMaxUI.Config.SoundEffects then return end
+    if not LibraryUI.Config.SoundEffects then return end
     
     pcall(function()
         local sound = Instance.new("Sound")
-        sound.SoundId = Sounds[soundName]
-        sound.Volume = volume or 0.3
+        sound.SoundId = Sounds[soundName] or Sounds.Click
+        sound.Volume = volume or 0.2
         sound.Parent = SoundService
         sound:Play()
         
@@ -157,702 +98,283 @@ end
 
 local function CreateCorner(radius)
     local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, radius or 8)
+    corner.CornerRadius = UDim.new(0, radius or 6)
     return corner
 end
 
 local function CreateStroke(thickness, color, transparency)
     local stroke = Instance.new("UIStroke")
     stroke.Thickness = thickness or 1
-    stroke.Color = color or ProMaxUI.CurrentTheme.Border
-    stroke.Transparency = transparency or 0.3
+    stroke.Color = color or LibraryUI.CurrentTheme.Border
+    stroke.Transparency = transparency or 0
     return stroke
 end
 
-local function CreateGradient(colors, rotation, transparency)
+local function CreateGradient(colors, rotation)
     local gradient = Instance.new("UIGradient")
     gradient.Color = colors
     gradient.Rotation = rotation or 0
-    if transparency then
-        gradient.Transparency = transparency
-    end
     return gradient
 end
 
-local function CreateGlow(parent, color, size, intensity)
-    if not ProMaxUI.Config.ParticleEffects then return end
-    
-    local glow = Instance.new("ImageLabel")
-    glow.Name = "Glow"
-    glow.Parent = parent
-    glow.BackgroundTransparency = 1
-    glow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-    glow.ImageColor3 = color or ProMaxUI.CurrentTheme.Glow
-    glow.ImageTransparency = 0.7 - (intensity or 0.3)
-    glow.Size = UDim2.new(1, size or 20, 1, size or 20)
-    glow.Position = UDim2.new(0, -(size or 20)/2, 0, -(size or 20)/2)
-    glow.ZIndex = (parent.ZIndex or 1) - 1
-    
-    CreateCorner(size or 20).Parent = glow
-    
-    -- Pulsing animation
-    local pulse = TweenService:Create(glow,
-        TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
-        {ImageTransparency = 0.9}
-    )
-    pulse:Play()
-    
-    return glow
-end
-
-local function CreateParticles(parent, color)
-    if not ProMaxUI.Config.ParticleEffects then return end
-    
-    for i = 1, 3 do
-        local particle = Instance.new("Frame")
-        particle.Name = "Particle" .. i
-        particle.Parent = parent
-        particle.BackgroundColor3 = color or ProMaxUI.CurrentTheme.Accent
-        particle.BorderSizePixel = 0
-        particle.Size = UDim2.new(0, math.random(2, 4), 0, math.random(2, 4))
-        particle.Position = UDim2.new(math.random(), 0, math.random(), 0)
-        particle.BackgroundTransparency = 0.5
-        particle.ZIndex = parent.ZIndex + 5
-        
-        CreateCorner(2).Parent = particle
-        
-        -- Floating animation
-        local float = TweenService:Create(particle,
-            TweenInfo.new(math.random(3, 6), Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
-            {
-                Position = UDim2.new(math.random(), 0, math.random(), 0),
-                BackgroundTransparency = math.random(3, 8) / 10
-            }
-        )
-        float:Play()
-    end
-end
-
-local function CreateRipple(button, color)
-    button.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            PlaySound("Click", 0.2)
-            
-            local ripple = Instance.new("Frame")
-            ripple.Name = "Ripple"
-            ripple.Parent = button
-            ripple.BackgroundColor3 = color or ProMaxUI.CurrentTheme.Accent
-            ripple.BackgroundTransparency = 0.7
-            ripple.BorderSizePixel = 0
-            ripple.AnchorPoint = Vector2.new(0.5, 0.5)
-            
-            local mousePos = UserInputService:GetMouseLocation()
-            local buttonPos = button.AbsolutePosition
-            ripple.Position = UDim2.new(0, mousePos.X - buttonPos.X, 0, mousePos.Y - buttonPos.Y)
-            ripple.Size = UDim2.new(0, 0, 0, 0)
-            ripple.ZIndex = button.ZIndex + 10
-            
-            CreateCorner(200).Parent = ripple
-            
-            local maxSize = math.max(button.AbsoluteSize.X, button.AbsoluteSize.Y) * 2
-            
-            local expandTween = TweenService:Create(ripple,
-                TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                {
-                    Size = UDim2.new(0, maxSize, 0, maxSize),
-                    BackgroundTransparency = 1
-                }
-            )
-            
-            expandTween:Play()
-            expandTween.Completed:Connect(function()
-                ripple:Destroy()
-            end)
-        end
-    end)
-end
-
-local function SmootTween(object, properties, duration, style, direction, callback)
-    local tween = TweenService:Create(
-        object,
-        TweenInfo.new(
-            duration or ProMaxUI.Config.AnimationSpeed,
-            style or Enum.EasingStyle.Quart,
-            direction or Enum.EasingDirection.Out
-        ),
-        properties
+local function SmoothTween(object, properties, duration, style, direction, callback)
+    local tweenInfo = TweenInfo.new(
+        duration or LibraryUI.Config.AnimationSpeed,
+        style or Enum.EasingStyle.Quart,
+        direction or Enum.EasingDirection.Out
     )
     
+    local tween = TweenService:Create(object, tweenInfo, properties)
     tween:Play()
     
     if callback then
         tween.Completed:Connect(callback)
     end
     
+    -- Store connection for cleanup
+    table.insert(LibraryUI.Connections, tween)
+    
     return tween
 end
 
-local function AnimateIn(object, style, delay)
-    if delay then
-        wait(delay)
-    end
-    
-    if style == "Scale" then
-        local originalSize = object.Size
-        object.Size = UDim2.new(0, 0, 0, 0)
-        object.AnchorPoint = Vector2.new(0.5, 0.5)
-        
-        SmootTween(object, {Size = originalSize}, 0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
-        
-    elseif style == "Slide" then
-        local originalPos = object.Position
-        object.Position = originalPos + UDim2.new(0, 300, 0, 0)
-        
-        SmootTween(object, {Position = originalPos}, 0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
-        
-    elseif style == "Fade" then
-        local originalTransparency = object.BackgroundTransparency
-        object.BackgroundTransparency = 1
-        
-        SmootTween(object, {BackgroundTransparency = originalTransparency}, 0.4)
-    end
-end
-
--- Rainbow Animation System
-local function StartRainbowAnimation(object, property)
-    if not ProMaxUI.CurrentTheme.IsRainbow then return end
-    
-    local hue = 0
-    local connection
-    
-    connection = RunService.Heartbeat:Connect(function()
-        hue = hue + (ProMaxUI.Config.RainbowSpeed / 100)
-        if hue >= 1 then hue = 0 end
-        
-        local color = Color3.fromHSV(hue, 1, 1)
-        object[property] = color
-        
-        if not object.Parent then
-            connection:Disconnect()
+local function CreateRipple(button)
+    local rippleConnection
+    rippleConnection = button.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            PlaySound("Click")
+            
+            local ripple = Instance.new("Frame")
+            ripple.Name = "Ripple"
+            ripple.Parent = button
+            ripple.BackgroundColor3 = LibraryUI.CurrentTheme.Accent
+            ripple.BackgroundTransparency = 0.7
+            ripple.BorderSizePixel = 0
+            ripple.AnchorPoint = Vector2.new(0.5, 0.5)
+            ripple.ZIndex = button.ZIndex + 5
+            
+            local mousePos = UserInputService:GetMouseLocation()
+            local buttonPos = button.AbsolutePosition
+            ripple.Position = UDim2.new(0, mousePos.X - buttonPos.X, 0, mousePos.Y - buttonPos.Y)
+            ripple.Size = UDim2.new(0, 0, 0, 0)
+            
+            CreateCorner(100).Parent = ripple
+            
+            local maxSize = math.max(button.AbsoluteSize.X, button.AbsoluteSize.Y) * 1.5
+            
+            SmoothTween(ripple, {
+                Size = UDim2.new(0, maxSize, 0, maxSize),
+                BackgroundTransparency = 1
+            }, 0.5, nil, nil, function()
+                ripple:Destroy()
+            end)
         end
     end)
     
-    return connection
+    table.insert(LibraryUI.Connections, rippleConnection)
 end
 
--- Advanced Blur Effect
-local function CreateBlur()
-    local blur = Instance.new("BlurEffect")
-    blur.Parent = Lighting
-    blur.Size = 0
-    
-    SmootTween(blur, {Size = ProMaxUI.Config.BlurIntensity}, 0.5)
-    
-    return blur
-end
-
--- Window Creation Function
-function ProMaxUI:CreateWindow(config)
+-- Window Creation
+function LibraryUI:CreateWindow(config)
     config = config or {}
     
     local windowConfig = {
-        Title = config.Title or "ProMax Ultimate",
-        Subtitle = config.Subtitle or "v3.0 Premium",
-        Size = config.Size or UDim2.new(0, 650, 0, 500),
-        Theme = config.Theme or "UltraNeon",
-        SaveConfig = config.SaveConfig ~= false,
-        ConfigFolder = config.ConfigFolder or "ProMaxUI",
-        KeyBind = config.KeyBind or Enum.KeyCode.Insert,
-        Draggable = config.Draggable ~= false,
-        Resizable = config.Resizable or false,
-        MinSize = config.MinSize or UDim2.new(0, 400, 0, 300),
-        FadeTime = config.FadeTime or 0.5
+        Title = config.Title or "Library UI",
+        Size = config.Size or UDim2.new(0, 550, 0, 400),
+        Theme = config.Theme or "Dark",
+        KeyBind = config.KeyBind or Enum.KeyCode.Insert
     }
     
-    -- Set Theme
-    if ProMaxUI.Themes[windowConfig.Theme] then
-        ProMaxUI.CurrentTheme = ProMaxUI.Themes[windowConfig.Theme]
+    -- Set theme
+    if LibraryUI.Themes[windowConfig.Theme] then
+        LibraryUI.CurrentTheme = LibraryUI.Themes[windowConfig.Theme]
     end
     
     -- Create ScreenGui
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = HttpService:GenerateGUID(false):sub(1, 8) .. "_ProMax"
+    ScreenGui.Name = "LibraryUI_" .. HttpService:GenerateGUID(false):sub(1, 8)
     ScreenGui.Parent = GuiParent
     ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    ScreenGui.IgnoreGuiInset = true
     
-    -- Background Blur
-    local BlurEffect = CreateBlur()
-    
-    -- Main Container
-    local Container = Instance.new("Frame")
-    Container.Name = "Container"
-    Container.Parent = ScreenGui
-    Container.BackgroundTransparency = 1
-    Container.Position = UDim2.new(0.5, -windowConfig.Size.X.Offset/2, 0.5, -windowConfig.Size.Y.Offset/2)
-    Container.Size = windowConfig.Size
-    Container.Active = true
-    Container.ZIndex = 1
-    
-    -- Main Background with Advanced Styling
+    -- Main Frame
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "MainFrame"
-    MainFrame.Parent = Container
-    MainFrame.BackgroundColor3 = ProMaxUI.CurrentTheme.Primary
+    MainFrame.Parent = ScreenGui
+    MainFrame.BackgroundColor3 = LibraryUI.CurrentTheme.Background
     MainFrame.BorderSizePixel = 0
-    MainFrame.Size = UDim2.new(1, 0, 1, 0)
-    MainFrame.ClipsDescendants = true
-    MainFrame.ZIndex = 2
+    MainFrame.Position = UDim2.new(0.5, -windowConfig.Size.X.Offset/2, 0.5, -windowConfig.Size.Y.Offset/2)
+    MainFrame.Size = windowConfig.Size
+    MainFrame.Active = true
+    MainFrame.Draggable = true
     
-    CreateCorner(15).Parent = MainFrame
-    CreateStroke(2, ProMaxUI.CurrentTheme.Border, 0.2).Parent = MainFrame
+    CreateCorner(8).Parent = MainFrame
+    CreateStroke(1, LibraryUI.CurrentTheme.Border).Parent = MainFrame
     
-    -- Advanced Background Gradient
-    local bgGradient = CreateGradient(
-        ColorSequence.new{
-            ColorSequenceKeypoint.new(0, ProMaxUI.CurrentTheme.Primary),
-            ColorSequenceKeypoint.new(0.3, ProMaxUI.CurrentTheme.Secondary),
-            ColorSequenceKeypoint.new(0.7, ProMaxUI.CurrentTheme.Secondary),
-            ColorSequenceKeypoint.new(1, ProMaxUI.CurrentTheme.Primary)
-        },
-        45
-    )
-    bgGradient.Parent = MainFrame
-    
-    -- Glow Effects
-    CreateGlow(MainFrame, ProMaxUI.CurrentTheme.Glow, 40, 0.4)
-    
-    -- Particles
-    CreateParticles(MainFrame, ProMaxUI.CurrentTheme.Accent)
-    
-    -- Animated Title Bar
+    -- Title Bar
     local TitleBar = Instance.new("Frame")
     TitleBar.Name = "TitleBar"
     TitleBar.Parent = MainFrame
-    TitleBar.BackgroundColor3 = ProMaxUI.CurrentTheme.Secondary
+    TitleBar.BackgroundColor3 = LibraryUI.CurrentTheme.Secondary
     TitleBar.BorderSizePixel = 0
-    TitleBar.Size = UDim2.new(1, 0, 0, 50)
-    TitleBar.ZIndex = 3
+    TitleBar.Size = UDim2.new(1, 0, 0, 35)
     
-    CreateCorner(15).Parent = TitleBar
-    CreateStroke(1, ProMaxUI.CurrentTheme.Border, 0.4).Parent = TitleBar
+    CreateCorner(8).Parent = TitleBar
+    CreateStroke(1, LibraryUI.CurrentTheme.Border, 0.5).Parent = TitleBar
     
-    -- Title Bar Gradient
-    local titleGradient = CreateGradient(
-        ColorSequence.new{
-            ColorSequenceKeypoint.new(0, ProMaxUI.CurrentTheme.Gradient1),
-            ColorSequenceKeypoint.new(1, ProMaxUI.CurrentTheme.Gradient2)
-        },
-        90,
-        NumberSequence.new{
-            NumberSequenceKeypoint.new(0, 0.8),
-            NumberSequenceKeypoint.new(1, 0.9)
-        }
-    )
-    titleGradient.Parent = TitleBar
-    
-    -- Animated Logo/Icon
-    local LogoFrame = Instance.new("Frame")
-    LogoFrame.Name = "Logo"
-    LogoFrame.Parent = TitleBar
-    LogoFrame.BackgroundColor3 = ProMaxUI.CurrentTheme.Accent
-    LogoFrame.BorderSizePixel = 0
-    LogoFrame.Position = UDim2.new(0, 15, 0.5, -12)
-    LogoFrame.Size = UDim2.new(0, 24, 0, 24)
-    LogoFrame.ZIndex = 4
-    
-    CreateCorner(6).Parent = LogoFrame
-    CreateGlow(LogoFrame, ProMaxUI.CurrentTheme.Accent, 15, 0.5)
-    
-    -- Rainbow animation for logo if theme is rainbow
-    if ProMaxUI.CurrentTheme.IsRainbow then
-        StartRainbowAnimation(LogoFrame, "BackgroundColor3")
-    end
-    
-    -- Spinning animation for logo
-    local logoSpin = TweenService:Create(LogoFrame,
-        TweenInfo.new(3, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1),
-        {Rotation = 360}
-    )
-    logoSpin:Play()
-    
-    -- Title Text with Glow
+    -- Title Text
     local TitleLabel = Instance.new("TextLabel")
     TitleLabel.Name = "Title"
     TitleLabel.Parent = TitleBar
     TitleLabel.BackgroundTransparency = 1
-    TitleLabel.Position = UDim2.new(0, 50, 0, 5)
-    TitleLabel.Size = UDim2.new(0, 300, 0, 25)
+    TitleLabel.Position = UDim2.new(0, 10, 0, 0)
+    TitleLabel.Size = UDim2.new(0.7, 0, 1, 0)
     TitleLabel.Font = Enum.Font.GothamBold
     TitleLabel.Text = windowConfig.Title
-    TitleLabel.TextColor3 = ProMaxUI.CurrentTheme.Text
-    TitleLabel.TextSize = 16
+    TitleLabel.TextColor3 = LibraryUI.CurrentTheme.Text
+    TitleLabel.TextSize = 14
     TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    TitleLabel.ZIndex = 4
-    
-    CreateStroke(2, ProMaxUI.CurrentTheme.Glow, 0.8).Parent = TitleLabel
-    
-    -- Subtitle
-    local SubtitleLabel = Instance.new("TextLabel")
-    SubtitleLabel.Name = "Subtitle"
-    SubtitleLabel.Parent = TitleBar
-    SubtitleLabel.BackgroundTransparency = 1
-    SubtitleLabel.Position = UDim2.new(0, 50, 0, 25)
-    SubtitleLabel.Size = UDim2.new(0, 300, 0, 20)
-    SubtitleLabel.Font = Enum.Font.Gotham
-    SubtitleLabel.Text = windowConfig.Subtitle
-    SubtitleLabel.TextColor3 = ProMaxUI.CurrentTheme.TextDim
-    SubtitleLabel.TextSize = 12
-    SubtitleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    SubtitleLabel.ZIndex = 4
-    
-    -- Control Buttons Container
-    local ControlsFrame = Instance.new("Frame")
-    ControlsFrame.Name = "Controls"
-    ControlsFrame.Parent = TitleBar
-    ControlsFrame.BackgroundTransparency = 1
-    ControlsFrame.Position = UDim2.new(1, -120, 0, 10)
-    ControlsFrame.Size = UDim2.new(0, 110, 0, 30)
-    ControlsFrame.ZIndex = 4
-    
-    -- Settings Button
-    local SettingsBtn = Instance.new("TextButton")
-    SettingsBtn.Name = "Settings"
-    SettingsBtn.Parent = ControlsFrame
-    SettingsBtn.BackgroundColor3 = ProMaxUI.CurrentTheme.Accent
-    SettingsBtn.BorderSizePixel = 0
-    SettingsBtn.Position = UDim2.new(0, 0, 0, 0)
-    SettingsBtn.Size = UDim2.new(0, 30, 0, 30)
-    SettingsBtn.Font = Enum.Font.GothamBold
-    SettingsBtn.Text = "⚙"
-    SettingsBtn.TextColor3 = ProMaxUI.CurrentTheme.Text
-    SettingsBtn.TextSize = 14
-    SettingsBtn.ZIndex = 5
-    
-    CreateCorner(8).Parent = SettingsBtn
-    CreateRipple(SettingsBtn)
-    CreateGlow(SettingsBtn, ProMaxUI.CurrentTheme.Accent, 12)
-    
-    -- Minimize Button
-    local MinimizeBtn = Instance.new("TextButton")
-    MinimizeBtn.Name = "Minimize"
-    MinimizeBtn.Parent = ControlsFrame
-    MinimizeBtn.BackgroundColor3 = ProMaxUI.CurrentTheme.Warning
-    MinimizeBtn.BorderSizePixel = 0
-    MinimizeBtn.Position = UDim2.new(0, 40, 0, 0)
-    MinimizeBtn.Size = UDim2.new(0, 30, 0, 30)
-    MinimizeBtn.Font = Enum.Font.GothamBold
-    MinimizeBtn.Text = "─"
-    MinimizeBtn.TextColor3 = ProMaxUI.CurrentTheme.Text
-    MinimizeBtn.TextSize = 14
-    MinimizeBtn.ZIndex = 5
-    
-    CreateCorner(8).Parent = MinimizeBtn
-    CreateRipple(MinimizeBtn, ProMaxUI.CurrentTheme.Warning)
-    CreateGlow(MinimizeBtn, ProMaxUI.CurrentTheme.Warning, 12)
     
     -- Close Button
-    local CloseBtn = Instance.new("TextButton")
-    CloseBtn.Name = "Close"
-    CloseBtn.Parent = ControlsFrame
-    CloseBtn.BackgroundColor3 = ProMaxUI.CurrentTheme.Error
-    CloseBtn.BorderSizePixel = 0
-    CloseBtn.Position = UDim2.new(0, 80, 0, 0)
-    CloseBtn.Size = UDim2.new(0, 30, 0, 30)
-    CloseBtn.Font = Enum.Font.GothamBold
-    CloseBtn.Text = "✕"
-    CloseBtn.TextColor3 = ProMaxUI.CurrentTheme.Text
-    CloseBtn.TextSize = 14
-    CloseBtn.ZIndex = 5
+    local CloseButton = Instance.new("TextButton")
+    CloseButton.Name = "Close"
+    CloseButton.Parent = TitleBar
+    CloseButton.BackgroundColor3 = LibraryUI.CurrentTheme.Error
+    CloseButton.BorderSizePixel = 0
+    CloseButton.Position = UDim2.new(1, -30, 0, 5)
+    CloseButton.Size = UDim2.new(0, 25, 0, 25)
+    CloseButton.Font = Enum.Font.GothamBold
+    CloseButton.Text = "×"
+    CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    CloseButton.TextSize = 16
     
-    CreateCorner(8).Parent = CloseBtn
-    CreateRipple(CloseBtn, ProMaxUI.CurrentTheme.Error)
-    CreateGlow(CloseBtn, ProMaxUI.CurrentTheme.Error, 12)
+    CreateCorner(4).Parent = CloseButton
+    CreateRipple(CloseButton)
+    
+    -- Sidebar
+    local Sidebar = Instance.new("Frame")
+    Sidebar.Name = "Sidebar"
+    Sidebar.Parent = MainFrame
+    Sidebar.BackgroundColor3 = LibraryUI.CurrentTheme.Secondary
+    Sidebar.BorderSizePixel = 0
+    Sidebar.Position = UDim2.new(0, 0, 0, 35)
+    Sidebar.Size = UDim2.new(0, 140, 1, -35)
+    
+    CreateStroke(1, LibraryUI.CurrentTheme.Border, 0.5).Parent = Sidebar
+    
+    -- Tab Container
+    local TabContainer = Instance.new("ScrollingFrame")
+    TabContainer.Name = "TabContainer"
+    TabContainer.Parent = Sidebar
+    TabContainer.BackgroundTransparency = 1
+    TabContainer.BorderSizePixel = 0
+    TabContainer.Position = UDim2.new(0, 5, 0, 5)
+    TabContainer.Size = UDim2.new(1, -10, 1, -10)
+    TabContainer.ScrollBarThickness = 4
+    TabContainer.ScrollBarImageColor3 = LibraryUI.CurrentTheme.Accent
+    TabContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
     
     -- Content Area
     local ContentFrame = Instance.new("Frame")
     ContentFrame.Name = "Content"
     ContentFrame.Parent = MainFrame
     ContentFrame.BackgroundTransparency = 1
-    ContentFrame.Position = UDim2.new(0, 0, 0, 50)
-    ContentFrame.Size = UDim2.new(1, 0, 1, -50)
-    ContentFrame.ZIndex = 3
-    
-    -- Advanced Sidebar
-    local Sidebar = Instance.new("Frame")
-    Sidebar.Name = "Sidebar"
-    Sidebar.Parent = ContentFrame
-    Sidebar.BackgroundColor3 = ProMaxUI.CurrentTheme.Secondary
-    Sidebar.BorderSizePixel = 0
-    Sidebar.Size = UDim2.new(0, 160, 1, 0)
-    Sidebar.ZIndex = 4
-    
-    CreateStroke(1, ProMaxUI.CurrentTheme.Border, 0.4).Parent = Sidebar
-    
-    -- Sidebar Gradient
-    local sidebarGradient = CreateGradient(
-        ColorSequence.new{
-            ColorSequenceKeypoint.new(0, ProMaxUI.CurrentTheme.Secondary),
-            ColorSequenceKeypoint.new(1, ProMaxUI.CurrentTheme.Tertiary)
-        },
-        180
-    )
-    sidebarGradient.Parent = Sidebar
-    
-    -- Tab Container with Smooth Scrolling
-    local TabContainer = Instance.new("ScrollingFrame")
-    TabContainer.Name = "TabContainer"
-    TabContainer.Parent = Sidebar
-    TabContainer.BackgroundTransparency = 1
-    TabContainer.BorderSizePixel = 0
-    TabContainer.Position = UDim2.new(0, 10, 0, 10)
-    TabContainer.Size = UDim2.new(1, -20, 1, -20)
-    TabContainer.ScrollBarThickness = 4
-    TabContainer.ScrollBarImageColor3 = ProMaxUI.CurrentTheme.Accent
-    TabContainer.ScrollBarImageTransparency = 0.3
-    TabContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
-    TabContainer.ScrollingDirection = Enum.ScrollingDirection.Y
-    TabContainer.ZIndex = 5
-    
-    -- Main Content Area
-    local MainContent = Instance.new("Frame")
-    MainContent.Name = "MainContent"
-    MainContent.Parent = ContentFrame
-    MainContent.BackgroundTransparency = 1
-    MainContent.Position = UDim2.new(0, 160, 0, 0)
-    MainContent.Size = UDim2.new(1, -160, 1, 0)
-    MainContent.ZIndex = 4
-    
-    -- Status Bar
-    local StatusBar = Instance.new("Frame")
-    StatusBar.Name = "StatusBar"
-    StatusBar.Parent = MainFrame
-    StatusBar.BackgroundColor3 = ProMaxUI.CurrentTheme.Tertiary
-    StatusBar.BorderSizePixel = 0
-    StatusBar.Position = UDim2.new(0, 0, 1, -25)
-    StatusBar.Size = UDim2.new(1, 0, 0, 25)
-    StatusBar.ZIndex = 3
-    
-    CreateStroke(1, ProMaxUI.CurrentTheme.Border, 0.6).Parent = StatusBar
-    
-    -- Status Text
-    local StatusLabel = Instance.new("TextLabel")
-    StatusLabel.Name = "Status"
-    StatusLabel.Parent = StatusBar
-    StatusLabel.BackgroundTransparency = 1
-    StatusLabel.Position = UDim2.new(0, 10, 0, 0)
-    StatusLabel.Size = UDim2.new(0.5, 0, 1, 0)
-    StatusLabel.Font = Enum.Font.Gotham
-    StatusLabel.Text = "Ready • Theme: " .. ProMaxUI.CurrentTheme.Name
-    StatusLabel.TextColor3 = ProMaxUI.CurrentTheme.TextDim
-    StatusLabel.TextSize = 10
-    StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
-    StatusLabel.ZIndex = 4
-    
-    -- FPS Counter
-    local FPSLabel = Instance.new("TextLabel")
-    FPSLabel.Name = "FPS"
-    FPSLabel.Parent = StatusBar
-    FPSLabel.BackgroundTransparency = 1
-    FPSLabel.Position = UDim2.new(1, -100, 0, 0)
-    FPSLabel.Size = UDim2.new(0, 90, 1, 0)
-    FPSLabel.Font = Enum.Font.GothamBold
-    FPSLabel.Text = "FPS: 60"
-    FPSLabel.TextColor3 = ProMaxUI.CurrentTheme.Success
-    FPSLabel.TextSize = 10
-    FPSLabel.TextXAlignment = Enum.TextXAlignment.Right
-    FPSLabel.ZIndex = 4
-    
-    -- FPS Counter Logic
-    local fps = 0
-    local lastUpdate = tick()
-    RunService.Heartbeat:Connect(function()
-        fps = fps + 1
-        if tick() - lastUpdate >= 1 then
-            FPSLabel.Text = "FPS: " .. fps
-            FPSLabel.TextColor3 = fps >= 50 and ProMaxUI.CurrentTheme.Success or 
-                                  fps >= 30 and ProMaxUI.CurrentTheme.Warning or 
-                                  ProMaxUI.CurrentTheme.Error
-            fps = 0
-            lastUpdate = tick()
-        end
-    end)
+    ContentFrame.Position = UDim2.new(0, 140, 0, 35)
+    ContentFrame.Size = UDim2.new(1, -140, 1, -35)
     
     -- Window Object
     local WindowObject = {
         ScreenGui = ScreenGui,
-        Container = Container,
         MainFrame = MainFrame,
         TitleBar = TitleBar,
-        ContentFrame = ContentFrame,
         Sidebar = Sidebar,
         TabContainer = TabContainer,
-        MainContent = MainContent,
-        StatusBar = StatusBar,
-        StatusLabel = StatusLabel,
-        BlurEffect = BlurEffect,
+        ContentFrame = ContentFrame,
         Config = windowConfig,
         Tabs = {},
         CurrentTab = nil,
         Visible = true,
-        Minimized = false,
         TabCount = 0
     }
     
     -- Window Methods
-    function WindowObject:SetStatus(text, color)
-        self.StatusLabel.Text = text
-        if color then
-            self.StatusLabel.TextColor3 = color
-        end
-    end
-    
     function WindowObject:Toggle()
         self.Visible = not self.Visible
-        
-        if self.Visible then
-            self.ScreenGui.Enabled = true
-            AnimateIn(self.MainFrame, "Scale")
-            SmootTween(self.BlurEffect, {Size = ProMaxUI.Config.BlurIntensity})
-            PlaySound("Whoosh", 0.4)
-        else
-            SmootTween(self.MainFrame, {Size = UDim2.new(0, 0, 0, 0)}, 0.3)
-            SmootTween(self.BlurEffect, {Size = 0}, 0.3, nil, nil, function()
-                self.ScreenGui.Enabled = false
-            end)
-        end
-    end
-    
-    function WindowObject:Minimize()
-        self.Minimized = not self.Minimized
-        PlaySound("Click", 0.3)
-        
-        local targetSize = self.Minimized and UDim2.new(0, windowConfig.Size.X.Offset, 0, 50) or windowConfig.Size
-        
-        SmootTween(self.Container, {Size = targetSize}, 0.4, Enum.EasingStyle.Back)
-        
-        self.ContentFrame.Visible = not self.Minimized
-        self.StatusBar.Visible = not self.Minimized
-        
-        self:SetStatus(self.Minimized and "Minimized" or "Ready • Theme: " .. ProMaxUI.CurrentTheme.Name)
+        self.ScreenGui.Enabled = self.Visible
     end
     
     function WindowObject:Destroy()
-        PlaySound("Whoosh", 0.3)
+        -- Clean up all connections
+        for _, connection in pairs(LibraryUI.Connections) do
+            if typeof(connection) == "RBXScriptConnection" then
+                connection:Disconnect()
+            elseif typeof(connection) == "Tween" then
+                connection:Cancel()
+            end
+        end
         
-        SmootTween(self.MainFrame, {
-            Size = UDim2.new(0, 0, 0, 0),
-            BackgroundTransparency = 1
-        }, 0.4)
+        self.ScreenGui:Destroy()
         
-        SmootTween(self.BlurEffect, {Size = 0}, 0.4, nil, nil, function()
-            self.ScreenGui:Destroy()
-            self.BlurEffect:Destroy()
-        end)
+        -- Remove from windows list
+        for i, window in pairs(LibraryUI.Windows) do
+            if window == self then
+                table.remove(LibraryUI.Windows, i)
+                break
+            end
+        end
     end
     
     function WindowObject:CreateTab(config)
         config = config or {}
+        
         local tabConfig = {
             Name = config.Name or "Tab",
-            Icon = config.Icon or "📁",
-            Color = config.Color or ProMaxUI.CurrentTheme.Accent,
-            Visible = config.Visible ~= false
+            Icon = config.Icon or "📄"
         }
         
         self.TabCount = self.TabCount + 1
         local tabIndex = self.TabCount
         
-        -- Tab Button with Advanced Styling
+        -- Tab Button
         local TabButton = Instance.new("TextButton")
         TabButton.Name = "Tab_" .. tabConfig.Name
         TabButton.Parent = self.TabContainer
-        TabButton.BackgroundColor3 = ProMaxUI.CurrentTheme.Tertiary
+        TabButton.BackgroundColor3 = LibraryUI.CurrentTheme.Background
         TabButton.BorderSizePixel = 0
-        TabButton.Position = UDim2.new(0, 0, 0, (tabIndex - 1) * 50)
-        TabButton.Size = UDim2.new(1, 0, 0, 45)
+        TabButton.Position = UDim2.new(0, 0, 0, (tabIndex - 1) * 35)
+        TabButton.Size = UDim2.new(1, 0, 0, 30)
         TabButton.Font = Enum.Font.GothamSemibold
-        TabButton.Text = ""
-        TabButton.TextColor3 = ProMaxUI.CurrentTheme.TextDim
-        TabButton.TextSize = 13
-        TabButton.ZIndex = 6
+        TabButton.Text = tabConfig.Icon .. " " .. tabConfig.Name
+        TabButton.TextColor3 = LibraryUI.CurrentTheme.TextSecondary
+        TabButton.TextSize = 12
+        TabButton.TextXAlignment = Enum.TextXAlignment.Left
         
-        CreateCorner(8).Parent = TabButton
-        CreateStroke(1, ProMaxUI.CurrentTheme.Border, 0.6).Parent = TabButton
-        
-        -- Tab Icon
-        local TabIcon = Instance.new("TextLabel")
-        TabIcon.Name = "Icon"
-        TabIcon.Parent = TabButton
-        TabIcon.BackgroundTransparency = 1
-        TabIcon.Position = UDim2.new(0, 15, 0, 0)
-        TabIcon.Size = UDim2.new(0, 30, 1, 0)
-        TabIcon.Font = Enum.Font.GothamBold
-        TabIcon.Text = tabConfig.Icon
-        TabIcon.TextColor3 = ProMaxUI.CurrentTheme.TextDim
-        TabIcon.TextSize = 16
-        TabIcon.TextXAlignment = Enum.TextXAlignment.Center
-        TabIcon.ZIndex = 7
-        
-        -- Tab Text
-        local TabText = Instance.new("TextLabel")
-        TabText.Name = "Text"
-        TabText.Parent = TabButton
-        TabText.BackgroundTransparency = 1
-        TabText.Position = UDim2.new(0, 45, 0, 0)
-        TabText.Size = UDim2.new(1, -50, 1, 0)
-        TabText.Font = Enum.Font.GothamSemibold
-        TabText.Text = tabConfig.Name
-        TabText.TextColor3 = ProMaxUI.CurrentTheme.TextDim
-        TabText.TextSize = 12
-        TabText.TextXAlignment = Enum.TextXAlignment.Left
-        TabText.ZIndex = 7
-        
-        -- Tab Indicator
-        local TabIndicator = Instance.new("Frame")
-        TabIndicator.Name = "Indicator"
-        TabIndicator.Parent = TabButton
-        TabIndicator.BackgroundColor3 = tabConfig.Color
-        TabIndicator.BorderSizePixel = 0
-        TabIndicator.Position = UDim2.new(0, 0, 0, 0)
-        TabIndicator.Size = UDim2.new(0, 0, 1, 0)
-        TabIndicator.ZIndex = 6
-        
-        CreateCorner(8).Parent = TabIndicator
+        CreateCorner(6).Parent = TabButton
+        CreateRipple(TabButton)
         
         -- Tab Content
         local TabContent = Instance.new("ScrollingFrame")
         TabContent.Name = "TabContent_" .. tabConfig.Name
-        TabContent.Parent = self.MainContent
+        TabContent.Parent = self.ContentFrame
         TabContent.BackgroundTransparency = 1
         TabContent.BorderSizePixel = 0
-        TabContent.Position = UDim2.new(0, 15, 0, 15)
-        TabContent.Size = UDim2.new(1, -30, 1, -30)
-        TabContent.ScrollBarThickness = 6
-        TabContent.ScrollBarImageColor3 = ProMaxUI.CurrentTheme.Accent
-        TabContent.ScrollBarImageTransparency = 0.4
+        TabContent.Position = UDim2.new(0, 10, 0, 10)
+        TabContent.Size = UDim2.new(1, -20, 1, -20)
+        TabContent.ScrollBarThickness = 4
+        TabContent.ScrollBarImageColor3 = LibraryUI.CurrentTheme.Accent
         TabContent.CanvasSize = UDim2.new(0, 0, 0, 0)
         TabContent.Visible = false
-        TabContent.ZIndex = 5
         
         -- Tab Object
         local TabObject = {
             Button = TabButton,
             Content = TabContent,
-            Icon = TabIcon,
-            Text = TabText,
-            Indicator = TabIndicator,
             Config = tabConfig,
             Active = false,
-            Elements = {},
             ElementCount = 0
         }
         
         function TabObject:Activate()
             if self.Active then return end
-            
-            PlaySound("Click", 0.2)
             
             -- Deactivate other tabs
             for _, tab in pairs(WindowObject.Tabs) do
@@ -864,168 +386,80 @@ function ProMaxUI:CreateWindow(config)
             self.Active = true
             WindowObject.CurrentTab = self
             
-            -- Visual Updates with Smooth Animations
-            SmootTween(self.Button, {BackgroundColor3 = tabConfig.Color}, 0.3)
-            SmootTween(self.Icon, {TextColor3 = ProMaxUI.CurrentTheme.Text}, 0.3)
-            SmootTween(self.Text, {TextColor3 = ProMaxUI.CurrentTheme.Text}, 0.3)
-            SmootTween(self.Indicator, {Size = UDim2.new(0, 4, 1, 0)}, 0.4, Enum.EasingStyle.Back)
+            SmoothTween(self.Button, {
+                BackgroundColor3 = LibraryUI.CurrentTheme.Accent,
+                TextColor3 = LibraryUI.CurrentTheme.Text
+            })
             
-            -- Show content with animation
             self.Content.Visible = true
-            AnimateIn(self.Content, "Fade")
-            
-            -- Add glow effect
-            CreateGlow(self.Button, tabConfig.Color, 15, 0.3)
-            
-            WindowObject:SetStatus("Active: " .. tabConfig.Name, tabConfig.Color)
         end
         
         function TabObject:Deactivate()
             self.Active = false
             
-            SmootTween(self.Button, {BackgroundColor3 = ProMaxUI.CurrentTheme.Tertiary}, 0.3)
-            SmootTween(self.Icon, {TextColor3 = ProMaxUI.CurrentTheme.TextDim}, 0.3)
-            SmootTween(self.Text, {TextColor3 = ProMaxUI.CurrentTheme.TextDim}, 0.3)
-            SmootTween(self.Indicator, {Size = UDim2.new(0, 0, 1, 0)}, 0.3)
+            SmoothTween(self.Button, {
+                BackgroundColor3 = LibraryUI.CurrentTheme.Background,
+                TextColor3 = LibraryUI.CurrentTheme.TextSecondary
+            })
             
             self.Content.Visible = false
         end
         
         function TabObject:CreateButton(config)
             config = config or {}
+            
             local buttonConfig = {
                 Name = config.Name or "Button",
-                Description = config.Description or "",
-                Callback = config.Callback or function() end,
-                Color = config.Color or ProMaxUI.CurrentTheme.Accent
+                Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 70
+            local yPos = self.ElementCount * 50
             self.ElementCount = self.ElementCount + 1
             
-            -- Button Container
-            local ButtonContainer = Instance.new("Frame")
-            ButtonContainer.Name = "ButtonContainer_" .. buttonConfig.Name
-            ButtonContainer.Parent = self.Content
-            ButtonContainer.BackgroundTransparency = 1
-            ButtonContainer.Position = UDim2.new(0, 0, 0, yPos)
-            ButtonContainer.Size = UDim2.new(1, 0, 0, 60)
-            ButtonContainer.ZIndex = 6
-            
-            -- Main Button
             local Button = Instance.new("TextButton")
-            Button.Name = "Button"
-            Button.Parent = ButtonContainer
-            Button.BackgroundColor3 = buttonConfig.Color
+            Button.Name = "Button_" .. buttonConfig.Name
+            Button.Parent = self.Content
+            Button.BackgroundColor3 = LibraryUI.CurrentTheme.Accent
             Button.BorderSizePixel = 0
-            Button.Position = UDim2.new(0, 0, 0, 0)
-            Button.Size = UDim2.new(1, 0, 1, -10)
-            Button.Font = Enum.Font.GothamBold
-            Button.Text = ""
-            Button.TextColor3 = ProMaxUI.CurrentTheme.Text
+            Button.Position = UDim2.new(0, 0, 0, yPos)
+            Button.Size = UDim2.new(1, -5, 0, 35)
+            Button.Font = Enum.Font.GothamSemibold
+            Button.Text = buttonConfig.Name
+            Button.TextColor3 = LibraryUI.CurrentTheme.Text
             Button.TextSize = 14
-            Button.ZIndex = 7
             
-            CreateCorner(10).Parent = Button
-            CreateStroke(1, ProMaxUI.CurrentTheme.Border, 0.4).Parent = Button
-            CreateRipple(Button, buttonConfig.Color)
-            CreateGlow(Button, buttonConfig.Color, 12, 0.2)
+            CreateCorner(6).Parent = Button
+            CreateRipple(Button)
             
-            -- Button Gradient
-            local buttonGradient = CreateGradient(
-                ColorSequence.new{
-                    ColorSequenceKeypoint.new(0, buttonConfig.Color),
-                    ColorSequenceKeypoint.new(1, Color3.fromRGB(
-                        math.max(0, buttonConfig.Color.R * 255 - 20),
-                        math.max(0, buttonConfig.Color.G * 255 - 20),
-                        math.max(0, buttonConfig.Color.B * 255 - 20)
-                    ))
-                },
-                90
-            )
-            buttonGradient.Parent = Button
+            -- Hover effects
+            local connections = {}
             
-            -- Button Icon
-            local ButtonIcon = Instance.new("TextLabel")
-            ButtonIcon.Name = "Icon"
-            ButtonIcon.Parent = Button
-            ButtonIcon.BackgroundTransparency = 1
-            ButtonIcon.Position = UDim2.new(0, 15, 0, 0)
-            ButtonIcon.Size = UDim2.new(0, 40, 1, 0)
-            ButtonIcon.Font = Enum.Font.GothamBold
-            ButtonIcon.Text = "🚀"
-            ButtonIcon.TextColor3 = ProMaxUI.CurrentTheme.Text
-            ButtonIcon.TextSize = 18
-            ButtonIcon.TextXAlignment = Enum.TextXAlignment.Center
-            ButtonIcon.ZIndex = 8
-            
-            -- Button Text
-            local ButtonText = Instance.new("TextLabel")
-            ButtonText.Name = "Text"
-            ButtonText.Parent = Button
-            ButtonText.BackgroundTransparency = 1
-            ButtonText.Position = UDim2.new(0, 55, 0, 5)
-            ButtonText.Size = UDim2.new(1, -60, 0, 25)
-            ButtonText.Font = Enum.Font.GothamBold
-            ButtonText.Text = buttonConfig.Name
-            ButtonText.TextColor3 = ProMaxUI.CurrentTheme.Text
-            ButtonText.TextSize = 14
-            ButtonText.TextXAlignment = Enum.TextXAlignment.Left
-            ButtonText.ZIndex = 8
-            
-            -- Button Description
-            local ButtonDesc = Instance.new("TextLabel")
-            ButtonDesc.Name = "Description"
-            ButtonDesc.Parent = Button
-            ButtonDesc.BackgroundTransparency = 1
-            ButtonDesc.Position = UDim2.new(0, 55, 0, 25)
-            ButtonDesc.Size = UDim2.new(1, -60, 0, 20)
-            ButtonDesc.Font = Enum.Font.Gotham
-            ButtonDesc.Text = buttonConfig.Description
-            ButtonDesc.TextColor3 = Color3.fromRGB(200, 200, 200)
-            ButtonDesc.TextSize = 11
-            ButtonDesc.TextXAlignment = Enum.TextXAlignment.Left
-            ButtonDesc.ZIndex = 8
-            
-            -- Hover Effects
-            Button.MouseEnter:Connect(function()
+            connections[1] = Button.MouseEnter:Connect(function()
                 PlaySound("Hover", 0.1)
-                SmootTween(Button, {
-                    Size = UDim2.new(1, 0, 1, -5),
+                SmoothTween(Button, {
                     BackgroundColor3 = Color3.fromRGB(
-                        math.min(255, buttonConfig.Color.R * 255 + 20),
-                        math.min(255, buttonConfig.Color.G * 255 + 20),
-                        math.min(255, buttonConfig.Color.B * 255 + 20)
+                        math.min(255, LibraryUI.CurrentTheme.Accent.R * 255 + 20),
+                        math.min(255, LibraryUI.CurrentTheme.Accent.G * 255 + 20),
+                        math.min(255, LibraryUI.CurrentTheme.Accent.B * 255 + 20)
                     )
-                }, 0.2)
+                })
             end)
             
-            Button.MouseLeave:Connect(function()
-                SmootTween(Button, {
-                    Size = UDim2.new(1, 0, 1, -10),
-                    BackgroundColor3 = buttonConfig.Color
-                }, 0.2)
+            connections[2] = Button.MouseLeave:Connect(function()
+                SmoothTween(Button, {BackgroundColor3 = LibraryUI.CurrentTheme.Accent})
             end)
             
-            -- Click Event
-            Button.MouseButton1Click:Connect(function()
-                PlaySound("Click", 0.3)
-                
-                -- Click animation
-                SmootTween(Button, {Size = UDim2.new(1, 0, 1, -15)}, 0.1, nil, nil, function()
-                    SmootTween(Button, {Size = UDim2.new(1, 0, 1, -10)}, 0.1)
-                end)
-                
-                -- Execute callback
+            connections[3] = Button.MouseButton1Click:Connect(function()
                 local success, err = pcall(buttonConfig.Callback)
                 if not success then
-                    ProMaxUI:Notify({
-                        Title = "Error",
-                        Description = "Button callback failed: " .. tostring(err),
-                        Type = "Error"
-                    })
+                    warn("Button callback error:", err)
                 end
             end)
+            
+            -- Store connections for cleanup
+            for _, conn in pairs(connections) do
+                table.insert(LibraryUI.Connections, conn)
+            end
             
             self:UpdateCanvasSize()
             return Button
@@ -1033,175 +467,80 @@ function ProMaxUI:CreateWindow(config)
         
         function TabObject:CreateToggle(config)
             config = config or {}
+            
             local toggleConfig = {
                 Name = config.Name or "Toggle",
-                Description = config.Description or "",
                 Default = config.Default or false,
                 Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 70
+            local yPos = self.ElementCount * 50
             self.ElementCount = self.ElementCount + 1
             
-            -- Toggle Container
-            local ToggleContainer = Instance.new("Frame")
-            ToggleContainer.Name = "ToggleContainer_" .. toggleConfig.Name
-            ToggleContainer.Parent = self.Content
-            ToggleContainer.BackgroundColor3 = ProMaxUI.CurrentTheme.Secondary
-            ToggleContainer.BorderSizePixel = 0
-            ToggleContainer.Position = UDim2.new(0, 0, 0, yPos)
-            ToggleContainer.Size = UDim2.new(1, 0, 0, 60)
-            ToggleContainer.ZIndex = 6
+            local ToggleFrame = Instance.new("Frame")
+            ToggleFrame.Name = "Toggle_" .. toggleConfig.Name
+            ToggleFrame.Parent = self.Content
+            ToggleFrame.BackgroundColor3 = LibraryUI.CurrentTheme.Secondary
+            ToggleFrame.BorderSizePixel = 0
+            ToggleFrame.Position = UDim2.new(0, 0, 0, yPos)
+            ToggleFrame.Size = UDim2.new(1, -5, 0, 35)
             
-            CreateCorner(10).Parent = ToggleContainer
-            CreateStroke(1, ProMaxUI.CurrentTheme.Border, 0.4).Parent = ToggleContainer
+            CreateCorner(6).Parent = ToggleFrame
+            CreateStroke(1, LibraryUI.CurrentTheme.Border, 0.5).Parent = ToggleFrame
             
-            -- Container Gradient
-            local containerGradient = CreateGradient(
-                ColorSequence.new{
-                    ColorSequenceKeypoint.new(0, ProMaxUI.CurrentTheme.Secondary),
-                    ColorSequenceKeypoint.new(1, ProMaxUI.CurrentTheme.Tertiary)
-                },
-                45
-            )
-            containerGradient.Parent = ToggleContainer
+            local ToggleLabel = Instance.new("TextLabel")
+            ToggleLabel.Parent = ToggleFrame
+            ToggleLabel.BackgroundTransparency = 1
+            ToggleLabel.Position = UDim2.new(0, 10, 0, 0)
+            ToggleLabel.Size = UDim2.new(0.7, 0, 1, 0)
+            ToggleLabel.Font = Enum.Font.GothamSemibold
+            ToggleLabel.Text = toggleConfig.Name
+            ToggleLabel.TextColor3 = LibraryUI.CurrentTheme.Text
+            ToggleLabel.TextSize = 13
+            ToggleLabel.TextXAlignment = Enum.TextXAlignment.Left
             
-            -- Toggle Icon
-            local ToggleIcon = Instance.new("TextLabel")
-            ToggleIcon.Name = "Icon"
-            ToggleIcon.Parent = ToggleContainer
-            ToggleIcon.BackgroundTransparency = 1
-            ToggleIcon.Position = UDim2.new(0, 15, 0, 0)
-            ToggleIcon.Size = UDim2.new(0, 40, 1, 0)
-            ToggleIcon.Font = Enum.Font.GothamBold
-            ToggleIcon.Text = "🔘"
-            ToggleIcon.TextColor3 = ProMaxUI.CurrentTheme.TextDim
-            ToggleIcon.TextSize = 16
-            ToggleIcon.TextXAlignment = Enum.TextXAlignment.Center
-            ToggleIcon.ZIndex = 7
+            local ToggleButton = Instance.new("TextButton")
+            ToggleButton.Parent = ToggleFrame
+            ToggleButton.BackgroundColor3 = toggleConfig.Default and LibraryUI.CurrentTheme.Success or LibraryUI.CurrentTheme.Border
+            ToggleButton.BorderSizePixel = 0
+            ToggleButton.Position = UDim2.new(1, -50, 0, 7.5)
+            ToggleButton.Size = UDim2.new(0, 40, 0, 20)
+            ToggleButton.Text = toggleConfig.Default and "ON" or "OFF"
+            ToggleButton.Font = Enum.Font.GothamBold
+            ToggleButton.TextColor3 = LibraryUI.CurrentTheme.Text
+            ToggleButton.TextSize = 10
             
-            -- Toggle Name
-            local ToggleName = Instance.new("TextLabel")
-            ToggleName.Name = "Name"
-            ToggleName.Parent = ToggleContainer
-            ToggleName.BackgroundTransparency = 1
-            ToggleName.Position = UDim2.new(0, 55, 0, 8)
-            ToggleName.Size = UDim2.new(0.6, 0, 0, 20)
-            ToggleName.Font = Enum.Font.GothamBold
-            ToggleName.Text = toggleConfig.Name
-            ToggleName.TextColor3 = ProMaxUI.CurrentTheme.Text
-            ToggleName.TextSize = 14
-            ToggleName.TextXAlignment = Enum.TextXAlignment.Left
-            ToggleName.ZIndex = 7
-            
-            -- Toggle Description
-            local ToggleDesc = Instance.new("TextLabel")
-            ToggleDesc.Name = "Description"
-            ToggleDesc.Parent = ToggleContainer
-            ToggleDesc.BackgroundTransparency = 1
-            ToggleDesc.Position = UDim2.new(0, 55, 0, 28)
-            ToggleDesc.Size = UDim2.new(0.6, 0, 0, 20)
-            ToggleDesc.Font = Enum.Font.Gotham
-            ToggleDesc.Text = toggleConfig.Description
-            ToggleDesc.TextColor3 = ProMaxUI.CurrentTheme.TextDim
-            ToggleDesc.TextSize = 11
-            ToggleDesc.TextXAlignment = Enum.TextXAlignment.Left
-            ToggleDesc.ZIndex = 7
-            
-            -- Toggle Switch Background
-            local ToggleSwitchBG = Instance.new("Frame")
-            ToggleSwitchBG.Name = "SwitchBG"
-            ToggleSwitchBG.Parent = ToggleContainer
-            ToggleSwitchBG.BackgroundColor3 = toggleConfig.Default and ProMaxUI.CurrentTheme.Success or ProMaxUI.CurrentTheme.Tertiary
-            ToggleSwitchBG.BorderSizePixel = 0
-            ToggleSwitchBG.Position = UDim2.new(1, -70, 0.5, -15)
-            ToggleSwitchBG.Size = UDim2.new(0, 60, 0, 30)
-            ToggleSwitchBG.ZIndex = 7
-            
-            CreateCorner(15).Parent = ToggleSwitchBG
-            CreateGlow(ToggleSwitchBG, toggleConfig.Default and ProMaxUI.CurrentTheme.Success or ProMaxUI.CurrentTheme.Tertiary, 8)
-            
-            -- Toggle Switch Button
-            local ToggleSwitchBtn = Instance.new("TextButton")
-            ToggleSwitchBtn.Name = "SwitchBtn"
-            ToggleSwitchBtn.Parent = ToggleSwitchBG
-            ToggleSwitchBtn.BackgroundColor3 = ProMaxUI.CurrentTheme.Text
-            ToggleSwitchBtn.BorderSizePixel = 0
-            ToggleSwitchBtn.Position = UDim2.new(0, toggleConfig.Default and 32 or 4, 0, 4)
-            ToggleSwitchBtn.Size = UDim2.new(0, 22, 0, 22)
-            ToggleSwitchBtn.Text = ""
-            ToggleSwitchBtn.ZIndex = 8
-            
-            CreateCorner(11).Parent = ToggleSwitchBtn
-            CreateGlow(ToggleSwitchBtn, ProMaxUI.CurrentTheme.Text, 6)
+            CreateCorner(10).Parent = ToggleButton
             
             local isToggled = toggleConfig.Default
             
-            -- Toggle Function
-            local function Toggle()
+            local toggleConnection = ToggleButton.MouseButton1Click:Connect(function()
                 isToggled = not isToggled
+                PlaySound("Click")
                 
-                PlaySound("Click", 0.2)
+                SmoothTween(ToggleButton, {
+                    BackgroundColor3 = isToggled and LibraryUI.CurrentTheme.Success or LibraryUI.CurrentTheme.Border
+                })
                 
-                -- Animate switch
-                SmootTween(ToggleSwitchBtn, {
-                    Position = UDim2.new(0, isToggled and 32 or 4, 0, 4)
-                }, 0.3, Enum.EasingStyle.Back)
+                ToggleButton.Text = isToggled and "ON" or "OFF"
                 
-                SmootTween(ToggleSwitchBG, {
-                    BackgroundColor3 = isToggled and ProMaxUI.CurrentTheme.Success or ProMaxUI.CurrentTheme.Tertiary
-                }, 0.3)
-                
-                SmootTween(ToggleIcon, {
-                    TextColor3 = isToggled and ProMaxUI.CurrentTheme.Success or ProMaxUI.CurrentTheme.TextDim
-                }, 0.3)
-                
-                -- Update glow
-                ToggleSwitchBG:FindFirstChild("Glow"):Destroy()
-                CreateGlow(ToggleSwitchBG, isToggled and ProMaxUI.CurrentTheme.Success or ProMaxUI.CurrentTheme.Tertiary, 8)
-                
-                -- Execute callback
                 local success, err = pcall(toggleConfig.Callback, isToggled)
                 if not success then
-                    ProMaxUI:Notify({
-                        Title = "Error",
-                        Description = "Toggle callback failed: " .. tostring(err),
-                        Type = "Error"
-                    })
-                end
-            end
-            
-            -- Click events
-            ToggleSwitchBtn.MouseButton1Click:Connect(Toggle)
-            ToggleContainer.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                    Toggle()
+                    warn("Toggle callback error:", err)
                 end
             end)
             
-            -- Hover effects
-            ToggleContainer.MouseEnter:Connect(function()
-                PlaySound("Hover", 0.05)
-                SmootTween(ToggleContainer, {BackgroundColor3 = Color3.fromRGB(
-                    math.min(255, ProMaxUI.CurrentTheme.Secondary.R * 255 + 10),
-                    math.min(255, ProMaxUI.CurrentTheme.Secondary.G * 255 + 10),
-                    math.min(255, ProMaxUI.CurrentTheme.Secondary.B * 255 + 10)
-                )}, 0.2)
-            end)
-            
-            ToggleContainer.MouseLeave:Connect(function()
-                SmootTween(ToggleContainer, {BackgroundColor3 = ProMaxUI.CurrentTheme.Secondary}, 0.2)
-            end)
+            table.insert(LibraryUI.Connections, toggleConnection)
             
             self:UpdateCanvasSize()
-            return ToggleContainer
+            return ToggleFrame
         end
         
         function TabObject:CreateSlider(config)
             config = config or {}
+            
             local sliderConfig = {
                 Name = config.Name or "Slider",
-                Description = config.Description or "",
                 Min = config.Min or 0,
                 Max = config.Max or 100,
                 Default = config.Default or 50,
@@ -1209,243 +548,175 @@ function ProMaxUI:CreateWindow(config)
                 Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 80
+            local yPos = self.ElementCount * 60
             self.ElementCount = self.ElementCount + 1
             
-            -- Slider Container
-            local SliderContainer = Instance.new("Frame")
-            SliderContainer.Name = "SliderContainer_" .. sliderConfig.Name
-            SliderContainer.Parent = self.Content
-            SliderContainer.BackgroundColor3 = ProMaxUI.CurrentTheme.Secondary
-            SliderContainer.BorderSizePixel = 0
-            SliderContainer.Position = UDim2.new(0, 0, 0, yPos)
-            SliderContainer.Size = UDim2.new(1, 0, 0, 70)
-            SliderContainer.ZIndex = 6
+            local SliderFrame = Instance.new("Frame")
+            SliderFrame.Name = "Slider_" .. sliderConfig.Name
+            SliderFrame.Parent = self.Content
+            SliderFrame.BackgroundColor3 = LibraryUI.CurrentTheme.Secondary
+            SliderFrame.BorderSizePixel = 0
+            SliderFrame.Position = UDim2.new(0, 0, 0, yPos)
+            SliderFrame.Size = UDim2.new(1, -5, 0, 50)
             
-            CreateCorner(10).Parent = SliderContainer
-            CreateStroke(1, ProMaxUI.CurrentTheme.Border, 0.4).Parent = SliderContainer
+            CreateCorner(6).Parent = SliderFrame
+            CreateStroke(1, LibraryUI.CurrentTheme.Border, 0.5).Parent = SliderFrame
             
-            -- Container Gradient
-            local containerGradient = CreateGradient(
-                ColorSequence.new{
-                    ColorSequenceKeypoint.new(0, ProMaxUI.CurrentTheme.Secondary),
-                    ColorSequenceKeypoint.new(1, ProMaxUI.CurrentTheme.Tertiary)
-                },
-                45
-            )
-            containerGradient.Parent = SliderContainer
+            local SliderLabel = Instance.new("TextLabel")
+            SliderLabel.Parent = SliderFrame
+            SliderLabel.BackgroundTransparency = 1
+            SliderLabel.Position = UDim2.new(0, 10, 0, 5)
+            SliderLabel.Size = UDim2.new(0.6, 0, 0, 20)
+            SliderLabel.Font = Enum.Font.GothamSemibold
+            SliderLabel.Text = sliderConfig.Name
+            SliderLabel.TextColor3 = LibraryUI.CurrentTheme.Text
+            SliderLabel.TextSize = 13
+            SliderLabel.TextXAlignment = Enum.TextXAlignment.Left
             
-            -- Slider Icon
-            local SliderIcon = Instance.new("TextLabel")
-            SliderIcon.Name = "Icon"
-            SliderIcon.Parent = SliderContainer
-            SliderIcon.BackgroundTransparency = 1
-            SliderIcon.Position = UDim2.new(0, 15, 0, 5)
-            SliderIcon.Size = UDim2.new(0, 30, 0, 25)
-            SliderIcon.Font = Enum.Font.GothamBold
-            SliderIcon.Text = "🎚"
-            SliderIcon.TextColor3 = ProMaxUI.CurrentTheme.Accent
-            SliderIcon.TextSize = 16
-            SliderIcon.TextXAlignment = Enum.TextXAlignment.Center
-            SliderIcon.ZIndex = 7
+            local ValueLabel = Instance.new("TextLabel")
+            ValueLabel.Parent = SliderFrame
+            ValueLabel.BackgroundTransparency = 1
+            ValueLabel.Position = UDim2.new(0.6, 0, 0, 5)
+            ValueLabel.Size = UDim2.new(0.4, -10, 0, 20)
+            ValueLabel.Font = Enum.Font.GothamBold
+            ValueLabel.Text = tostring(sliderConfig.Default)
+            ValueLabel.TextColor3 = LibraryUI.CurrentTheme.Accent
+            ValueLabel.TextSize = 12
+            ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
             
-            -- Slider Name
-            local SliderName = Instance.new("TextLabel")
-            SliderName.Name = "Name"
-            SliderName.Parent = SliderContainer
-            SliderName.BackgroundTransparency = 1
-            SliderName.Position = UDim2.new(0, 50, 0, 5)
-            SliderName.Size = UDim2.new(0.5, 0, 0, 20)
-            SliderName.Font = Enum.Font.GothamBold
-            SliderName.Text = sliderConfig.Name
-            SliderName.TextColor3 = ProMaxUI.CurrentTheme.Text
-            SliderName.TextSize = 14
-            SliderName.TextXAlignment = Enum.TextXAlignment.Left
-            SliderName.ZIndex = 7
+            local SliderBar = Instance.new("Frame")
+            SliderBar.Parent = SliderFrame
+            SliderBar.BackgroundColor3 = LibraryUI.CurrentTheme.Border
+            SliderBar.BorderSizePixel = 0
+            SliderBar.Position = UDim2.new(0, 10, 0, 30)
+            SliderBar.Size = UDim2.new(1, -20, 0, 6)
             
-            -- Value Display
-            local ValueDisplay = Instance.new("TextLabel")
-            ValueDisplay.Name = "Value"
-            ValueDisplay.Parent = SliderContainer
-            ValueDisplay.BackgroundColor3 = ProMaxUI.CurrentTheme.Accent
-            ValueDisplay.BorderSizePixel = 0
-            ValueDisplay.Position = UDim2.new(1, -70, 0, 8)
-            ValueDisplay.Size = UDim2.new(0, 60, 0, 20)
-            ValueDisplay.Font = Enum.Font.GothamBold
-            ValueDisplay.Text = tostring(sliderConfig.Default)
-            ValueDisplay.TextColor3 = ProMaxUI.CurrentTheme.Text
-            ValueDisplay.TextSize = 12
-            ValueDisplay.TextXAlignment = Enum.TextXAlignment.Center
-            ValueDisplay.ZIndex = 7
+            CreateCorner(3).Parent = SliderBar
             
-            CreateCorner(10).Parent = ValueDisplay
-            CreateGlow(ValueDisplay, ProMaxUI.CurrentTheme.Accent, 8)
-            
-            -- Slider Track
-            local SliderTrack = Instance.new("Frame")
-            SliderTrack.Name = "Track"
-            SliderTrack.Parent = SliderContainer
-            SliderTrack.BackgroundColor3 = ProMaxUI.CurrentTheme.Tertiary
-            SliderTrack.BorderSizePixel = 0
-            SliderTrack.Position = UDim2.new(0, 15, 0, 45)
-            SliderTrack.Size = UDim2.new(1, -30, 0, 8)
-            SliderTrack.ZIndex = 7
-            
-            CreateCorner(4).Parent = SliderTrack
-            
-            -- Slider Fill
             local SliderFill = Instance.new("Frame")
-            SliderFill.Name = "Fill"
-            SliderFill.Parent = SliderTrack
-            SliderFill.BackgroundColor3 = ProMaxUI.CurrentTheme.Accent
+            SliderFill.Parent = SliderBar
+            SliderFill.BackgroundColor3 = LibraryUI.CurrentTheme.Accent
             SliderFill.BorderSizePixel = 0
             SliderFill.Size = UDim2.new((sliderConfig.Default - sliderConfig.Min) / (sliderConfig.Max - sliderConfig.Min), 0, 1, 0)
-            SliderFill.ZIndex = 8
             
-            CreateCorner(4).Parent = SliderFill
-            CreateGlow(SliderFill, ProMaxUI.CurrentTheme.Accent, 6)
-            
-            -- Slider Fill Gradient
-            local fillGradient = CreateGradient(
-                ColorSequence.new{
-                    ColorSequenceKeypoint.new(0, ProMaxUI.CurrentTheme.Accent),
-                    ColorSequenceKeypoint.new(1, ProMaxUI.CurrentTheme.Gradient2)
-                },
-                0
-            )
-            fillGradient.Parent = SliderFill
-            
-            -- Slider Knob
-            local SliderKnob = Instance.new("Frame")
-            SliderKnob.Name = "Knob"
-            SliderKnob.Parent = SliderTrack
-            SliderKnob.BackgroundColor3 = ProMaxUI.CurrentTheme.Text
-            SliderKnob.BorderSizePixel = 0
-            SliderKnob.Position = UDim2.new((sliderConfig.Default - sliderConfig.Min) / (sliderConfig.Max - sliderConfig.Min), -8, 0.5, -8)
-            SliderKnob.Size = UDim2.new(0, 16, 0, 16)
-            SliderKnob.ZIndex = 9
-            
-            CreateCorner(8).Parent = SliderKnob
-            CreateGlow(SliderKnob, ProMaxUI.CurrentTheme.Text, 8)
-            CreateStroke(2, ProMaxUI.CurrentTheme.Accent, 0).Parent = SliderKnob
+            CreateCorner(3).Parent = SliderFill
             
             local currentValue = sliderConfig.Default
             local isDragging = false
             
-            -- Update function
             local function UpdateSlider(input)
-                local trackPos = SliderTrack.AbsolutePosition.X
-                local trackSize = SliderTrack.AbsoluteSize.X
+                local barPos = SliderBar.AbsolutePosition.X
+                local barSize = SliderBar.AbsoluteSize.X
                 local mousePos = input.Position.X
                 
-                local percent = math.clamp((mousePos - trackPos) / trackSize, 0, 1)
+                local percent = math.clamp((mousePos - barPos) / barSize, 0, 1)
                 local rawValue = sliderConfig.Min + (sliderConfig.Max - sliderConfig.Min) * percent
-                currentValue = math.floor(rawValue / sliderConfig.Increment) * sliderConfig.Increment
+                currentValue = math.floor(rawValue / sliderConfig.Increment + 0.5) * sliderConfig.Increment
                 currentValue = math.clamp(currentValue, sliderConfig.Min, sliderConfig.Max)
                 
                 local finalPercent = (currentValue - sliderConfig.Min) / (sliderConfig.Max - sliderConfig.Min)
                 
-                -- Smooth animations
-                SmootTween(SliderFill, {Size = UDim2.new(finalPercent, 0, 1, 0)}, 0.1)
-                SmootTween(SliderKnob, {Position = UDim2.new(finalPercent, -8, 0.5, -8)}, 0.1)
+                SmoothTween(SliderFill, {Size = UDim2.new(finalPercent, 0, 1, 0)}, 0.1)
+                ValueLabel.Text = tostring(currentValue)
                 
-                -- Update value display
-                ValueDisplay.Text = tostring(currentValue)
-                
-                -- Execute callback
                 local success, err = pcall(sliderConfig.Callback, currentValue)
                 if not success then
-                    ProMaxUI:Notify({
-                        Title = "Error",
-                        Description = "Slider callback failed: " .. tostring(err),
-                        Type = "Error"
-                    })
+                    warn("Slider callback error:", err)
                 end
             end
             
-            -- Input handling
-            SliderTrack.InputBegan:Connect(function(input)
+            local connections = {}
+            
+            connections[1] = SliderBar.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     isDragging = true
-                    PlaySound("Click", 0.15)
+                    PlaySound("Click", 0.1)
                     UpdateSlider(input)
                 end
             end)
             
-            UserInputService.InputChanged:Connect(function(input)
+            connections[2] = UserInputService.InputChanged:Connect(function(input)
                 if isDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
                     UpdateSlider(input)
                 end
             end)
             
-            UserInputService.InputEnded:Connect(function(input)
+            connections[3] = UserInputService.InputEnded:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     isDragging = false
                 end
             end)
             
+            for _, conn in pairs(connections) do
+                table.insert(LibraryUI.Connections, conn)
+            end
+            
             self:UpdateCanvasSize()
-            return SliderContainer
+            return SliderFrame
         end
         
         function TabObject:CreateDropdown(config)
             config = config or {}
+            
             local dropdownConfig = {
                 Name = config.Name or "Dropdown",
-                Description = config.Description or "",
                 Options = config.Options or {"Option 1", "Option 2", "Option 3"},
                 Default = config.Default or config.Options[1],
                 Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 70
+            local yPos = self.ElementCount * 50
             self.ElementCount = self.ElementCount + 1
             
-            -- Dropdown Container
-            local DropdownContainer = Instance.new("Frame")
-            DropdownContainer.Name = "DropdownContainer_" .. dropdownConfig.Name
-            DropdownContainer.Parent = self.Content
-            DropdownContainer.BackgroundColor3 = ProMaxUI.CurrentTheme.Secondary
-            DropdownContainer.BorderSizePixel = 0
-            DropdownContainer.Position = UDim2.new(0, 0, 0, yPos)
-            DropdownContainer.Size = UDim2.new(1, 0, 0, 60)
-            DropdownContainer.ZIndex = 6
-            DropdownContainer.ClipsDescendants = false
+            local DropdownFrame = Instance.new("Frame")
+            DropdownFrame.Name = "Dropdown_" .. dropdownConfig.Name
+            DropdownFrame.Parent = self.Content
+            DropdownFrame.BackgroundColor3 = LibraryUI.CurrentTheme.Secondary
+            DropdownFrame.BorderSizePixel = 0
+            DropdownFrame.Position = UDim2.new(0, 0, 0, yPos)
+            DropdownFrame.Size = UDim2.new(1, -5, 0, 35)
+            DropdownFrame.ClipsDescendants = false
             
-            CreateCorner(10).Parent = DropdownContainer
-            CreateStroke(1, ProMaxUI.CurrentTheme.Border, 0.4).Parent = DropdownContainer
+            CreateCorner(6).Parent = DropdownFrame
+            CreateStroke(1, LibraryUI.CurrentTheme.Border, 0.5).Parent = DropdownFrame
             
-            -- Dropdown Button
+            local DropdownLabel = Instance.new("TextLabel")
+            DropdownLabel.Parent = DropdownFrame
+            DropdownLabel.BackgroundTransparency = 1
+            DropdownLabel.Position = UDim2.new(0, 10, 0, 0)
+            DropdownLabel.Size = UDim2.new(0.4, 0, 1, 0)
+            DropdownLabel.Font = Enum.Font.GothamSemibold
+            DropdownLabel.Text = dropdownConfig.Name
+            DropdownLabel.TextColor3 = LibraryUI.CurrentTheme.Text
+            DropdownLabel.TextSize = 13
+            DropdownLabel.TextXAlignment = Enum.TextXAlignment.Left
+            
             local DropdownButton = Instance.new("TextButton")
-            DropdownButton.Name = "Button"
-            DropdownButton.Parent = DropdownContainer
-            DropdownButton.BackgroundColor3 = ProMaxUI.CurrentTheme.Tertiary
+            DropdownButton.Parent = DropdownFrame
+            DropdownButton.BackgroundColor3 = LibraryUI.CurrentTheme.Background
             DropdownButton.BorderSizePixel = 0
-            DropdownButton.Position = UDim2.new(1, -200, 0, 15)
-            DropdownButton.Size = UDim2.new(0, 180, 0, 30)
+            DropdownButton.Position = UDim2.new(0.5, 0, 0, 5)
+            DropdownButton.Size = UDim2.new(0.5, -10, 0, 25)
             DropdownButton.Font = Enum.Font.GothamSemibold
             DropdownButton.Text = dropdownConfig.Default .. " ▼"
-            DropdownButton.TextColor3 = ProMaxUI.CurrentTheme.Text
-            DropdownButton.TextSize = 12
-            DropdownButton.ZIndex = 7
+            DropdownButton.TextColor3 = LibraryUI.CurrentTheme.Text
+            DropdownButton.TextSize = 11
             
-            CreateCorner(8).Parent = DropdownButton
-            CreateRipple(DropdownButton)
+            CreateCorner(4).Parent = DropdownButton
+            CreateStroke(1, LibraryUI.CurrentTheme.Border, 0.5).Parent = DropdownButton
             
-            -- Dropdown List
             local DropdownList = Instance.new("Frame")
-            DropdownList.Name = "List"
-            DropdownList.Parent = DropdownContainer
-            DropdownList.BackgroundColor3 = ProMaxUI.CurrentTheme.Primary
+            DropdownList.Parent = DropdownFrame
+            DropdownList.BackgroundColor3 = LibraryUI.CurrentTheme.Background
             DropdownList.BorderSizePixel = 0
-            DropdownList.Position = UDim2.new(1, -200, 0, 50)
-            DropdownList.Size = UDim2.new(0, 180, 0, 0)
+            DropdownList.Position = UDim2.new(0.5, 0, 0, 35)
+            DropdownList.Size = UDim2.new(0.5, -10, 0, 0)
             DropdownList.Visible = false
-            DropdownList.ZIndex = 15
             DropdownList.ClipsDescendants = true
+            DropdownList.ZIndex = 10
             
-            CreateCorner(8).Parent = DropdownList
-            CreateStroke(2, ProMaxUI.CurrentTheme.Accent, 0.3).Parent = DropdownList
+            CreateCorner(4).Parent = DropdownList
+            CreateStroke(1, LibraryUI.CurrentTheme.Accent).Parent = DropdownList
             
             local isOpen = false
             local selectedOption = dropdownConfig.Default
@@ -1453,81 +724,82 @@ function ProMaxUI:CreateWindow(config)
             -- Create option buttons
             for i, option in ipairs(dropdownConfig.Options) do
                 local OptionButton = Instance.new("TextButton")
-                OptionButton.Name = "Option_" .. option
                 OptionButton.Parent = DropdownList
-                OptionButton.BackgroundColor3 = option == selectedOption and ProMaxUI.CurrentTheme.Accent or ProMaxUI.CurrentTheme.Secondary
+                OptionButton.BackgroundColor3 = option == selectedOption and LibraryUI.CurrentTheme.Accent or Color3.fromRGB(0, 0, 0, 0)
+                OptionButton.BackgroundTransparency = option == selectedOption and 0 or 1
                 OptionButton.BorderSizePixel = 0
-                OptionButton.Position = UDim2.new(0, 0, 0, (i-1) * 35)
-                OptionButton.Size = UDim2.new(1, 0, 0, 35)
+                OptionButton.Position = UDim2.new(0, 0, 0, (i-1) * 25)
+                OptionButton.Size = UDim2.new(1, 0, 0, 25)
                 OptionButton.Font = Enum.Font.GothamSemibold
                 OptionButton.Text = option
-                OptionButton.TextColor3 = ProMaxUI.CurrentTheme.Text
-                OptionButton.TextSize = 12
-                OptionButton.ZIndex = 16
+                OptionButton.TextColor3 = LibraryUI.CurrentTheme.Text
+                OptionButton.TextSize = 11
+                OptionButton.ZIndex = 11
                 
-                CreateRipple(OptionButton)
-                
-                -- Option click
-                OptionButton.MouseButton1Click:Connect(function()
-                    PlaySound("Click", 0.2)
-                    
+                local optionConnection = OptionButton.MouseButton1Click:Connect(function()
                     selectedOption = option
                     DropdownButton.Text = option .. " ▼"
+                    PlaySound("Click")
                     
-                    -- Update visual states
+                    -- Update option visuals
                     for _, btn in pairs(DropdownList:GetChildren()) do
                         if btn:IsA("TextButton") then
-                            SmootTween(btn, {
-                                BackgroundColor3 = btn.Text == option and ProMaxUI.CurrentTheme.Accent or ProMaxUI.CurrentTheme.Secondary
-                            }, 0.2)
+                            SmoothTween(btn, {
+                                BackgroundTransparency = btn.Text == option and 0 or 1
+                            })
                         end
                     end
                     
                     -- Close dropdown
                     isOpen = false
-                    SmootTween(DropdownList, {Size = UDim2.new(0, 180, 0, 0)}, 0.3, nil, nil, function()
+                    SmoothTween(DropdownList, {Size = UDim2.new(0.5, -10, 0, 0)}, 0.2, nil, nil, function()
                         DropdownList.Visible = false
                     end)
                     
-                    -- Execute callback
-                    pcall(dropdownConfig.Callback, option)
+                    local success, err = pcall(dropdownConfig.Callback, option)
+                    if not success then
+                        warn("Dropdown callback error:", err)
+                    end
                 end)
+                
+                table.insert(LibraryUI.Connections, optionConnection)
             end
             
-            -- Dropdown toggle
-            DropdownButton.MouseButton1Click:Connect(function()
-                PlaySound("Click", 0.2)
+            local dropdownConnection = DropdownButton.MouseButton1Click:Connect(function()
                 isOpen = not isOpen
+                PlaySound("Click")
                 
                 if isOpen then
                     DropdownButton.Text = selectedOption .. " ▲"
                     DropdownList.Visible = true
-                    SmootTween(DropdownList, {Size = UDim2.new(0, 180, 0, #dropdownConfig.Options * 35)}, 0.3, Enum.EasingStyle.Back)
+                    SmoothTween(DropdownList, {Size = UDim2.new(0.5, -10, 0, #dropdownConfig.Options * 25)})
                 else
                     DropdownButton.Text = selectedOption .. " ▼"
-                    SmootTween(DropdownList, {Size = UDim2.new(0, 180, 0, 0)}, 0.3, nil, nil, function()
+                    SmoothTween(DropdownList, {Size = UDim2.new(0.5, -10, 0, 0)}, 0.2, nil, nil, function()
                         DropdownList.Visible = false
                     end)
                 end
             end)
             
+            table.insert(LibraryUI.Connections, dropdownConnection)
+            
             self:UpdateCanvasSize()
-            return DropdownContainer
+            return DropdownFrame
         end
         
         function TabObject:UpdateCanvasSize()
-            local contentSize = self.ElementCount * 80 + 20
-            SmootTween(self.Content, {CanvasSize = UDim2.new(0, 0, 0, contentSize)}, 0.3)
+            local contentSize = self.ElementCount * 55 + 10
+            SmoothTween(self.Content, {CanvasSize = UDim2.new(0, 0, 0, contentSize)})
         end
         
-        -- Connect tab activation
-        TabButton.MouseButton1Click:Connect(function()
+        -- Tab activation
+        local tabConnection = TabButton.MouseButton1Click:Connect(function()
             TabObject:Activate()
         end)
         
-        CreateRipple(TabButton, tabConfig.Color)
+        table.insert(LibraryUI.Connections, tabConnection)
         
-        -- Add tab to window
+        -- Add to tabs
         self.Tabs[tabConfig.Name] = TabObject
         
         -- Auto-activate first tab
@@ -1535,186 +807,134 @@ function ProMaxUI:CreateWindow(config)
             TabObject:Activate()
         end
         
-        -- Update tab container canvas
-        self.TabContainer.CanvasSize = UDim2.new(0, 0, 0, self.TabCount * 50 + 10)
+        -- Update tab container
+        self.TabContainer.CanvasSize = UDim2.new(0, 0, 0, self.TabCount * 35 + 5)
         
         return TabObject
     end
     
-    -- Event Connections
-    CloseBtn.MouseButton1Click:Connect(function()
+    -- Close button functionality
+    local closeConnection = CloseButton.MouseButton1Click:Connect(function()
         WindowObject:Destroy()
     end)
     
-    MinimizeBtn.MouseButton1Click:Connect(function()
-        WindowObject:Minimize()
-    end)
+    table.insert(LibraryUI.Connections, closeConnection)
     
-    -- KeyBind Toggle
-    UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    -- KeyBind toggle
+    local keybindConnection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
         if gameProcessed then return end
         if input.KeyCode == windowConfig.KeyBind then
             WindowObject:Toggle()
         end
     end)
     
-    -- Dragging functionality
-    if windowConfig.Draggable then
-        local dragging = false
-        local dragStart = nil
-        local startPos = nil
-        
-        TitleBar.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                dragging = true
-                dragStart = input.Position
-                startPos = Container.Position
-                PlaySound("Click", 0.1)
-            end
-        end)
-        
-        UserInputService.InputChanged:Connect(function(input)
-            if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-                local delta = input.Position - dragStart
-                Container.Position = UDim2.new(
-                    startPos.X.Scale,
-                    startPos.X.Offset + delta.X,
-                    startPos.Y.Scale,
-                    startPos.Y.Offset + delta.Y
-                )
-            end
-        end)
-        
-        UserInputService.InputEnded:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                dragging = false
-            end
-        end)
-    end
+    table.insert(LibraryUI.Connections, keybindConnection)
     
-    -- Initial animations
-    AnimateIn(MainFrame, "Scale")
-    
-    -- Add window to list
-    table.insert(ProMaxUI.Windows, WindowObject)
+    -- Add to windows
+    table.insert(LibraryUI.Windows, WindowObject)
     
     return WindowObject
 end
 
--- Advanced Notification System
-function ProMaxUI:Notify(config)
+-- Notification System
+function LibraryUI:Notify(config)
     config = config or {}
+    
     local notifConfig = {
         Title = config.Title or "Notification",
         Description = config.Description or "",
-        Duration = config.Duration or 4,
-        Type = config.Type or "Info",
-        Position = config.Position or "TopRight"
+        Duration = config.Duration or 3,
+        Type = config.Type or "Info"
     }
     
     local colors = {
-        Info = {Primary = ProMaxUI.CurrentTheme.Accent, Icon = "ℹ️"},
-        Success = {Primary = ProMaxUI.CurrentTheme.Success, Icon = "✅"},
-        Warning = {Primary = ProMaxUI.CurrentTheme.Warning, Icon = "⚠️"},
-        Error = {Primary = ProMaxUI.CurrentTheme.Error, Icon = "❌"}
+        Info = LibraryUI.CurrentTheme.Accent,
+        Success = LibraryUI.CurrentTheme.Success,
+        Warning = LibraryUI.CurrentTheme.Warning,
+        Error = LibraryUI.CurrentTheme.Error
     }
     
-    local typeColor = colors[notifConfig.Type]
-    
-    -- Notification GUI
     local NotifGui = Instance.new("ScreenGui")
-    NotifGui.Name = "ProMaxNotification"
+    NotifGui.Name = "LibraryNotification"
     NotifGui.Parent = GuiParent
     
     local NotifFrame = Instance.new("Frame")
     NotifFrame.Parent = NotifGui
-    NotifFrame.BackgroundColor3 = ProMaxUI.CurrentTheme.Primary
+    NotifFrame.BackgroundColor3 = LibraryUI.CurrentTheme.Background
     NotifFrame.BorderSizePixel = 0
-    NotifFrame.Size = UDim2.new(0, 320, 0, 90)
-    NotifFrame.Position = UDim2.new(1, 10, 0, 20 + (#ProMaxUI.Notifications * 100))
+    NotifFrame.Position = UDim2.new(1, 10, 0, 10)
+    NotifFrame.Size = UDim2.new(0, 300, 0, 80)
     
-    CreateCorner(12).Parent = NotifFrame
-    CreateStroke(2, typeColor.Primary, 0).Parent = NotifFrame
-    CreateGlow(NotifFrame, typeColor.Primary, 20, 0.3)
+    CreateCorner(8).Parent = NotifFrame
+    CreateStroke(2, colors[notifConfig.Type] or colors.Info).Parent = NotifFrame
     
-    -- Notification Title
-    local NotifTitle = Instance.new("TextLabel")
-    NotifTitle.Parent = NotifFrame
-    NotifTitle.BackgroundTransparency = 1
-    NotifTitle.Position = UDim2.new(0, 15, 0, 15)
-    NotifTitle.Size = UDim2.new(1, -30, 0, 25)
-    NotifTitle.Font = Enum.Font.GothamBold
-    NotifTitle.Text = typeColor.Icon .. " " .. notifConfig.Title
-    NotifTitle.TextColor3 = ProMaxUI.CurrentTheme.Text
-    NotifTitle.TextSize = 14
-    NotifTitle.TextXAlignment = Enum.TextXAlignment.Left
+    local TitleLabel = Instance.new("TextLabel")
+    TitleLabel.Parent = NotifFrame
+    TitleLabel.BackgroundTransparency = 1
+    TitleLabel.Position = UDim2.new(0, 10, 0, 10)
+    TitleLabel.Size = UDim2.new(1, -20, 0, 25)
+    TitleLabel.Font = Enum.Font.GothamBold
+    TitleLabel.Text = notifConfig.Title
+    TitleLabel.TextColor3 = LibraryUI.CurrentTheme.Text
+    TitleLabel.TextSize = 14
+    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
     
-    -- Notification Description
-    local NotifDesc = Instance.new("TextLabel")
-    NotifDesc.Parent = NotifFrame
-    NotifDesc.BackgroundTransparency = 1
-    NotifDesc.Position = UDim2.new(0, 15, 0, 40)
-    NotifDesc.Size = UDim2.new(1, -30, 0, 35)
-    NotifDesc.Font = Enum.Font.Gotham
-    NotifDesc.Text = notifConfig.Description
-    NotifDesc.TextColor3 = ProMaxUI.CurrentTheme.TextDim
-    NotifDesc.TextSize = 12
-    NotifDesc.TextXAlignment = Enum.TextXAlignment.Left
-    NotifDesc.TextWrapped = true
+    local DescLabel = Instance.new("TextLabel")
+    DescLabel.Parent = NotifFrame
+    DescLabel.BackgroundTransparency = 1
+    DescLabel.Position = UDim2.new(0, 10, 0, 35)
+    DescLabel.Size = UDim2.new(1, -20, 0, 35)
+    DescLabel.Font = Enum.Font.Gotham
+    DescLabel.Text = notifConfig.Description
+    DescLabel.TextColor3 = LibraryUI.CurrentTheme.TextSecondary
+    DescLabel.TextSize = 12
+    DescLabel.TextXAlignment = Enum.TextXAlignment.Left
+    DescLabel.TextWrapped = true
     
-    -- Add to notifications list
-    table.insert(ProMaxUI.Notifications, NotifGui)
+    -- Slide in
+    SmoothTween(NotifFrame, {Position = UDim2.new(1, -310, 0, 10)})
     
-    -- Slide in animation
-    SmootTween(NotifFrame, {Position = UDim2.new(1, -330, 0, 20 + ((#ProMaxUI.Notifications-1) * 100))}, 0.5, Enum.EasingStyle.Back)
+    PlaySound(notifConfig.Type == "Error" and "Error" or "Success")
     
-    PlaySound("Notification", 0.4)
-    
-    -- Auto close
-    Debris:AddItem(NotifGui, notifConfig.Duration)
+    -- Auto remove
     spawn(function()
-        wait(notifConfig.Duration - 0.5)
+        wait(notifConfig.Duration)
         if NotifGui.Parent then
-            SmootTween(NotifFrame, {Position = UDim2.new(1, 10, 0, NotifFrame.Position.Y.Offset)}, 0.3, nil, nil, function()
-                -- Remove from list
-                for i, notif in ipairs(ProMaxUI.Notifications) do
-                    if notif == NotifGui then
-                        table.remove(ProMaxUI.Notifications, i)
-                        break
-                    end
-                end
+            SmoothTween(NotifFrame, {Position = UDim2.new(1, 10, 0, 10)}, 0.3, nil, nil, function()
+                NotifGui:Destroy()
             end)
         end
     end)
 end
 
 -- Theme Management
-function ProMaxUI:SetTheme(themeName)
-    if not ProMaxUI.Themes[themeName] then return end
-    
-    ProMaxUI.CurrentTheme = ProMaxUI.Themes[themeName]
-    
-    self:Notify({
-        Title = "Theme Changed",
-        Description = "UI theme updated to " .. themeName,
-        Type = "Success"
-    })
+function LibraryUI:SetTheme(themeName)
+    if LibraryUI.Themes[themeName] then
+        LibraryUI.CurrentTheme = LibraryUI.Themes[themeName]
+        
+        self:Notify({
+            Title = "Theme Changed",
+            Description = "Successfully changed to " .. themeName .. " theme",
+            Type = "Success"
+        })
+    end
 end
 
--- Utility Functions
-function ProMaxUI:DestroyAllWindows()
-    for _, window in pairs(ProMaxUI.Windows) do
+-- Cleanup function
+function LibraryUI:Cleanup()
+    for _, connection in pairs(LibraryUI.Connections) do
+        if typeof(connection) == "RBXScriptConnection" then
+            connection:Disconnect()
+        elseif typeof(connection) == "Tween" then
+            connection:Cancel()
+        end
+    end
+    
+    LibraryUI.Connections = {}
+    
+    for _, window in pairs(LibraryUI.Windows) do
         window:Destroy()
     end
-    ProMaxUI.Windows = {}
 end
 
-function ProMaxUI:GetThemes()
-    local themes = {}
-    for name, _ in pairs(ProMaxUI.Themes) do
-        table.insert(themes, name)
-    end
-    return themes
-end
-
-return ProMaxUI
+return LibraryUI
