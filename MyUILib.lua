@@ -1,7 +1,7 @@
--- Modern Beautiful UI Library
--- สำหรับ Roblox Executor - สวยงาม โมเดิร์น
+-- Fluent UI Style Library - Modern & Beautiful
+-- ดีไซน์แบบ Microsoft Fluent UI
 
-local ModernUI = {}
+local FluentUI = {}
 
 -- Services
 local TweenService = game:GetService("TweenService")
@@ -20,88 +20,128 @@ local PlayerGui = Player:WaitForChild("PlayerGui")
 local GuiParent = (syn and syn.protect_gui and gethui and gethui()) or CoreGui or PlayerGui
 
 -- Configuration
-ModernUI.Config = {
-    AnimationSpeed = 0.35,
+FluentUI.Config = {
+    AnimationSpeed = 0.4,
     SoundEffects = true,
-    BlurIntensity = 8,
-    DropShadow = true
+    AcrylicBlur = true,
+    MicaEffect = true
 }
 
--- Modern Theme System
-ModernUI.Themes = {
-    Midnight = {
-        Name = "Midnight",
-        Background = Color3.fromRGB(20, 25, 35),
-        Secondary = Color3.fromRGB(30, 35, 45),
-        Tertiary = Color3.fromRGB(40, 45, 55),
-        Accent = Color3.fromRGB(120, 160, 255),
-        AccentDark = Color3.fromRGB(100, 140, 235),
-        Text = Color3.fromRGB(255, 255, 255),
-        TextSecondary = Color3.fromRGB(180, 185, 195),
-        TextDim = Color3.fromRGB(140, 145, 155),
-        Success = Color3.fromRGB(85, 200, 140),
-        Warning = Color3.fromRGB(255, 180, 70),
-        Error = Color3.fromRGB(255, 110, 110),
-        Border = Color3.fromRGB(55, 65, 75),
-        Shadow = Color3.fromRGB(5, 10, 15)
+-- Fluent Design System Colors
+FluentUI.Themes = {
+    Light = {
+        Name = "Light",
+        -- Card and surfaces
+        CardBackground = Color3.fromRGB(255, 255, 255),
+        CardBackgroundSecondary = Color3.fromRGB(249, 249, 249),
+        CardBackgroundTertiary = Color3.fromRGB(243, 243, 243),
+        
+        -- Control surfaces
+        ControlFillDefault = Color3.fromRGB(255, 255, 255),
+        ControlFillSecondary = Color3.fromRGB(246, 246, 246),
+        ControlFillTertiary = Color3.fromRGB(240, 240, 240),
+        ControlFillDisabled = Color3.fromRGB(249, 249, 249),
+        
+        -- Stroke colors
+        ControlStrokeDefault = Color3.fromRGB(117, 117, 117),
+        ControlStrokeSecondary = Color3.fromRGB(161, 161, 161),
+        ControlStrokeOnAccentDefault = Color3.fromRGB(255, 255, 255),
+        
+        -- Text colors
+        TextFillColorPrimary = Color3.fromRGB(32, 31, 30),
+        TextFillColorSecondary = Color3.fromRGB(96, 94, 92),
+        TextFillColorTertiary = Color3.fromRGB(128, 126, 124),
+        TextFillColorDisabled = Color3.fromRGB(161, 159, 157),
+        
+        -- Accent colors
+        AccentDefault = Color3.fromRGB(0, 120, 215),
+        AccentSecondary = Color3.fromRGB(64, 156, 235),
+        AccentTertiary = Color3.fromRGB(153, 209, 252),
+        AccentDisabled = Color3.fromRGB(205, 205, 205),
+        
+        -- System colors
+        SystemFillColorSuccess = Color3.fromRGB(16, 124, 16),
+        SystemFillColorCaution = Color3.fromRGB(157, 93, 0),
+        SystemFillColorCritical = Color3.fromRGB(196, 43, 28),
+        SystemFillColorNeutral = Color3.fromRGB(96, 94, 92),
+        
+        -- Background
+        ApplicationPageBackgroundThemeBrush = Color3.fromRGB(243, 243, 243),
+        LayerFillColorDefault = Color3.fromRGB(255, 255, 255),
+        LayerFillColorAlt = Color3.fromRGB(255, 255, 255),
+        
+        -- Shadow
+        Shadow = Color3.fromRGB(0, 0, 0)
     },
-    Ocean = {
-        Name = "Ocean",
-        Background = Color3.fromRGB(15, 30, 45),
-        Secondary = Color3.fromRGB(25, 40, 55),
-        Tertiary = Color3.fromRGB(35, 50, 65),
-        Accent = Color3.fromRGB(70, 180, 255),
-        AccentDark = Color3.fromRGB(50, 160, 235),
-        Text = Color3.fromRGB(255, 255, 255),
-        TextSecondary = Color3.fromRGB(200, 220, 240),
-        TextDim = Color3.fromRGB(160, 180, 200),
-        Success = Color3.fromRGB(80, 220, 160),
-        Warning = Color3.fromRGB(255, 190, 80),
-        Error = Color3.fromRGB(255, 120, 120),
-        Border = Color3.fromRGB(45, 70, 95),
-        Shadow = Color3.fromRGB(5, 15, 25)
-    },
-    Forest = {
-        Name = "Forest",
-        Background = Color3.fromRGB(25, 35, 25),
-        Secondary = Color3.fromRGB(35, 45, 35),
-        Tertiary = Color3.fromRGB(45, 55, 45),
-        Accent = Color3.fromRGB(120, 200, 140),
-        AccentDark = Color3.fromRGB(100, 180, 120),
-        Text = Color3.fromRGB(255, 255, 255),
-        TextSecondary = Color3.fromRGB(210, 220, 210),
-        TextDim = Color3.fromRGB(170, 180, 170),
-        Success = Color3.fromRGB(100, 220, 120),
-        Warning = Color3.fromRGB(255, 200, 100),
-        Error = Color3.fromRGB(255, 130, 130),
-        Border = Color3.fromRGB(65, 75, 65),
-        Shadow = Color3.fromRGB(10, 15, 10)
+    
+    Dark = {
+        Name = "Dark",
+        -- Card and surfaces
+        CardBackground = Color3.fromRGB(44, 44, 44),
+        CardBackgroundSecondary = Color3.fromRGB(40, 40, 40),
+        CardBackgroundTertiary = Color3.fromRGB(36, 36, 36),
+        
+        -- Control surfaces
+        ControlFillDefault = Color3.fromRGB(69, 69, 69),
+        ControlFillSecondary = Color3.fromRGB(61, 61, 61),
+        ControlFillTertiary = Color3.fromRGB(53, 53, 53),
+        ControlFillDisabled = Color3.fromRGB(41, 41, 41),
+        
+        -- Stroke colors
+        ControlStrokeDefault = Color3.fromRGB(117, 117, 117),
+        ControlStrokeSecondary = Color3.fromRGB(89, 89, 89),
+        ControlStrokeOnAccentDefault = Color3.fromRGB(20, 20, 20),
+        
+        -- Text colors
+        TextFillColorPrimary = Color3.fromRGB(255, 255, 255),
+        TextFillColorSecondary = Color3.fromRGB(196, 196, 196),
+        TextFillColorTertiary = Color3.fromRGB(140, 140, 140),
+        TextFillColorDisabled = Color3.fromRGB(89, 89, 89),
+        
+        -- Accent colors
+        AccentDefault = Color3.fromRGB(96, 205, 255),
+        AccentSecondary = Color3.fromRGB(64, 156, 235),
+        AccentTertiary = Color3.fromRGB(153, 209, 252),
+        AccentDisabled = Color3.fromRGB(66, 66, 66),
+        
+        -- System colors
+        SystemFillColorSuccess = Color3.fromRGB(108, 203, 95),
+        SystemFillColorCaution = Color3.fromRGB(252, 225, 0),
+        SystemFillColorCritical = Color3.fromRGB(255, 153, 164),
+        SystemFillColorNeutral = Color3.fromRGB(140, 140, 140),
+        
+        -- Background
+        ApplicationPageBackgroundThemeBrush = Color3.fromRGB(32, 32, 32),
+        LayerFillColorDefault = Color3.fromRGB(58, 58, 58),
+        LayerFillColorAlt = Color3.fromRGB(44, 44, 44),
+        
+        -- Shadow
+        Shadow = Color3.fromRGB(0, 0, 0)
     }
 }
 
-ModernUI.CurrentTheme = ModernUI.Themes.Midnight
-ModernUI.Windows = {}
-ModernUI.Connections = {}
-ModernUI.Notifications = {}
+FluentUI.CurrentTheme = FluentUI.Themes.Dark
+FluentUI.Windows = {}
+FluentUI.Connections = {}
+FluentUI.Notifications = {}
 
 -- Sound System
 local Sounds = {
-    Click = "rbxassetid://6895079853",
-    Hover = "rbxassetid://6895079853",
-    Success = "rbxassetid://6026984644",
-    Error = "rbxassetid://6026984644",
-    Pop = "rbxassetid://6895079853"
+    Click = "rbxassetid://421058925",
+    Hover = "rbxassetid://421058925",
+    Success = "rbxassetid://131961136",
+    Error = "rbxassetid://131961136"
 }
 
 -- Utility Functions
 local function PlaySound(soundName, volume)
-    if not ModernUI.Config.SoundEffects then return end
+    if not FluentUI.Config.SoundEffects then return end
     
     pcall(function()
         local sound = Instance.new("Sound")
         sound.SoundId = Sounds[soundName] or Sounds.Click
-        sound.Volume = volume or 0.15
-        sound.Pitch = 1 + (math.random(-10, 10) / 100)
+        sound.Volume = volume or 0.1
+        sound.Pitch = 1 + (math.random(-5, 5) / 100)
         sound.Parent = SoundService
         sound:Play()
         
@@ -113,50 +153,85 @@ end
 
 local function CreateCorner(radius)
     local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, radius or 8)
+    corner.CornerRadius = UDim.new(0, radius or 4)
     return corner
 end
 
 local function CreateStroke(thickness, color, transparency)
     local stroke = Instance.new("UIStroke")
     stroke.Thickness = thickness or 1
-    stroke.Color = color or ModernUI.CurrentTheme.Border
+    stroke.Color = color or FluentUI.CurrentTheme.ControlStrokeDefault
     stroke.Transparency = transparency or 0
     return stroke
 end
 
-local function CreateGradient(colors, rotation, transparency)
-    local gradient = Instance.new("UIGradient")
-    gradient.Color = colors
-    gradient.Rotation = rotation or 0
-    if transparency then
-        gradient.Transparency = transparency
-    end
-    return gradient
+local function CreateAcrylicEffect(parent)
+    if not FluentUI.Config.AcrylicBlur then return end
+    
+    local acrylic = Instance.new("Frame")
+    acrylic.Name = "AcrylicEffect"
+    acrylic.Parent = parent
+    acrylic.BackgroundColor3 = FluentUI.CurrentTheme.LayerFillColorDefault
+    acrylic.BackgroundTransparency = 0.3
+    acrylic.BorderSizePixel = 0
+    acrylic.Size = UDim2.new(1, 0, 1, 0)
+    acrylic.ZIndex = parent.ZIndex - 1
+    
+    CreateCorner(8).Parent = acrylic
+    
+    -- Noise texture simulation
+    local noise = Instance.new("ImageLabel")
+    noise.Parent = acrylic
+    noise.BackgroundTransparency = 1
+    noise.Size = UDim2.new(1, 0, 1, 0)
+    noise.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+    noise.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    noise.ImageTransparency = 0.95
+    noise.ZIndex = acrylic.ZIndex + 1
+    
+    return acrylic
 end
 
-local function CreateDropShadow(parent, size, intensity, color)
-    if not ModernUI.Config.DropShadow then return end
+local function CreateMicaEffect(parent)
+    if not FluentUI.Config.MicaEffect then return end
+    
+    local mica = Instance.new("Frame")
+    mica.Name = "MicaEffect"
+    mica.Parent = parent
+    mica.BackgroundColor3 = FluentUI.CurrentTheme.ApplicationPageBackgroundThemeBrush
+    mica.BackgroundTransparency = 0.1
+    mica.BorderSizePixel = 0
+    mica.Size = UDim2.new(1, 0, 1, 0)
+    mica.ZIndex = parent.ZIndex - 2
+    
+    CreateCorner(8).Parent = mica
+    
+    return mica
+end
+
+local function CreateDropShadow(parent, elevation)
+    elevation = elevation or 1
     
     local shadow = Instance.new("ImageLabel")
     shadow.Name = "DropShadow"
     shadow.Parent = parent
     shadow.BackgroundTransparency = 1
     shadow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-    shadow.ImageColor3 = color or ModernUI.CurrentTheme.Shadow
-    shadow.ImageTransparency = 1 - (intensity or 0.3)
-    shadow.Position = UDim2.new(0, -size, 0, -size)
-    shadow.Size = UDim2.new(1, size * 2, 1, size * 2)
-    shadow.ZIndex = (parent.ZIndex or 1) - 1
+    shadow.ImageColor3 = FluentUI.CurrentTheme.Shadow
+    shadow.ImageTransparency = 0.8 - (elevation * 0.1)
+    shadow.Position = UDim2.new(0, -elevation, 0, elevation)
+    shadow.Size = UDim2.new(1, elevation * 2, 1, elevation * 2)
+    shadow.ZIndex = parent.ZIndex - 1
     
-    CreateCorner(size).Parent = shadow
+    CreateCorner(8 + elevation).Parent = shadow
+    
     return shadow
 end
 
 local function SmoothTween(object, properties, duration, style, direction, callback)
     local tweenInfo = TweenInfo.new(
-        duration or ModernUI.Config.AnimationSpeed,
-        style or Enum.EasingStyle.Quart,
+        duration or FluentUI.Config.AnimationSpeed,
+        style or Enum.EasingStyle.Cubic,
         direction or Enum.EasingDirection.Out
     )
     
@@ -167,122 +242,94 @@ local function SmoothTween(object, properties, duration, style, direction, callb
         tween.Completed:Connect(callback)
     end
     
-    table.insert(ModernUI.Connections, tween)
+    table.insert(FluentUI.Connections, tween)
     return tween
 end
 
-local function CreateRipple(button, color)
-    local rippleConnection
-    rippleConnection = button.InputBegan:Connect(function(input)
+local function CreateRevealEffect(button)
+    local revealConnection
+    revealConnection = button.MouseEnter:Connect(function()
+        local reveal = Instance.new("Frame")
+        reveal.Name = "RevealEffect"
+        reveal.Parent = button
+        reveal.BackgroundColor3 = FluentUI.CurrentTheme.TextFillColorPrimary
+        reveal.BackgroundTransparency = 0.9
+        reveal.BorderSizePixel = 0
+        reveal.Size = UDim2.new(1, 0, 1, 0)
+        reveal.ZIndex = button.ZIndex + 1
+        
+        CreateCorner(4).Parent = reveal
+        
+        SmoothTween(reveal, {BackgroundTransparency = 0.95}, 0.2)
+        
+        local leaveConnection
+        leaveConnection = button.MouseLeave:Connect(function()
+            SmoothTween(reveal, {BackgroundTransparency = 1}, 0.2, nil, nil, function()
+                reveal:Destroy()
+                leaveConnection:Disconnect()
+            end)
+        end)
+        
+        table.insert(FluentUI.Connections, leaveConnection)
+    end)
+    
+    table.insert(FluentUI.Connections, revealConnection)
+end
+
+local function CreatePressAnimation(button)
+    local pressConnection
+    pressConnection = button.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             PlaySound("Click")
             
-            local ripple = Instance.new("Frame")
-            ripple.Name = "Ripple"
-            ripple.Parent = button
-            ripple.BackgroundColor3 = color or ModernUI.CurrentTheme.Accent
-            ripple.BackgroundTransparency = 0.8
-            ripple.BorderSizePixel = 0
-            ripple.AnchorPoint = Vector2.new(0.5, 0.5)
-            ripple.ZIndex = button.ZIndex + 10
-            
-            local mousePos = UserInputService:GetMouseLocation()
-            local buttonPos = button.AbsolutePosition
-            ripple.Position = UDim2.new(0, mousePos.X - buttonPos.X, 0, mousePos.Y - buttonPos.Y)
-            ripple.Size = UDim2.new(0, 0, 0, 0)
-            
-            CreateCorner(100).Parent = ripple
-            
-            local maxSize = math.max(button.AbsoluteSize.X, button.AbsoluteSize.Y) * 1.2
-            
-            SmoothTween(ripple, {
-                Size = UDim2.new(0, maxSize, 0, maxSize),
-                BackgroundTransparency = 1
-            }, 0.6, Enum.EasingStyle.Quad, nil, function()
-                if ripple.Parent then
-                    ripple:Destroy()
-                end
+            SmoothTween(button, {
+                Size = UDim2.new(button.Size.X.Scale, button.Size.X.Offset - 1, button.Size.Y.Scale, button.Size.Y.Offset - 1)
+            }, 0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, function()
+                SmoothTween(button, {
+                    Size = UDim2.new(button.Size.X.Scale, button.Size.X.Offset + 1, button.Size.Y.Scale, button.Size.Y.Offset + 1)
+                }, 0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
             end)
         end
     end)
     
-    table.insert(ModernUI.Connections, rippleConnection)
-end
-
-local function CreateGlow(object, color, intensity)
-    local glow = Instance.new("Frame")
-    glow.Name = "Glow"
-    glow.Parent = object
-    glow.BackgroundColor3 = color or ModernUI.CurrentTheme.Accent
-    glow.BackgroundTransparency = 1 - (intensity or 0.1)
-    glow.BorderSizePixel = 0
-    glow.Position = UDim2.new(0, -2, 0, -2)
-    glow.Size = UDim2.new(1, 4, 1, 4)
-    glow.ZIndex = object.ZIndex - 1
-    
-    CreateCorner(12).Parent = glow
-    
-    local glowGradient = CreateGradient(
-        ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-            ColorSequenceKeypoint.new(1, color or ModernUI.CurrentTheme.Accent)
-        },
-        0,
-        NumberSequence.new{
-            NumberSequenceKeypoint.new(0, 0.9),
-            NumberSequenceKeypoint.new(1, 1)
-        }
-    )
-    glowGradient.Parent = glow
-    
-    return glow
-end
-
-local function AnimateScale(object, targetScale, duration)
-    object.AnchorPoint = Vector2.new(0.5, 0.5)
-    local originalPosition = object.Position
-    object.Position = UDim2.new(originalPosition.X.Scale + originalPosition.X.Offset/object.Parent.AbsoluteSize.X/2, 0, originalPosition.Y.Scale + originalPosition.Y.Offset/object.Parent.AbsoluteSize.Y/2, 0)
-    
-    SmoothTween(object, {
-        Size = UDim2.new(targetScale, 0, targetScale, 0)
-    }, duration, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+    table.insert(FluentUI.Connections, pressConnection)
 end
 
 -- Window Creation
-function ModernUI:CreateWindow(config)
+function FluentUI:CreateWindow(config)
     config = config or {}
     
     local windowConfig = {
-        Title = config.Title or "Modern UI",
-        Subtitle = config.Subtitle or "Beautiful & Functional",
-        Size = config.Size or UDim2.new(0, 580, 0, 420),
-        Theme = config.Theme or "Midnight",
+        Title = config.Title or "Fluent UI",
+        Subtitle = config.Subtitle or "Modern Design System",
+        Size = config.Size or UDim2.new(0, 650, 0, 450),
+        Theme = config.Theme or "Dark",
         KeyBind = config.KeyBind or Enum.KeyCode.Insert,
         Draggable = config.Draggable ~= false
     }
     
     -- Set theme
-    if ModernUI.Themes[windowConfig.Theme] then
-        ModernUI.CurrentTheme = ModernUI.Themes[windowConfig.Theme]
+    if FluentUI.Themes[windowConfig.Theme] then
+        FluentUI.CurrentTheme = FluentUI.Themes[windowConfig.Theme]
     end
     
     -- Create ScreenGui
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "ModernUI_" .. HttpService:GenerateGUID(false):sub(1, 8)
+    ScreenGui.Name = "FluentUI_" .. HttpService:GenerateGUID(false):sub(1, 8)
     ScreenGui.Parent = GuiParent
     ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     ScreenGui.IgnoreGuiInset = true
     
-    -- Background Blur
-    local BlurFrame = Instance.new("Frame")
-    BlurFrame.Name = "BlurBackground"
-    BlurFrame.Parent = ScreenGui
-    BlurFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    BlurFrame.BackgroundTransparency = 0.4
-    BlurFrame.BorderSizePixel = 0
-    BlurFrame.Size = UDim2.new(1, 0, 1, 0)
-    BlurFrame.ZIndex = 1
+    -- Background Overlay
+    local BackgroundOverlay = Instance.new("Frame")
+    BackgroundOverlay.Name = "BackgroundOverlay"
+    BackgroundOverlay.Parent = ScreenGui
+    BackgroundOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    BackgroundOverlay.BackgroundTransparency = 0.2
+    BackgroundOverlay.BorderSizePixel = 0
+    BackgroundOverlay.Size = UDim2.new(1, 0, 1, 0)
+    BackgroundOverlay.ZIndex = 1
     
     -- Main Container
     local Container = Instance.new("Frame")
@@ -293,89 +340,68 @@ function ModernUI:CreateWindow(config)
     Container.Size = windowConfig.Size
     Container.ZIndex = 2
     
-    -- Main Frame
+    -- Main Frame with Acrylic Background
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "MainFrame"
     MainFrame.Parent = Container
-    MainFrame.BackgroundColor3 = ModernUI.CurrentTheme.Background
+    MainFrame.BackgroundColor3 = FluentUI.CurrentTheme.CardBackground
+    MainFrame.BackgroundTransparency = 0.05
     MainFrame.BorderSizePixel = 0
     MainFrame.Size = UDim2.new(1, 0, 1, 0)
     MainFrame.ZIndex = 3
     
-    CreateCorner(12).Parent = MainFrame
-    CreateStroke(1, ModernUI.CurrentTheme.Border, 0.3).Parent = MainFrame
-    CreateDropShadow(MainFrame, 8, 0.4)
-    
-    -- Background Gradient
-    local bgGradient = CreateGradient(
-        ColorSequence.new{
-            ColorSequenceKeypoint.new(0, ModernUI.CurrentTheme.Background),
-            ColorSequenceKeypoint.new(0.5, ModernUI.CurrentTheme.Secondary),
-            ColorSequenceKeypoint.new(1, ModernUI.CurrentTheme.Background)
-        },
-        45
-    )
-    bgGradient.Parent = MainFrame
+    CreateCorner(8).Parent = MainFrame
+    CreateStroke(1, FluentUI.CurrentTheme.ControlStrokeDefault, 0.5).Parent = MainFrame
+    CreateDropShadow(MainFrame, 4)
+    CreateMicaEffect(MainFrame)
+    CreateAcrylicEffect(MainFrame)
     
     -- Title Bar
     local TitleBar = Instance.new("Frame")
     TitleBar.Name = "TitleBar"
     TitleBar.Parent = MainFrame
-    TitleBar.BackgroundColor3 = ModernUI.CurrentTheme.Secondary
+    TitleBar.BackgroundColor3 = FluentUI.CurrentTheme.CardBackgroundSecondary
+    TitleBar.BackgroundTransparency = 0.3
     TitleBar.BorderSizePixel = 0
-    TitleBar.Size = UDim2.new(1, 0, 0, 45)
+    TitleBar.Size = UDim2.new(1, 0, 0, 48)
     TitleBar.ZIndex = 4
     
-    CreateCorner(12).Parent = TitleBar
-    CreateStroke(1, ModernUI.CurrentTheme.Border, 0.4).Parent = TitleBar
+    CreateCorner(8).Parent = TitleBar
     
-    -- Title Bar Gradient
-    local titleGradient = CreateGradient(
-        ColorSequence.new{
-            ColorSequenceKeypoint.new(0, ModernUI.CurrentTheme.Accent),
-            ColorSequenceKeypoint.new(1, ModernUI.CurrentTheme.AccentDark)
-        },
-        90,
-        NumberSequence.new{
-            NumberSequenceKeypoint.new(0, 0.85),
-            NumberSequenceKeypoint.new(1, 0.95)
-        }
-    )
-    titleGradient.Parent = TitleBar
+    -- App Icon
+    local AppIcon = Instance.new("Frame")
+    AppIcon.Name = "AppIcon"
+    AppIcon.Parent = TitleBar
+    AppIcon.BackgroundColor3 = FluentUI.CurrentTheme.AccentDefault
+    AppIcon.BorderSizePixel = 0
+    AppIcon.Position = UDim2.new(0, 16, 0.5, -12)
+    AppIcon.Size = UDim2.new(0, 24, 0, 24)
+    AppIcon.ZIndex = 5
     
-    -- Icon
-    local IconFrame = Instance.new("Frame")
-    IconFrame.Name = "Icon"
-    IconFrame.Parent = TitleBar
-    IconFrame.BackgroundColor3 = ModernUI.CurrentTheme.Accent
-    IconFrame.BorderSizePixel = 0
-    IconFrame.Position = UDim2.new(0, 12, 0.5, -12)
-    IconFrame.Size = UDim2.new(0, 24, 0, 24)
-    IconFrame.ZIndex = 5
+    CreateCorner(4).Parent = AppIcon
     
-    CreateCorner(6).Parent = IconFrame
-    CreateGlow(IconFrame, ModernUI.CurrentTheme.Accent, 0.2)
-    
-    -- Spinning icon animation
-    spawn(function()
-        while IconFrame.Parent do
-            SmoothTween(IconFrame, {Rotation = 360}, 8, Enum.EasingStyle.Linear)
-            wait(8)
-            IconFrame.Rotation = 0
-        end
-    end)
+    -- App Icon Symbol
+    local IconSymbol = Instance.new("TextLabel")
+    IconSymbol.Parent = AppIcon
+    IconSymbol.BackgroundTransparency = 1
+    IconSymbol.Size = UDim2.new(1, 0, 1, 0)
+    IconSymbol.Font = Enum.Font.GothamBold
+    IconSymbol.Text = "F"
+    IconSymbol.TextColor3 = Color3.fromRGB(255, 255, 255)
+    IconSymbol.TextSize = 14
+    IconSymbol.ZIndex = 6
     
     -- Title
     local TitleLabel = Instance.new("TextLabel")
     TitleLabel.Name = "Title"
     TitleLabel.Parent = TitleBar
     TitleLabel.BackgroundTransparency = 1
-    TitleLabel.Position = UDim2.new(0, 45, 0, 8)
-    TitleLabel.Size = UDim2.new(0.6, 0, 0, 20)
-    TitleLabel.Font = Enum.Font.GothamBold
+    TitleLabel.Position = UDim2.new(0, 50, 0, 8)
+    TitleLabel.Size = UDim2.new(0.6, 0, 0, 22)
+    TitleLabel.Font = Enum.Font.GothamMedium
     TitleLabel.Text = windowConfig.Title
-    TitleLabel.TextColor3 = ModernUI.CurrentTheme.Text
-    TitleLabel.TextSize = 15
+    TitleLabel.TextColor3 = FluentUI.CurrentTheme.TextFillColorPrimary
+    TitleLabel.TextSize = 14
     TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
     TitleLabel.ZIndex = 5
     
@@ -384,99 +410,151 @@ function ModernUI:CreateWindow(config)
     SubtitleLabel.Name = "Subtitle"
     SubtitleLabel.Parent = TitleBar
     SubtitleLabel.BackgroundTransparency = 1
-    SubtitleLabel.Position = UDim2.new(0, 45, 0, 26)
-    SubtitleLabel.Size = UDim2.new(0.6, 0, 0, 15)
+    SubtitleLabel.Position = UDim2.new(0, 50, 0, 28)
+    SubtitleLabel.Size = UDim2.new(0.6, 0, 0, 16)
     SubtitleLabel.Font = Enum.Font.Gotham
     SubtitleLabel.Text = windowConfig.Subtitle
-    SubtitleLabel.TextColor3 = ModernUI.CurrentTheme.TextDim
+    SubtitleLabel.TextColor3 = FluentUI.CurrentTheme.TextFillColorSecondary
     SubtitleLabel.TextSize = 11
     SubtitleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    SubtitleLabel.ZIndex = 5
+    TitleLabel.ZIndex = 5
     
-    -- Control Buttons
-    local ControlsFrame = Instance.new("Frame")
-    ControlsFrame.Name = "Controls"
-    ControlsFrame.Parent = TitleBar
-    ControlsFrame.BackgroundTransparency = 1
-    ControlsFrame.Position = UDim2.new(1, -90, 0, 8)
-    ControlsFrame.Size = UDim2.new(0, 80, 0, 30)
-    ControlsFrame.ZIndex = 5
+    -- Window Controls
+    local WindowControls = Instance.new("Frame")
+    WindowControls.Name = "WindowControls"
+    WindowControls.Parent = TitleBar
+    WindowControls.BackgroundTransparency = 1
+    WindowControls.Position = UDim2.new(1, -140, 0, 12)
+    WindowControls.Size = UDim2.new(0, 132, 0, 24)
+    WindowControls.ZIndex = 5
     
     -- Minimize Button
     local MinimizeBtn = Instance.new("TextButton")
     MinimizeBtn.Name = "Minimize"
-    MinimizeBtn.Parent = ControlsFrame
-    MinimizeBtn.BackgroundColor3 = ModernUI.CurrentTheme.Warning
+    MinimizeBtn.Parent = WindowControls
+    MinimizeBtn.BackgroundColor3 = FluentUI.CurrentTheme.ControlFillDefault
+    MinimizeBtn.BackgroundTransparency = 0.7
     MinimizeBtn.BorderSizePixel = 0
     MinimizeBtn.Position = UDim2.new(0, 0, 0, 0)
-    MinimizeBtn.Size = UDim2.new(0, 30, 0, 30)
-    MinimizeBtn.Font = Enum.Font.GothamBold
+    MinimizeBtn.Size = UDim2.new(0, 40, 0, 24)
+    MinimizeBtn.Font = Enum.Font.GothamMedium
     MinimizeBtn.Text = "─"
-    MinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    MinimizeBtn.TextSize = 14
+    MinimizeBtn.TextColor3 = FluentUI.CurrentTheme.TextFillColorPrimary
+    MinimizeBtn.TextSize = 12
     MinimizeBtn.ZIndex = 6
     
-    CreateCorner(8).Parent = MinimizeBtn
-    CreateRipple(MinimizeBtn, ModernUI.CurrentTheme.Warning)
+    CreateCorner(4).Parent = MinimizeBtn
+    CreateRevealEffect(MinimizeBtn)
+    CreatePressAnimation(MinimizeBtn)
+    
+    -- Maximize Button
+    local MaximizeBtn = Instance.new("TextButton")
+    MaximizeBtn.Name = "Maximize"
+    MaximizeBtn.Parent = WindowControls
+    MaximizeBtn.BackgroundColor3 = FluentUI.CurrentTheme.ControlFillDefault
+    MaximizeBtn.BackgroundTransparency = 0.7
+    MaximizeBtn.BorderSizePixel = 0
+    MaximizeBtn.Position = UDim2.new(0, 44, 0, 0)
+    MaximizeBtn.Size = UDim2.new(0, 40, 0, 24)
+    MaximizeBtn.Font = Enum.Font.GothamMedium
+    MaximizeBtn.Text = "🗖"
+    MaximizeBtn.TextColor3 = FluentUI.CurrentTheme.TextFillColorPrimary
+    MaximizeBtn.TextSize = 12
+    MaximizeBtn.ZIndex = 6
+    
+    CreateCorner(4).Parent = MaximizeBtn
+    CreateRevealEffect(MaximizeBtn)
+    CreatePressAnimation(MaximizeBtn)
     
     -- Close Button
     local CloseBtn = Instance.new("TextButton")
     CloseBtn.Name = "Close"
-    CloseBtn.Parent = ControlsFrame
-    CloseBtn.BackgroundColor3 = ModernUI.CurrentTheme.Error
+    CloseBtn.Parent = WindowControls
+    CloseBtn.BackgroundColor3 = FluentUI.CurrentTheme.ControlFillDefault
+    CloseBtn.BackgroundTransparency = 0.7
     CloseBtn.BorderSizePixel = 0
-    CloseBtn.Position = UDim2.new(0, 40, 0, 0)
-    CloseBtn.Size = UDim2.new(0, 30, 0, 30)
-    CloseBtn.Font = Enum.Font.GothamBold
+    CloseBtn.Position = UDim2.new(0, 88, 0, 0)
+    CloseBtn.Size = UDim2.new(0, 40, 0, 24)
+    CloseBtn.Font = Enum.Font.GothamMedium
     CloseBtn.Text = "✕"
-    CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    CloseBtn.TextSize = 14
+    CloseBtn.TextColor3 = FluentUI.CurrentTheme.TextFillColorPrimary
+    CloseBtn.TextSize = 12
     CloseBtn.ZIndex = 6
     
-    CreateCorner(8).Parent = CloseBtn
-    CreateRipple(CloseBtn, ModernUI.CurrentTheme.Error)
+    CreateCorner(4).Parent = CloseBtn
+    
+    -- Special hover effect for close button
+    CloseBtn.MouseEnter:Connect(function()
+        SmoothTween(CloseBtn, {
+            BackgroundColor3 = FluentUI.CurrentTheme.SystemFillColorCritical,
+            BackgroundTransparency = 0
+        }, 0.2)
+        SmoothTween(CloseBtn, {TextColor3 = Color3.fromRGB(255, 255, 255)}, 0.2)
+    end)
+    
+    CloseBtn.MouseLeave:Connect(function()
+        SmoothTween(CloseBtn, {
+            BackgroundColor3 = FluentUI.CurrentTheme.ControlFillDefault,
+            BackgroundTransparency = 0.7
+        }, 0.2)
+        SmoothTween(CloseBtn, {TextColor3 = FluentUI.CurrentTheme.TextFillColorPrimary}, 0.2)
+    end)
+    
+    CreatePressAnimation(CloseBtn)
     
     -- Content Area
     local ContentFrame = Instance.new("Frame")
     ContentFrame.Name = "Content"
     ContentFrame.Parent = MainFrame
     ContentFrame.BackgroundTransparency = 1
-    ContentFrame.Position = UDim2.new(0, 0, 0, 45)
-    ContentFrame.Size = UDim2.new(1, 0, 1, -45)
+    ContentFrame.Position = UDim2.new(0, 0, 0, 48)
+    ContentFrame.Size = UDim2.new(1, 0, 1, -48)
     ContentFrame.ZIndex = 4
     
-    -- Sidebar
-    local Sidebar = Instance.new("Frame")
-    Sidebar.Name = "Sidebar"
-    Sidebar.Parent = ContentFrame
-    Sidebar.BackgroundColor3 = ModernUI.CurrentTheme.Secondary
-    Sidebar.BorderSizePixel = 0
-    Sidebar.Size = UDim2.new(0, 150, 1, 0)
-    Sidebar.ZIndex = 5
+    -- Navigation Pane
+    local NavPane = Instance.new("Frame")
+    NavPane.Name = "NavigationPane"
+    NavPane.Parent = ContentFrame
+    NavPane.BackgroundColor3 = FluentUI.CurrentTheme.LayerFillColorAlt
+    NavPane.BackgroundTransparency = 0.4
+    NavPane.BorderSizePixel = 0
+    NavPane.Size = UDim2.new(0, 200, 1, 0)
+    NavPane.ZIndex = 5
     
-    CreateStroke(1, ModernUI.CurrentTheme.Border, 0.4).Parent = Sidebar
+    CreateStroke(1, FluentUI.CurrentTheme.ControlStrokeSecondary, 0.7).Parent = NavPane
     
-    -- Sidebar Gradient
-    local sidebarGradient = CreateGradient(
-        ColorSequence.new{
-            ColorSequenceKeypoint.new(0, ModernUI.CurrentTheme.Secondary),
-            ColorSequenceKeypoint.new(1, ModernUI.CurrentTheme.Tertiary)
-        },
-        180
-    )
-    sidebarGradient.Parent = Sidebar
+    -- Navigation Header
+    local NavHeader = Instance.new("Frame")
+    NavHeader.Name = "NavigationHeader"
+    NavHeader.Parent = NavPane
+    NavHeader.BackgroundTransparency = 1
+    NavHeader.Position = UDim2.new(0, 0, 0, 0)
+    NavHeader.Size = UDim2.new(1, 0, 0, 40)
+    NavHeader.ZIndex = 6
+    
+    local NavTitle = Instance.new("TextLabel")
+    NavTitle.Parent = NavHeader
+    NavTitle.BackgroundTransparency = 1
+    NavTitle.Position = UDim2.new(0, 16, 0, 0)
+    NavTitle.Size = UDim2.new(1, -32, 1, 0)
+    NavTitle.Font = Enum.Font.GothamMedium
+    NavTitle.Text = "เมนู"
+    NavTitle.TextColor3 = FluentUI.CurrentTheme.TextFillColorPrimary
+    NavTitle.TextSize = 16
+    NavTitle.TextXAlignment = Enum.TextXAlignment.Left
+    NavTitle.ZIndex = 7
     
     -- Tab Container
     local TabContainer = Instance.new("ScrollingFrame")
     TabContainer.Name = "TabContainer"
-    TabContainer.Parent = Sidebar
+    TabContainer.Parent = NavPane
     TabContainer.BackgroundTransparency = 1
     TabContainer.BorderSizePixel = 0
-    TabContainer.Position = UDim2.new(0, 8, 0, 8)
-    TabContainer.Size = UDim2.new(1, -16, 1, -16)
+    TabContainer.Position = UDim2.new(0, 8, 0, 48)
+    TabContainer.Size = UDim2.new(1, -16, 1, -56)
     TabContainer.ScrollBarThickness = 4
-    TabContainer.ScrollBarImageColor3 = ModernUI.CurrentTheme.Accent
-    TabContainer.ScrollBarImageTransparency = 0.4
+    TabContainer.ScrollBarImageColor3 = FluentUI.CurrentTheme.AccentDefault
+    TabContainer.ScrollBarImageTransparency = 0.6
     TabContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
     TabContainer.ZIndex = 6
     
@@ -485,8 +563,8 @@ function ModernUI:CreateWindow(config)
     MainContent.Name = "MainContent"
     MainContent.Parent = ContentFrame
     MainContent.BackgroundTransparency = 1
-    MainContent.Position = UDim2.new(0, 150, 0, 0)
-    MainContent.Size = UDim2.new(1, -150, 1, 0)
+    MainContent.Position = UDim2.new(0, 200, 0, 0)
+    MainContent.Size = UDim2.new(1, -200, 1, 0)
     MainContent.ZIndex = 5
     
     -- Window Object
@@ -496,10 +574,10 @@ function ModernUI:CreateWindow(config)
         MainFrame = MainFrame,
         TitleBar = TitleBar,
         ContentFrame = ContentFrame,
-        Sidebar = Sidebar,
+        NavPane = NavPane,
         TabContainer = TabContainer,
         MainContent = MainContent,
-        BlurFrame = BlurFrame,
+        BackgroundOverlay = BackgroundOverlay,
         Config = windowConfig,
         Tabs = {},
         CurrentTab = nil,
@@ -514,14 +592,28 @@ function ModernUI:CreateWindow(config)
         
         if self.Visible then
             self.ScreenGui.Enabled = true
-            -- Scale in animation
-            self.Container.Size = UDim2.new(0, 0, 0, 0)
-            SmoothTween(self.Container, {Size = windowConfig.Size}, 0.5, Enum.EasingStyle.Back)
-            SmoothTween(self.BlurFrame, {BackgroundTransparency = 0.4})
-            PlaySound("Pop", 0.3)
+            -- Entrance animation
+            self.Container.Size = UDim2.new(0, 50, 0, 50)
+            self.Container.Position = UDim2.new(0.5, -25, 0.5, -25)
+            self.MainFrame.BackgroundTransparency = 1
+            
+            SmoothTween(self.Container, {
+                Size = windowConfig.Size,
+                Position = UDim2.new(0.5, -windowConfig.Size.X.Offset/2, 0.5, -windowConfig.Size.Y.Offset/2)
+            }, 0.6, Enum.EasingStyle.Back)
+            
+            SmoothTween(self.MainFrame, {BackgroundTransparency = 0.05}, 0.4)
+            SmoothTween(self.BackgroundOverlay, {BackgroundTransparency = 0.2}, 0.4)
+            
+            PlaySound("Success", 0.2)
         else
-            SmoothTween(self.Container, {Size = UDim2.new(0, 0, 0, 0)}, 0.4, Enum.EasingStyle.Back)
-            SmoothTween(self.BlurFrame, {BackgroundTransparency = 1}, 0.4, nil, nil, function()
+            SmoothTween(self.Container, {
+                Size = UDim2.new(0, 50, 0, 50),
+                Position = UDim2.new(0.5, -25, 0.5, -25)
+            }, 0.4, Enum.EasingStyle.Back)
+            
+            SmoothTween(self.MainFrame, {BackgroundTransparency = 1}, 0.4)
+            SmoothTween(self.BackgroundOverlay, {BackgroundTransparency = 1}, 0.4, nil, nil, function()
                 self.ScreenGui.Enabled = false
             end)
         end
@@ -529,18 +621,17 @@ function ModernUI:CreateWindow(config)
     
     function WindowObject:Minimize()
         self.Minimized = not self.Minimized
-        PlaySound("Click", 0.2)
+        PlaySound("Click", 0.15)
         
-        local targetSize = self.Minimized and UDim2.new(0, windowConfig.Size.X.Offset, 0, 45) or windowConfig.Size
+        local targetSize = self.Minimized and UDim2.new(0, windowConfig.Size.X.Offset, 0, 48) or windowConfig.Size
         
-        SmoothTween(self.Container, {Size = targetSize}, 0.4, Enum.EasingStyle.Back)
-        
+        SmoothTween(self.Container, {Size = targetSize}, 0.5, Enum.EasingStyle.Cubic)
         self.ContentFrame.Visible = not self.Minimized
     end
     
     function WindowObject:Destroy()
-        -- Clean up connections
-        for _, connection in pairs(ModernUI.Connections) do
+        -- Clean up
+        for _, connection in pairs(FluentUI.Connections) do
             if typeof(connection) == "RBXScriptConnection" then
                 connection:Disconnect()
             elseif typeof(connection) == "Tween" then
@@ -548,18 +639,21 @@ function ModernUI:CreateWindow(config)
             end
         end
         
-        PlaySound("Pop", 0.2)
+        PlaySound("Click", 0.15)
+        
         SmoothTween(self.Container, {
             Size = UDim2.new(0, 0, 0, 0),
-            Rotation = 5
-        }, 0.4, Enum.EasingStyle.Back, nil, function()
+            Position = UDim2.new(0.5, 0, 0.5, 0)
+        }, 0.4, Enum.EasingStyle.Back)
+        
+        SmoothTween(self.BackgroundOverlay, {BackgroundTransparency = 1}, 0.4, nil, nil, function()
             self.ScreenGui:Destroy()
         end)
         
-        -- Remove from windows list
-        for i, window in pairs(ModernUI.Windows) do
+        -- Remove from list
+        for i, window in pairs(FluentUI.Windows) do
             if window == self then
-                table.remove(ModernUI.Windows, i)
+                table.remove(FluentUI.Windows, i)
                 break
             end
         end
@@ -570,68 +664,74 @@ function ModernUI:CreateWindow(config)
         
         local tabConfig = {
             Name = config.Name or "Tab",
-            Icon = config.Icon or "📁"
+            Icon = config.Icon or "📄"
         }
         
         self.TabCount = self.TabCount + 1
         local tabIndex = self.TabCount
         
-        -- Tab Button
-        local TabButton = Instance.new("TextButton")
-        TabButton.Name = "Tab_" .. tabConfig.Name
-        TabButton.Parent = self.TabContainer
-        TabButton.BackgroundColor3 = ModernUI.CurrentTheme.Tertiary
-        TabButton.BorderSizePixel = 0
-        TabButton.Position = UDim2.new(0, 0, 0, (tabIndex - 1) * 45)
-        TabButton.Size = UDim2.new(1, 0, 0, 40)
-        TabButton.Font = Enum.Font.GothamSemibold
-        TabButton.Text = ""
-        TabButton.TextColor3 = ModernUI.CurrentTheme.TextSecondary
-        TabButton.TextSize = 13
-        TabButton.ZIndex = 7
+        -- Navigation Item
+        local NavItem = Instance.new("Frame")
+        NavItem.Name = "NavItem_" .. tabConfig.Name
+        NavItem.Parent = self.TabContainer
+        NavItem.BackgroundColor3 = FluentUI.CurrentTheme.ControlFillDefault
+        NavItem.BackgroundTransparency = 1
+        NavItem.BorderSizePixel = 0
+        NavItem.Position = UDim2.new(0, 0, 0, (tabIndex - 1) * 48)
+        NavItem.Size = UDim2.new(1, 0, 0, 44)
+        NavItem.ZIndex = 7
         
-        CreateCorner(10).Parent = TabButton
-        CreateStroke(1, ModernUI.CurrentTheme.Border, 0.6).Parent = TabButton
+        CreateCorner(6).Parent = NavItem
         
-        -- Tab Icon
+        -- Navigation Button
+        local NavButton = Instance.new("TextButton")
+        NavButton.Name = "NavButton"
+        NavButton.Parent = NavItem
+        NavButton.BackgroundTransparency = 1
+        NavButton.Size = UDim2.new(1, 0, 1, 0)
+        NavButton.Font = Enum.Font.Gotham
+        NavButton.Text = ""
+        NavButton.ZIndex = 8
+        
+        -- Selection Indicator
+        local SelectionIndicator = Instance.new("Frame")
+        SelectionIndicator.Name = "SelectionIndicator"
+        SelectionIndicator.Parent = NavItem
+        SelectionIndicator.BackgroundColor3 = FluentUI.CurrentTheme.AccentDefault
+        SelectionIndicator.BorderSizePixel = 0
+        SelectionIndicator.Position = UDim2.new(0, 0, 0.5, -12)
+        SelectionIndicator.Size = UDim2.new(0, 0, 0, 24)
+        SelectionIndicator.ZIndex = 9
+        
+        CreateCorner(2).Parent = SelectionIndicator
+        
+        -- Icon
         local TabIcon = Instance.new("TextLabel")
         TabIcon.Name = "Icon"
-        TabIcon.Parent = TabButton
+        TabIcon.Parent = NavItem
         TabIcon.BackgroundTransparency = 1
-        TabIcon.Position = UDim2.new(0, 12, 0, 0)
-        TabIcon.Size = UDim2.new(0, 30, 1, 0)
-        TabIcon.Font = Enum.Font.GothamBold
+        TabIcon.Position = UDim2.new(0, 16, 0, 0)
+        TabIcon.Size = UDim2.new(0, 32, 1, 0)
+        TabIcon.Font = Enum.Font.GothamMedium
         TabIcon.Text = tabConfig.Icon
-        TabIcon.TextColor3 = ModernUI.CurrentTheme.TextSecondary
+        TabIcon.TextColor3 = FluentUI.CurrentTheme.TextFillColorSecondary
         TabIcon.TextSize = 16
         TabIcon.TextXAlignment = Enum.TextXAlignment.Center
         TabIcon.ZIndex = 8
         
-        -- Tab Text
+        -- Text
         local TabText = Instance.new("TextLabel")
         TabText.Name = "Text"
-        TabText.Parent = TabButton
+        TabText.Parent = NavItem
         TabText.BackgroundTransparency = 1
-        TabText.Position = UDim2.new(0, 42, 0, 0)
-        TabText.Size = UDim2.new(1, -50, 1, 0)
-        TabText.Font = Enum.Font.GothamSemibold
+        TabText.Position = UDim2.new(0, 52, 0, 0)
+        TabText.Size = UDim2.new(1, -60, 1, 0)
+        TabText.Font = Enum.Font.GothamMedium
         TabText.Text = tabConfig.Name
-        TabText.TextColor3 = ModernUI.CurrentTheme.TextSecondary
-        TabText.TextSize = 12
+        TabText.TextColor3 = FluentUI.CurrentTheme.TextFillColorSecondary
+        TabText.TextSize = 14
         TabText.TextXAlignment = Enum.TextXAlignment.Left
         TabText.ZIndex = 8
-        
-        -- Tab Indicator
-        local TabIndicator = Instance.new("Frame")
-        TabIndicator.Name = "Indicator"
-        TabIndicator.Parent = TabButton
-        TabIndicator.BackgroundColor3 = ModernUI.CurrentTheme.Accent
-        TabIndicator.BorderSizePixel = 0
-        TabIndicator.Position = UDim2.new(1, -3, 0, 8)
-        TabIndicator.Size = UDim2.new(0, 0, 1, -16)
-        TabIndicator.ZIndex = 8
-        
-        CreateCorner(3).Parent = TabIndicator
         
         -- Tab Content
         local TabContent = Instance.new("ScrollingFrame")
@@ -639,22 +739,23 @@ function ModernUI:CreateWindow(config)
         TabContent.Parent = self.MainContent
         TabContent.BackgroundTransparency = 1
         TabContent.BorderSizePixel = 0
-        TabContent.Position = UDim2.new(0, 15, 0, 15)
-        TabContent.Size = UDim2.new(1, -30, 1, -30)
+        TabContent.Position = UDim2.new(0, 20, 0, 20)
+        TabContent.Size = UDim2.new(1, -40, 1, -40)
         TabContent.ScrollBarThickness = 6
-        TabContent.ScrollBarImageColor3 = ModernUI.CurrentTheme.Accent
-        TabContent.ScrollBarImageTransparency = 0.5
+        TabContent.ScrollBarImageColor3 = FluentUI.CurrentTheme.AccentDefault
+        TabContent.ScrollBarImageTransparency = 0.6
         TabContent.CanvasSize = UDim2.new(0, 0, 0, 0)
         TabContent.Visible = false
         TabContent.ZIndex = 6
         
         -- Tab Object
         local TabObject = {
-            Button = TabButton,
-            Content = TabContent,
+            NavItem = NavItem,
+            NavButton = NavButton,
+            SelectionIndicator = SelectionIndicator,
             Icon = TabIcon,
             Text = TabText,
-            Indicator = TabIndicator,
+            Content = TabContent,
             Config = tabConfig,
             Active = false,
             ElementCount = 0
@@ -663,9 +764,9 @@ function ModernUI:CreateWindow(config)
         function TabObject:Activate()
             if self.Active then return end
             
-            PlaySound("Click", 0.15)
+            PlaySound("Click", 0.1)
             
-            -- Deactivate other tabs
+            -- Deactivate others
             for _, tab in pairs(WindowObject.Tabs) do
                 if tab.Active then
                     tab:Deactivate()
@@ -675,31 +776,22 @@ function ModernUI:CreateWindow(config)
             self.Active = true
             WindowObject.CurrentTab = self
             
-            -- Smooth animations
-            SmoothTween(self.Button, {BackgroundColor3 = ModernUI.CurrentTheme.Accent}, 0.3)
-            SmoothTween(self.Icon, {TextColor3 = ModernUI.CurrentTheme.Text}, 0.3)
-            SmoothTween(self.Text, {TextColor3 = ModernUI.CurrentTheme.Text}, 0.3)
-            SmoothTween(self.Indicator, {Size = UDim2.new(0, 3, 1, -16)}, 0.4, Enum.EasingStyle.Back)
+            -- Visual updates
+            SmoothTween(self.NavItem, {BackgroundTransparency = 0.8}, 0.3)
+            SmoothTween(self.SelectionIndicator, {Size = UDim2.new(0, 3, 0, 24)}, 0.4, Enum.EasingStyle.Back)
+            SmoothTween(self.Icon, {TextColor3 = FluentUI.CurrentTheme.AccentDefault}, 0.3)
+            SmoothTween(self.Text, {TextColor3 = FluentUI.CurrentTheme.TextFillColorPrimary}, 0.3)
             
-            -- Show content with fade
             self.Content.Visible = true
-            self.Content.BackgroundTransparency = 1
-            SmoothTween(self.Content, {BackgroundTransparency = 0}, 0.3)
-            
-            CreateGlow(self.Button, ModernUI.CurrentTheme.Accent, 0.15)
         end
         
         function TabObject:Deactivate()
             self.Active = false
             
-            SmoothTween(self.Button, {BackgroundColor3 = ModernUI.CurrentTheme.Tertiary}, 0.3)
-            SmoothTween(self.Icon, {TextColor3 = ModernUI.CurrentTheme.TextSecondary}, 0.3)
-            SmoothTween(self.Text, {TextColor3 = ModernUI.CurrentTheme.TextSecondary}, 0.3)
-            SmoothTween(self.Indicator, {Size = UDim2.new(0, 0, 1, -16)}, 0.3)
-            
-            if self.Button:FindFirstChild("Glow") then
-                self.Button.Glow:Destroy()
-            end
+            SmoothTween(self.NavItem, {BackgroundTransparency = 1}, 0.3)
+            SmoothTween(self.SelectionIndicator, {Size = UDim2.new(0, 0, 0, 24)}, 0.3)
+            SmoothTween(self.Icon, {TextColor3 = FluentUI.CurrentTheme.TextFillColorSecondary}, 0.3)
+            SmoothTween(self.Text, {TextColor3 = FluentUI.CurrentTheme.TextFillColorSecondary}, 0.3)
             
             self.Content.Visible = false
         end
@@ -710,202 +802,97 @@ function ModernUI:CreateWindow(config)
             local buttonConfig = {
                 Name = config.Name or "Button",
                 Description = config.Description or "",
-                Callback = config.Callback or function() end,
-                Color = config.Color or ModernUI.CurrentTheme.Accent
+                Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 65
+            local yPos = self.ElementCount * 80
             self.ElementCount = self.ElementCount + 1
             
-            local ButtonFrame = Instance.new("Frame")
-            ButtonFrame.Name = "ButtonFrame_" .. buttonConfig.Name
-            ButtonFrame.Parent = self.Content
-            ButtonFrame.BackgroundTransparency = 1
-            ButtonFrame.Position = UDim2.new(0, 0, 0, yPos)
-            ButtonFrame.Size = UDim2.new(1, 0, 0, 55)
-            ButtonFrame.ZIndex = 7
+            local ButtonCard = Instance.new("Frame")
+            ButtonCard.Name = "ButtonCard_" .. buttonConfig.Name
+            ButtonCard.Parent = self.Content
+            ButtonCard.BackgroundColor3 = FluentUI.CurrentTheme.CardBackground
+            ButtonCard.BackgroundTransparency = 0.1
+            ButtonCard.BorderSizePixel = 0
+            ButtonCard.Position = UDim2.new(0, 0, 0, yPos)
+            ButtonCard.Size = UDim2.new(1, -4, 0, 70)
+            ButtonCard.ZIndex = 7
+            
+            CreateCorner(8).Parent = ButtonCard
+            CreateStroke(1, FluentUI.CurrentTheme.ControlStrokeDefault, 0.7).Parent = ButtonCard
+            CreateDropShadow(ButtonCard, 1)
             
             local Button = Instance.new("TextButton")
             Button.Name = "Button"
-            Button.Parent = ButtonFrame
-            Button.BackgroundColor3 = buttonConfig.Color
+            Button.Parent = ButtonCard
+            Button.BackgroundColor3 = FluentUI.CurrentTheme.AccentDefault
             Button.BorderSizePixel = 0
-            Button.Position = UDim2.new(0, 0, 0, 0)
-            Button.Size = UDim2.new(1, -5, 1, -10)
-            Button.Font = Enum.Font.GothamBold
-            Button.Text = ""
-            Button.TextColor3 = ModernUI.CurrentTheme.Text
-            Button.TextSize = 14
+            Button.Position = UDim2.new(1, -80, 0, 15)
+            Button.Size = UDim2.new(0, 70, 0, 32)
+            Button.Font = Enum.Font.GothamMedium
+            Button.Text = "Execute"
+            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Button.TextSize = 12
             Button.ZIndex = 8
             
-            CreateCorner(12).Parent = Button
-            CreateStroke(1, ModernUI.CurrentTheme.Border, 0.3).Parent = Button
-            CreateRipple(Button, buttonConfig.Color)
-            CreateDropShadow(Button, 4, 0.2)
+            CreateCorner(4).Parent = Button
+            CreateRevealEffect(Button)
+            CreatePressAnimation(Button)
             
-            -- Button gradient
-            local buttonGradient = CreateGradient(
-                ColorSequence.new{
-                    ColorSequenceKeypoint.new(0, buttonConfig.Color),
-                    ColorSequenceKeypoint.new(1, Color3.fromRGB(
-                        math.max(0, buttonConfig.Color.R * 255 - 15),
-                        math.max(0, buttonConfig.Color.G * 255 - 15),
-                        math.max(0, buttonConfig.Color.B * 255 - 15)
-                    ))
-                },
-                90
-            )
-            buttonGradient.Parent = Button
+            -- Button Text
+            local ButtonTitle = Instance.new("TextLabel")
+            ButtonTitle.Parent = ButtonCard
+            ButtonTitle.BackgroundTransparency = 1
+            ButtonTitle.Position = UDim2.new(0, 16, 0, 12)
+            ButtonTitle.Size = UDim2.new(0.6, 0, 0, 22)
+            ButtonTitle.Font = Enum.Font.GothamMedium
+            ButtonTitle.Text = buttonConfig.Name
+            ButtonTitle.TextColor3 = FluentUI.CurrentTheme.TextFillColorPrimary
+            ButtonTitle.TextSize = 14
+            ButtonTitle.TextXAlignment = Enum.TextXAlignment.Left
+            ButtonTitle.ZIndex = 8
             
-            -- Button icon
-            local ButtonIcon = Instance.new("TextLabel")
-            ButtonIcon.Name = "Icon"
-            ButtonIcon.Parent = Button
-            ButtonIcon.BackgroundTransparency = 1
-            ButtonIcon.Position = UDim2.new(0, 15, 0, 0)
-            ButtonIcon.Size = UDim2.new(0, 35, 1, 0)
-            ButtonIcon.Font = Enum.Font.GothamBold
-            ButtonIcon.Text = "🚀"
-            ButtonIcon.TextColor3 = ModernUI.CurrentTheme.Text
-            ButtonIcon.TextSize = 18
-            ButtonIcon.TextXAlignment = Enum.TextXAlignment.Center
-            ButtonIcon.ZIndex = 9
-            
-            -- Button text
-            local ButtonText = Instance.new("TextLabel")
-            ButtonText.Name = "Text"
-            ButtonText.Parent = Button
-            ButtonText.BackgroundTransparency = 1
-            ButtonText.Position = UDim2.new(0, 50, 0, 8)
-            ButtonText.Size = UDim2.new(1, -55, 0, 20)
-            ButtonText.Font = Enum.Font.GothamBold
-            ButtonText.Text = buttonConfig.Name
-            ButtonText.TextColor3 = ModernUI.CurrentTheme.Text
-            ButtonText.TextSize = 14
-            ButtonText.TextXAlignment = Enum.TextXAlignment.Left
-            ButtonText.ZIndex = 9
-            
-            -- Button description
             if buttonConfig.Description ~= "" then
                 local ButtonDesc = Instance.new("TextLabel")
-                ButtonDesc.Name = "Description"
-                ButtonDesc.Parent = Button
+                ButtonDesc.Parent = ButtonCard
                 ButtonDesc.BackgroundTransparency = 1
-                ButtonDesc.Position = UDim2.new(0, 50, 0, 26)
-                ButtonDesc.Size = UDim2.new(1, -55, 0, 15)
+                ButtonDesc.Position = UDim2.new(0, 16, 0, 34)
+                ButtonDesc.Size = UDim2.new(0.6, 0, 0, 20)
                 ButtonDesc.Font = Enum.Font.Gotham
                 ButtonDesc.Text = buttonConfig.Description
-                ButtonDesc.TextColor3 = Color3.fromRGB(200, 200, 200)
+                ButtonDesc.TextColor3 = FluentUI.CurrentTheme.TextFillColorSecondary
                 ButtonDesc.TextSize = 11
                 ButtonDesc.TextXAlignment = Enum.TextXAlignment.Left
-                ButtonDesc.ZIndex = 9
+                ButtonDesc.ZIndex = 8
             end
             
-            -- Hover effects
-            local hoverConnections = {}
-            
-            hoverConnections[1] = Button.MouseEnter:Connect(function()
-                PlaySound("Hover", 0.08)
-                SmoothTween(Button, {
-                    Size = UDim2.new(1, -2, 1, -7),
-                    BackgroundColor3 = Color3.fromRGB(
-                        math.min(255, buttonConfig.Color.R * 255 + 15),
-                        math.min(255, buttonConfig.Color.G * 255 + 15),
-                        math.min(255, buttonConfig.Color.B * 255 + 15)
-                    )
-                }, 0.2)
-                CreateGlow(Button, buttonConfig.Color, 0.2)
-            end)
-            
-            hoverConnections[2] = Button.MouseLeave:Connect(function()
-                SmoothTween(Button, {
-                    Size = UDim2.new(1, -5, 1, -10),
-                    BackgroundColor3 = buttonConfig.Color
-                }, 0.2)
-                if Button:FindFirstChild("Glow") then
-                    Button.Glow:Destroy()
-                end
-            end)
-            
-            hoverConnections[3] = Button.MouseButton1Click:Connect(function()
-                -- Click animation
-                SmoothTween(Button, {Size = UDim2.new(1, -8, 1, -13)}, 0.1, nil, nil, function()
-                    SmoothTween(Button, {Size = UDim2.new(1, -5, 1, -10)}, 0.1)
-                end)
-                
+            -- Click handler
+            Button.MouseButton1Click:Connect(function()
                 local success, err = pcall(buttonConfig.Callback)
                 if not success then
-                    ModernUI:Notify({
+                    FluentUI:Notify({
                         Title = "ข้อผิดพลาด",
-                        Description = "เกิดข้อผิดพลาดในการทำงาน: " .. tostring(err),
+                        Description = "เกิดข้อผิดพลาด: " .. tostring(err),
                         Type = "Error"
                     })
                 end
             end)
             
-            for _, conn in pairs(hoverConnections) do
-                table.insert(ModernUI.Connections, conn)
-            end
-            
             self:UpdateCanvasSize()
-            return Button
-        end
-        
-        function TabObject:CreateToggle(config)
-            config = config or {}
-            
-            local toggleConfig = {
-                Name = config.Name or "Toggle",
-                Description = config.Description or "",
-                Default = config.Default or false,
-                Callback = config.Callback or function() end
-            }
-            
-            local yPos = self.ElementCount * 65
-            self.ElementCount = self.ElementCount + 1
-            
-            local ToggleFrame = Instance.new("Frame")
-            ToggleFrame.Name = "ToggleFrame_" .. toggleConfig.Name
-            ToggleFrame.Parent = self.Content
-            ToggleFrame.BackgroundColor3 = ModernUI.CurrentTheme.Secondary
-            ToggleFrame.BorderSizePixel = 0
-            ToggleFrame.Position = UDim2.new(0, 0, 0, yPos)
-            ToggleFrame.Size = UDim2.new(1, -5, 0, 55)
-            ToggleFrame.ZIndex = 7
-            
-            CreateCorner(12).Parent = ToggleFrame
-            CreateStroke(1, ModernUI.CurrentTheme.Border, 0.4).Parent = ToggleFrame
-            CreateDropShadow(ToggleFrame, 3, 0.15)
-            
-            local toggleGradient = CreateGradient(
-                ColorSequence.new{
-                    ColorSequenceKeypoint.new(0, ModernUI.CurrentTheme.Secondary),
-                    ColorSequenceKeypoint.new(1, ModernUI.CurrentTheme.Tertiary)
-                },
-                45
-            )
-            toggleGradient.Parent = ToggleFrame
-            
-            -- Toggle content similar to button but with switch
-            -- [Rest of toggle implementation with modern styling...]
-            
-            self:UpdateCanvasSize()
-            return ToggleFrame
+            return ButtonCard
         end
         
         function TabObject:UpdateCanvasSize()
-            local contentSize = self.ElementCount * 70 + 20
+            local contentSize = self.ElementCount * 85 + 20
             SmoothTween(self.Content, {CanvasSize = UDim2.new(0, 0, 0, contentSize)}, 0.3)
         end
         
-        -- Tab activation
-        CreateRipple(TabButton, ModernUI.CurrentTheme.Accent)
+        -- Connect events
+        CreateRevealEffect(NavButton)
         
-        local tabConnection = TabButton.MouseButton1Click:Connect(function()
+        NavButton.MouseButton1Click:Connect(function()
             TabObject:Activate()
         end)
-        
-        table.insert(ModernUI.Connections, tabConnection)
         
         self.Tabs[tabConfig.Name] = TabObject
         
@@ -913,22 +900,19 @@ function ModernUI:CreateWindow(config)
             TabObject:Activate()
         end
         
-        self.TabContainer.CanvasSize = UDim2.new(0, 0, 0, self.TabCount * 45 + 8)
+        self.TabContainer.CanvasSize = UDim2.new(0, 0, 0, self.TabCount * 48 + 8)
         
         return TabObject
     end
     
-    -- Button functionality
-    local closeConnection = CloseBtn.MouseButton1Click:Connect(function()
+    -- Connect window controls
+    CloseBtn.MouseButton1Click:Connect(function()
         WindowObject:Destroy()
     end)
     
-    local minimizeConnection = MinimizeBtn.MouseButton1Click:Connect(function()
+    MinimizeBtn.MouseButton1Click:Connect(function()
         WindowObject:Minimize()
     end)
-    
-    table.insert(ModernUI.Connections, closeConnection)
-    table.insert(ModernUI.Connections, minimizeConnection)
     
     -- Dragging
     if windowConfig.Draggable then
@@ -936,16 +920,15 @@ function ModernUI:CreateWindow(config)
         local dragStart = nil
         local startPos = nil
         
-        local dragConnection1 = TitleBar.InputBegan:Connect(function(input)
+        TitleBar.InputBegan:Connect(function(input)
             if input.UserInputType == Enum.UserInputType.MouseButton1 then
                 dragging = true
                 dragStart = input.Position
                 startPos = Container.Position
-                PlaySound("Click", 0.05)
             end
         end)
         
-        local dragConnection2 = UserInputService.InputChanged:Connect(function(input)
+        UserInputService.InputChanged:Connect(function(input)
             if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
                 local delta = input.Position - dragStart
                 Container.Position = UDim2.new(
@@ -957,93 +940,93 @@ function ModernUI:CreateWindow(config)
             end
         end)
         
-        local dragConnection3 = UserInputService.InputEnded:Connect(function(input)
+        UserInputService.InputEnded:Connect(function(input)
             if input.UserInputType == Enum.UserInputType.MouseButton1 then
                 dragging = false
             end
         end)
-        
-        table.insert(ModernUI.Connections, dragConnection1)
-        table.insert(ModernUI.Connections, dragConnection2)
-        table.insert(ModernUI.Connections, dragConnection3)
     end
     
     -- KeyBind
-    local keybindConnection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    UserInputService.InputBegan:Connect(function(input, gameProcessed)
         if gameProcessed then return end
         if input.KeyCode == windowConfig.KeyBind then
             WindowObject:Toggle()
         end
     end)
     
-    table.insert(ModernUI.Connections, keybindConnection)
+    -- Initial animation
+    BackgroundOverlay.BackgroundTransparency = 1
+    Container.Size = UDim2.new(0, 50, 0, 50)
+    Container.Position = UDim2.new(0.5, -25, 0.5, -25)
+    MainFrame.BackgroundTransparency = 1
     
-    -- Initial entrance animation
-    Container.Size = UDim2.new(0, 0, 0, 0)
-    BlurFrame.BackgroundTransparency = 1
+    SmoothTween(Container, {
+        Size = windowConfig.Size,
+        Position = UDim2.new(0.5, -windowConfig.Size.X.Offset/2, 0.5, -windowConfig.Size.Y.Offset/2)
+    }, 0.6, Enum.EasingStyle.Back)
     
-    SmoothTween(Container, {Size = windowConfig.Size}, 0.6, Enum.EasingStyle.Back)
-    SmoothTween(BlurFrame, {BackgroundTransparency = 0.4}, 0.4)
+    SmoothTween(MainFrame, {BackgroundTransparency = 0.05}, 0.4)
+    SmoothTween(BackgroundOverlay, {BackgroundTransparency = 0.2}, 0.4)
     
-    table.insert(ModernUI.Windows, WindowObject)
+    table.insert(FluentUI.Windows, WindowObject)
     return WindowObject
 end
 
--- Beautiful Notification System
-function ModernUI:Notify(config)
+-- Notification System
+function FluentUI:Notify(config)
     config = config or {}
     
     local notifConfig = {
-        Title = config.Title or "การแจ้งเตือน",
+        Title = config.Title or "แจ้งเตือน",
         Description = config.Description or "",
-        Duration = config.Duration or 4,
+        Duration = config.Duration or 5,
         Type = config.Type or "Info"
     }
     
     local colors = {
-        Info = {Color = ModernUI.CurrentTheme.Accent, Icon = "ℹ️"},
-        Success = {Color = ModernUI.CurrentTheme.Success, Icon = "✅"},
-        Warning = {Color = ModernUI.CurrentTheme.Warning, Icon = "⚠️"},
-        Error = {Color = ModernUI.CurrentTheme.Error, Icon = "❌"}
+        Info = FluentUI.CurrentTheme.AccentDefault,
+        Success = FluentUI.CurrentTheme.SystemFillColorSuccess,
+        Warning = FluentUI.CurrentTheme.SystemFillColorCaution,
+        Error = FluentUI.CurrentTheme.SystemFillColorCritical
     }
     
-    local typeData = colors[notifConfig.Type] or colors.Info
-    
     local NotifGui = Instance.new("ScreenGui")
-    NotifGui.Name = "ModernNotification"
+    NotifGui.Name = "FluentNotification"
     NotifGui.Parent = GuiParent
     
-    local NotifFrame = Instance.new("Frame")
-    NotifFrame.Parent = NotifGui
-    NotifFrame.BackgroundColor3 = ModernUI.CurrentTheme.Background
-    NotifFrame.BorderSizePixel = 0
-    NotifFrame.Position = UDim2.new(1, 20, 0, 20 + (#ModernUI.Notifications * 90))
-    NotifFrame.Size = UDim2.new(0, 320, 0, 80)
-    NotifFrame.ZIndex = 100
+    local NotifCard = Instance.new("Frame")
+    NotifCard.Parent = NotifGui
+    NotifCard.BackgroundColor3 = FluentUI.CurrentTheme.CardBackground
+    NotifCard.BackgroundTransparency = 0.05
+    NotifCard.BorderSizePixel = 0
+    NotifCard.Position = UDim2.new(1, 20, 0, 20 + (#FluentUI.Notifications * 90))
+    NotifCard.Size = UDim2.new(0, 360, 0, 80)
+    NotifCard.ZIndex = 100
     
-    CreateCorner(12).Parent = NotifFrame
-    CreateStroke(2, typeData.Color).Parent = NotifFrame
-    CreateDropShadow(NotifFrame, 6, 0.3)
+    CreateCorner(8).Parent = NotifCard
+    CreateStroke(1, colors[notifConfig.Type] or colors.Info, 0.5).Parent = NotifCard
+    CreateDropShadow(NotifCard, 3)
+    CreateAcrylicEffect(NotifCard)
     
-    -- Add to notifications list
-    table.insert(ModernUI.Notifications, NotifGui)
+    table.insert(FluentUI.Notifications, NotifGui)
     
-    -- Slide in animation
-    SmoothTween(NotifFrame, {Position = UDim2.new(1, -330, 0, 20 + ((#ModernUI.Notifications-1) * 90))}, 0.5, Enum.EasingStyle.Back)
+    -- Slide in
+    SmoothTween(NotifCard, {Position = UDim2.new(1, -370, 0, 20 + ((#FluentUI.Notifications-1) * 90))}, 0.5, Enum.EasingStyle.Back)
     
-    PlaySound(notifConfig.Type == "Error" and "Error" or "Success", 0.3)
+    PlaySound("Success", 0.2)
     
     -- Auto remove
     spawn(function()
         wait(notifConfig.Duration)
         if NotifGui.Parent then
-            SmoothTween(NotifFrame, {
-                Position = UDim2.new(1, 20, 0, NotifFrame.Position.Y.Offset),
+            SmoothTween(NotifCard, {
+                Position = UDim2.new(1, 20, 0, NotifCard.Position.Y.Offset),
                 Size = UDim2.new(0, 0, 0, 80)
             }, 0.4, nil, nil, function()
-                for i, notif in ipairs(ModernUI.Notifications) do
+                for i, notif in ipairs(FluentUI.Notifications) do
                     if notif == NotifGui then
-                        table.remove(ModernUI.Notifications, i)
+                        table.remove(FluentUI.Notifications, i)
                         break
                     end
                 end
@@ -1054,9 +1037,9 @@ function ModernUI:Notify(config)
 end
 
 -- Theme Management
-function ModernUI:SetTheme(themeName)
-    if ModernUI.Themes[themeName] then
-        ModernUI.CurrentTheme = ModernUI.Themes[themeName]
+function FluentUI:SetTheme(themeName)
+    if FluentUI.Themes[themeName] then
+        FluentUI.CurrentTheme = FluentUI.Themes[themeName]
         
         self:Notify({
             Title = "เปลี่ยนธีมสำเร็จ",
@@ -1066,21 +1049,4 @@ function ModernUI:SetTheme(themeName)
     end
 end
 
--- Cleanup
-function ModernUI:Cleanup()
-    for _, connection in pairs(ModernUI.Connections) do
-        if typeof(connection) == "RBXScriptConnection" then
-            connection:Disconnect()
-        elseif typeof(connection) == "Tween" then
-            connection:Cancel()
-        end
-    end
-    
-    ModernUI.Connections = {}
-    
-    for _, window in pairs(ModernUI.Windows) do
-        window:Destroy()
-    end
-end
-
-return ModernUI
+return FluentUI
