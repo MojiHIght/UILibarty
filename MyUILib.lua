@@ -1173,7 +1173,7 @@ function FluentUI:CreateWindow(config)
             DropdownList.Position = UDim2.new(0.5, 10, 0, 60)
             DropdownList.Size = UDim2.new(0.5, -26, 0, 0)
             DropdownList.Visible = false
-            DropdownList.ZIndex = 20
+            DropdownList.ZIndex = 200
             DropdownList.ClipsDescendants = true
             
             CreateCorner(8).Parent = DropdownList
