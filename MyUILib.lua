@@ -1,5 +1,5 @@
--- Complete Fluent UI Library for Game Executors
--- Includes all necessary components for modern executor interfaces
+-- Microsoft Fluent Design UI Library - Complete Implementation
+-- Recreating the exact look and feel from Microsoft's Fluent UI
 
 local FluentUI = {}
 
@@ -21,15 +21,15 @@ local GuiParent = (syn and syn.protect_gui and gethui and gethui()) or CoreGui o
 
 -- Enhanced Configuration
 FluentUI.Config = {
-    AnimationSpeed = 0.25,
+    AnimationSpeed = 0.2,
     SoundEffects = true,
     AcrylicBlur = true,
     RevealEffect = true,
-    CornerRadius = 8,
+    CornerRadius = 6,
     ElevationShadows = true
 }
 
--- Authentic Fluent Design System Colors
+-- Authentic Microsoft Fluent Design Colors
 FluentUI.Themes = {
     Light = {
         Name = "Light",
@@ -39,31 +39,37 @@ FluentUI.Themes = {
         SystemControlPageBackgroundChromeLowBrush = Color3.fromRGB(255, 255, 255),
         SystemControlPageBackgroundChromeMediumLowBrush = Color3.fromRGB(249, 249, 249),
         SystemControlPageBackgroundChromeMediumBrush = Color3.fromRGB(243, 243, 243),
+        SystemControlPageBackgroundChromeHighBrush = Color3.fromRGB(230, 230, 230),
         
-        -- Cards
+        -- Cards and surfaces
         SystemControlBackgroundChromeMediumLowBrush = Color3.fromRGB(243, 243, 243),
         SystemControlBackgroundChromeMediumBrush = Color3.fromRGB(237, 237, 237),
         SystemControlBackgroundChromeHighBrush = Color3.fromRGB(204, 204, 204),
         
-        -- Strokes
-        SystemControlForegroundBaseMediumBrush = Color3.fromRGB(113, 113, 113),
-        SystemControlForegroundBaseMediumLowBrush = Color3.fromRGB(151, 151, 151),
+        -- Navigation
+        NavigationViewExpandedPaneBackground = Color3.fromRGB(249, 249, 249),
+        NavigationViewDefaultPaneBackground = Color3.fromRGB(249, 249, 249),
         
-        -- Text
+        -- Text colors
         SystemControlForegroundBaseHighBrush = Color3.fromRGB(0, 0, 0),
         SystemControlForegroundBaseMediumHighBrush = Color3.fromRGB(68, 68, 68),
+        SystemControlForegroundBaseMediumBrush = Color3.fromRGB(113, 113, 113),
         SystemControlForegroundBaseLowBrush = Color3.fromRGB(151, 151, 151),
         
-        -- Accent
-        SystemControlHighlightAccentBrush = Color3.fromRGB(0, 120, 215),
-        SystemControlHighlightAccentLowBrush = Color3.fromRGB(153, 209, 255),
-        SystemControlHighlightAccentMediumBrush = Color3.fromRGB(64, 156, 255),
+        -- Accent colors
+        SystemAccentColor = Color3.fromRGB(0, 120, 215),
+        SystemAccentColorLight1 = Color3.fromRGB(64, 156, 255),
+        SystemAccentColorLight2 = Color3.fromRGB(153, 209, 255),
+        SystemAccentColorDark1 = Color3.fromRGB(0, 99, 177),
         
-        -- System
+        -- Control colors
+        SystemControlHighlightAccentBrush = Color3.fromRGB(0, 120, 215),
+        SystemControlHighlightTransparentBrush = Color3.fromRGB(0, 0, 0),
+        
+        -- System colors
         SystemFillColorSuccess = Color3.fromRGB(16, 124, 16),
         SystemFillColorCaution = Color3.fromRGB(157, 93, 0),
         SystemFillColorCritical = Color3.fromRGB(196, 43, 28),
-        SystemFillColorNeutral = Color3.fromRGB(113, 113, 113),
         
         -- Shadow
         Shadow = Color3.fromRGB(0, 0, 0)
@@ -72,36 +78,42 @@ FluentUI.Themes = {
     Dark = {
         Name = "Dark",
         
-        -- Backgrounds
+        -- Backgrounds - Exact Microsoft Dark Theme Colors
         ApplicationPageBackgroundThemeBrush = Color3.fromRGB(32, 32, 32),
-        SystemControlPageBackgroundChromeLowBrush = Color3.fromRGB(45, 45, 45),
+        SystemControlPageBackgroundChromeLowBrush = Color3.fromRGB(44, 44, 44),
         SystemControlPageBackgroundChromeMediumLowBrush = Color3.fromRGB(40, 40, 40),
         SystemControlPageBackgroundChromeMediumBrush = Color3.fromRGB(35, 35, 35),
+        SystemControlPageBackgroundChromeHighBrush = Color3.fromRGB(30, 30, 30),
         
-        -- Cards
+        -- Cards and surfaces
         SystemControlBackgroundChromeMediumLowBrush = Color3.fromRGB(58, 58, 58),
         SystemControlBackgroundChromeMediumBrush = Color3.fromRGB(65, 65, 65),
         SystemControlBackgroundChromeHighBrush = Color3.fromRGB(76, 76, 76),
         
-        -- Strokes
-        SystemControlForegroundBaseMediumBrush = Color3.fromRGB(151, 151, 151),
-        SystemControlForegroundBaseMediumLowBrush = Color3.fromRGB(113, 113, 113),
+        -- Navigation
+        NavigationViewExpandedPaneBackground = Color3.fromRGB(44, 44, 44),
+        NavigationViewDefaultPaneBackground = Color3.fromRGB(44, 44, 44),
         
-        -- Text
+        -- Text colors
         SystemControlForegroundBaseHighBrush = Color3.fromRGB(255, 255, 255),
         SystemControlForegroundBaseMediumHighBrush = Color3.fromRGB(204, 204, 204),
+        SystemControlForegroundBaseMediumBrush = Color3.fromRGB(151, 151, 151),
         SystemControlForegroundBaseLowBrush = Color3.fromRGB(113, 113, 113),
         
-        -- Accent
-        SystemControlHighlightAccentBrush = Color3.fromRGB(96, 205, 255),
-        SystemControlHighlightAccentLowBrush = Color3.fromRGB(64, 156, 255),
-        SystemControlHighlightAccentMediumBrush = Color3.fromRGB(118, 185, 237),
+        -- Accent colors
+        SystemAccentColor = Color3.fromRGB(96, 205, 255),
+        SystemAccentColorLight1 = Color3.fromRGB(118, 214, 255),
+        SystemAccentColorLight2 = Color3.fromRGB(153, 235, 255),
+        SystemAccentColorDark1 = Color3.fromRGB(64, 156, 255),
         
-        -- System
+        -- Control colors
+        SystemControlHighlightAccentBrush = Color3.fromRGB(96, 205, 255),
+        SystemControlHighlightTransparentBrush = Color3.fromRGB(255, 255, 255),
+        
+        -- System colors
         SystemFillColorSuccess = Color3.fromRGB(108, 203, 95),
         SystemFillColorCaution = Color3.fromRGB(252, 225, 0),
         SystemFillColorCritical = Color3.fromRGB(255, 153, 164),
-        SystemFillColorNeutral = Color3.fromRGB(151, 151, 151),
         
         -- Shadow
         Shadow = Color3.fromRGB(0, 0, 0)
@@ -127,10 +139,10 @@ local function PlaySound(soundName, volume, pitch)
     if not FluentUI.Config.SoundEffects then return end
     
     spawn(function()
-        local success, _ = pcall(function()
+        pcall(function()
             local sound = Instance.new("Sound")
             sound.SoundId = Sounds[soundName] or Sounds.Click
-            sound.Volume = volume or 0.05
+            sound.Volume = volume or 0.3
             sound.Pitch = pitch or 1
             sound.Parent = SoundService
             sound:Play()
@@ -151,8 +163,8 @@ end
 local function CreateStroke(thickness, color, transparency)
     local stroke = Instance.new("UIStroke")
     stroke.Thickness = thickness or 1
-    stroke.Color = color or FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush
-    stroke.Transparency = transparency or 0.5
+    stroke.Color = color or FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+    stroke.Transparency = transparency or 0.8
     return stroke
 end
 
@@ -165,7 +177,7 @@ local function CreateDropShadow(parent, elevation, color)
     shadow.BackgroundTransparency = 1
     shadow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
     shadow.ImageColor3 = color or FluentUI.CurrentTheme.Shadow
-    shadow.ImageTransparency = 0.85 - (elevation * 0.05)
+    shadow.ImageTransparency = 0.9 - (elevation * 0.02)
     shadow.Position = UDim2.new(0, -elevation, 0, elevation)
     shadow.Size = UDim2.new(1, elevation * 2, 1, elevation * 2)
     shadow.ZIndex = parent.ZIndex - 1
@@ -193,7 +205,7 @@ local function SmoothTween(object, properties, duration, style, direction, callb
     return tween
 end
 
--- Enhanced Reveal Effect
+-- Microsoft-style Reveal Effect
 local function CreateRevealEffect(button)
     if not FluentUI.Config.RevealEffect then return end
     
@@ -202,16 +214,15 @@ local function CreateRevealEffect(button)
         local reveal = Instance.new("Frame")
         reveal.Name = "RevealEffect" 
         reveal.Parent = button
-        reveal.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-        reveal.BackgroundTransparency = 0.92
+        reveal.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlHighlightTransparentBrush
+        reveal.BackgroundTransparency = 0.95
         reveal.BorderSizePixel = 0
         reveal.Size = UDim2.new(1, 0, 1, 0)
         reveal.ZIndex = button.ZIndex + 1
         
         CreateCorner(FluentUI.Config.CornerRadius).Parent = reveal
         
-        reveal.BackgroundTransparency = 1
-        SmoothTween(reveal, {BackgroundTransparency = 0.92}, 0.15)
+        SmoothTween(reveal, {BackgroundTransparency = 0.9}, 0.15)
         
         local leaveConnection
         leaveConnection = button.MouseLeave:Connect(function()
@@ -233,14 +244,14 @@ local function CreatePressAnimation(button)
     local pressConnection
     pressConnection = button.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            PlaySound("Click", 0.05, 1.1)
+            PlaySound("Click", 0.3, 1.05)
             
             SmoothTween(button, {
                 Size = UDim2.new(button.Size.X.Scale, button.Size.X.Offset - 1, button.Size.Y.Scale, button.Size.Y.Offset - 1)
-            }, 0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, function()
+            }, 0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, function()
                 SmoothTween(button, {
                     Size = UDim2.new(button.Size.X.Scale, button.Size.X.Offset + 1, button.Size.Y.Scale, button.Size.Y.Offset + 1)
-                }, 0.12, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+                }, 0.1, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
             end)
         end
     end)
@@ -255,7 +266,7 @@ local function CreateAcrylicEffect(frame)
     acrylic.Name = "AcrylicBackground"
     acrylic.Parent = frame
     acrylic.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlPageBackgroundChromeLowBrush
-    acrylic.BackgroundTransparency = 0.2
+    acrylic.BackgroundTransparency = 0.3
     acrylic.BorderSizePixel = 0
     acrylic.Size = UDim2.new(1, 0, 1, 0)
     acrylic.ZIndex = frame.ZIndex - 1
@@ -265,18 +276,17 @@ local function CreateAcrylicEffect(frame)
     return acrylic
 end
 
--- Window Creation
+-- Window Creation matching Microsoft Fluent UI exactly
 function FluentUI:CreateWindow(config)
     config = config or {}
     
     local windowConfig = {
-        Title = config.Title or "Fluent Executor",
-        Subtitle = config.Subtitle or "Version 1.0.1 by Developer",
-        Size = config.Size or UDim2.new(0, 700, 0, 500),
+        Title = config.Title or "Fluent 110",
+        Subtitle = config.Subtitle or "by dawid",
+        Size = config.Size or UDim2.new(0, 580, 0, 460),
         Theme = config.Theme or "Dark",
         KeyBind = config.KeyBind or Enum.KeyCode.Insert,
-        Draggable = config.Draggable ~= false,
-        MinimizeKey = config.MinimizeKey
+        Draggable = config.Draggable ~= false
     }
     
     if FluentUI.Themes[windowConfig.Theme] then
@@ -294,7 +304,7 @@ function FluentUI:CreateWindow(config)
     BackgroundOverlay.Name = "BackgroundOverlay"
     BackgroundOverlay.Parent = ScreenGui
     BackgroundOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    BackgroundOverlay.BackgroundTransparency = 0.3
+    BackgroundOverlay.BackgroundTransparency = 0.4
     BackgroundOverlay.BorderSizePixel = 0
     BackgroundOverlay.Size = UDim2.new(1, 0, 1, 0)
     BackgroundOverlay.ZIndex = 1
@@ -307,62 +317,41 @@ function FluentUI:CreateWindow(config)
     Container.Size = windowConfig.Size
     Container.ZIndex = 2
     
+    -- Main Frame with exact Microsoft styling
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "MainFrame"
     MainFrame.Parent = Container
     MainFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlPageBackgroundChromeLowBrush
-    MainFrame.BackgroundTransparency = 0.1
+    MainFrame.BackgroundTransparency = 0
     MainFrame.BorderSizePixel = 0
     MainFrame.Size = UDim2.new(1, 0, 1, 0)
     MainFrame.ZIndex = 3
     
-    CreateCorner(FluentUI.Config.CornerRadius).Parent = MainFrame
-    CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.3).Parent = MainFrame
-    CreateDropShadow(MainFrame, 8)
-    CreateAcrylicEffect(MainFrame)
+    CreateCorner(8).Parent = MainFrame
+    CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.8).Parent = MainFrame
+    CreateDropShadow(MainFrame, 10)
     
+    -- Title Bar - Exact Microsoft style
     local TitleBar = Instance.new("Frame")
     TitleBar.Name = "TitleBar"
     TitleBar.Parent = MainFrame
-    TitleBar.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-    TitleBar.BackgroundTransparency = 0.4
+    TitleBar.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlPageBackgroundChromeLowBrush
+    TitleBar.BackgroundTransparency = 0
     TitleBar.BorderSizePixel = 0
-    TitleBar.Size = UDim2.new(1, 0, 0, 48)
+    TitleBar.Size = UDim2.new(1, 0, 0, 40)
     TitleBar.ZIndex = 4
     
-    CreateCorner(FluentUI.Config.CornerRadius).Parent = TitleBar
-    
-    local AppIcon = Instance.new("Frame")
-    AppIcon.Name = "AppIcon"
-    AppIcon.Parent = TitleBar
-    AppIcon.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
-    AppIcon.BorderSizePixel = 0
-    AppIcon.Position = UDim2.new(0, 16, 0.5, -10)
-    AppIcon.Size = UDim2.new(0, 20, 0, 20)
-    AppIcon.ZIndex = 5
-    
-    CreateCorner(4).Parent = AppIcon
-    
-    local IconSymbol = Instance.new("TextLabel")
-    IconSymbol.Parent = AppIcon
-    IconSymbol.BackgroundTransparency = 1
-    IconSymbol.Size = UDim2.new(1, 0, 1, 0)
-    IconSymbol.Font = Enum.Font.GothamBold
-    IconSymbol.Text = "◈"
-    IconSymbol.TextColor3 = Color3.fromRGB(255, 255, 255)
-    IconSymbol.TextSize = 12
-    IconSymbol.ZIndex = 6
-    
+    -- Title and subtitle exactly like Microsoft
     local TitleLabel = Instance.new("TextLabel")
     TitleLabel.Name = "Title"
     TitleLabel.Parent = TitleBar
     TitleLabel.BackgroundTransparency = 1
-    TitleLabel.Position = UDim2.new(0, 46, 0, 6)
-    TitleLabel.Size = UDim2.new(0.6, 0, 0, 20)
-    TitleLabel.Font = Enum.Font.GothamMedium
+    TitleLabel.Position = UDim2.new(0, 20, 0, 8)
+    TitleLabel.Size = UDim2.new(0.6, 0, 0, 16)
+    TitleLabel.Font = Enum.Font.Gotham
     TitleLabel.Text = windowConfig.Title
     TitleLabel.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-    TitleLabel.TextSize = 13
+    TitleLabel.TextSize = 12
     TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
     TitleLabel.ZIndex = 5
     
@@ -370,60 +359,80 @@ function FluentUI:CreateWindow(config)
     SubtitleLabel.Name = "Subtitle"
     SubtitleLabel.Parent = TitleBar
     SubtitleLabel.BackgroundTransparency = 1
-    SubtitleLabel.Position = UDim2.new(0, 46, 0, 26)
-    SubtitleLabel.Size = UDim2.new(0.6, 0, 0, 16)
+    SubtitleLabel.Position = UDim2.new(0, 20, 0, 22)
+    SubtitleLabel.Size = UDim2.new(0.6, 0, 0, 12)
     SubtitleLabel.Font = Enum.Font.Gotham
     SubtitleLabel.Text = windowConfig.Subtitle
-    SubtitleLabel.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
+    SubtitleLabel.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
     SubtitleLabel.TextSize = 10
     SubtitleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    SubtitleLabel.ZIndex = 5
+    TitleLabel.ZIndex = 5
     
+    -- Window Controls - Microsoft style
     local WindowControls = Instance.new("Frame")
     WindowControls.Name = "WindowControls"
     WindowControls.Parent = TitleBar
     WindowControls.BackgroundTransparency = 1
-    WindowControls.Position = UDim2.new(1, -100, 0, 12)
-    WindowControls.Size = UDim2.new(0, 92, 0, 24)
+    WindowControls.Position = UDim2.new(1, -120, 0, 8)
+    WindowControls.Size = UDim2.new(0, 112, 0, 24)
     WindowControls.ZIndex = 5
     
     local MinimizeBtn = Instance.new("TextButton")
     MinimizeBtn.Name = "Minimize"
     MinimizeBtn.Parent = WindowControls
-    MinimizeBtn.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush
+    MinimizeBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     MinimizeBtn.BackgroundTransparency = 1
     MinimizeBtn.BorderSizePixel = 0
     MinimizeBtn.Position = UDim2.new(0, 0, 0, 0)
-    MinimizeBtn.Size = UDim2.new(0, 40, 0, 24)
-    MinimizeBtn.Font = Enum.Font.GothamMedium
+    MinimizeBtn.Size = UDim2.new(0, 32, 0, 24)
+    MinimizeBtn.Font = Enum.Font.Gotham
     MinimizeBtn.Text = "─"
     MinimizeBtn.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-    MinimizeBtn.TextSize = 12
+    MinimizeBtn.TextSize = 10
     MinimizeBtn.ZIndex = 6
     
     CreateCorner(4).Parent = MinimizeBtn
     CreateRevealEffect(MinimizeBtn)
     CreatePressAnimation(MinimizeBtn)
     
+    local MaximizeBtn = Instance.new("TextButton")
+    MaximizeBtn.Name = "Maximize"
+    MaximizeBtn.Parent = WindowControls
+    MaximizeBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    MaximizeBtn.BackgroundTransparency = 1
+    MaximizeBtn.BorderSizePixel = 0
+    MaximizeBtn.Position = UDim2.new(0, 36, 0, 0)
+    MaximizeBtn.Size = UDim2.new(0, 32, 0, 24)
+    MaximizeBtn.Font = Enum.Font.Gotham
+    MaximizeBtn.Text = "🗖"
+    MaximizeBtn.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
+    MaximizeBtn.TextSize = 8
+    MaximizeBtn.ZIndex = 6
+    
+    CreateCorner(4).Parent = MaximizeBtn
+    CreateRevealEffect(MaximizeBtn)
+    CreatePressAnimation(MaximizeBtn)
+    
     local CloseBtn = Instance.new("TextButton")
     CloseBtn.Name = "Close"
     CloseBtn.Parent = WindowControls
-    CloseBtn.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush
+    CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     CloseBtn.BackgroundTransparency = 1
     CloseBtn.BorderSizePixel = 0
-    CloseBtn.Position = UDim2.new(0, 44, 0, 0)
-    CloseBtn.Size = UDim2.new(0, 40, 0, 24)
-    CloseBtn.Font = Enum.Font.GothamMedium
-    CloseBtn.Text = "×"
+    CloseBtn.Position = UDim2.new(0, 72, 0, 0)
+    CloseBtn.Size = UDim2.new(0, 32, 0, 24)
+    CloseBtn.Font = Enum.Font.Gotham
+    CloseBtn.Text = "✕"
     CloseBtn.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-    CloseBtn.TextSize = 16
+    CloseBtn.TextSize = 10
     CloseBtn.ZIndex = 6
     
     CreateCorner(4).Parent = CloseBtn
     
+    -- Special hover effect for close button
     CloseBtn.MouseEnter:Connect(function()
         SmoothTween(CloseBtn, {
-            BackgroundColor3 = FluentUI.CurrentTheme.SystemFillColorCritical,
+            BackgroundColor3 = Color3.fromRGB(232, 17, 35),
             BackgroundTransparency = 0
         }, 0.15)
         SmoothTween(CloseBtn, {TextColor3 = Color3.fromRGB(255, 255, 255)}, 0.15)
@@ -431,7 +440,7 @@ function FluentUI:CreateWindow(config)
     
     CloseBtn.MouseLeave:Connect(function()
         SmoothTween(CloseBtn, {
-            BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush,
+            BackgroundColor3 = Color3.fromRGB(255, 255, 255),
             BackgroundTransparency = 1
         }, 0.15)
         SmoothTween(CloseBtn, {TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush}, 0.15)
@@ -443,31 +452,32 @@ function FluentUI:CreateWindow(config)
     ContentFrame.Name = "Content"
     ContentFrame.Parent = MainFrame
     ContentFrame.BackgroundTransparency = 1
-    ContentFrame.Position = UDim2.new(0, 0, 0, 48)
-    ContentFrame.Size = UDim2.new(1, 0, 1, -48)
+    ContentFrame.Position = UDim2.new(0, 0, 0, 40)
+    ContentFrame.Size = UDim2.new(1, 0, 1, -40)
     ContentFrame.ZIndex = 4
     
+    -- Navigation Pane - Microsoft style
     local NavPane = Instance.new("Frame")
     NavPane.Name = "NavigationPane"
     NavPane.Parent = ContentFrame
-    NavPane.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlPageBackgroundChromeMediumLowBrush
-    NavPane.BackgroundTransparency = 0.3
+    NavPane.BackgroundColor3 = FluentUI.CurrentTheme.NavigationViewExpandedPaneBackground
+    NavPane.BackgroundTransparency = 0
     NavPane.BorderSizePixel = 0
-    NavPane.Size = UDim2.new(0, 220, 1, 0)
+    NavPane.Size = UDim2.new(0, 180, 1, 0)
     NavPane.ZIndex = 5
     
-    CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.6).Parent = NavPane
+    CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = NavPane
     
     local TabContainer = Instance.new("ScrollingFrame")
     TabContainer.Name = "TabContainer"
     TabContainer.Parent = NavPane
     TabContainer.BackgroundTransparency = 1
     TabContainer.BorderSizePixel = 0
-    TabContainer.Position = UDim2.new(0, 12, 0, 16)
-    TabContainer.Size = UDim2.new(1, -24, 1, -32)
-    TabContainer.ScrollBarThickness = 3
-    TabContainer.ScrollBarImageColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
-    TabContainer.ScrollBarImageTransparency = 0.4
+    TabContainer.Position = UDim2.new(0, 0, 0, 8)
+    TabContainer.Size = UDim2.new(1, 0, 1, -16)
+    TabContainer.ScrollBarThickness = 2
+    TabContainer.ScrollBarImageColor3 = FluentUI.CurrentTheme.SystemAccentColor
+    TabContainer.ScrollBarImageTransparency = 0.6
     TabContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
     TabContainer.ZIndex = 6
     
@@ -475,8 +485,8 @@ function FluentUI:CreateWindow(config)
     MainContent.Name = "MainContent"
     MainContent.Parent = ContentFrame
     MainContent.BackgroundTransparency = 1
-    MainContent.Position = UDim2.new(0, 220, 0, 0)
-    MainContent.Size = UDim2.new(1, -220, 1, 0)
+    MainContent.Position = UDim2.new(0, 180, 0, 0)
+    MainContent.Size = UDim2.new(1, -180, 1, 0)
     MainContent.ZIndex = 5
     
     local WindowObject = {
@@ -509,12 +519,12 @@ function FluentUI:CreateWindow(config)
             SmoothTween(self.Container, {
                 Size = windowConfig.Size,
                 Position = UDim2.new(0.5, -windowConfig.Size.X.Offset/2, 0.5, -windowConfig.Size.Y.Offset/2)
-            }, 0.5, Enum.EasingStyle.Back)
+            }, 0.4, Enum.EasingStyle.Back)
             
-            SmoothTween(self.MainFrame, {BackgroundTransparency = 0.1}, 0.3)
-            SmoothTween(self.BackgroundOverlay, {BackgroundTransparency = 0.3}, 0.3)
+            SmoothTween(self.MainFrame, {BackgroundTransparency = 0}, 0.3)
+            SmoothTween(self.BackgroundOverlay, {BackgroundTransparency = 0.4}, 0.3)
             
-            PlaySound("Success", 0.1, 1.2)
+            PlaySound("Success", 0.4, 1.1)
         else
             SmoothTween(self.Container, {
                 Size = UDim2.new(0, 0, 0, 0),
@@ -530,11 +540,11 @@ function FluentUI:CreateWindow(config)
     
     function WindowObject:Minimize()
         self.Minimized = not self.Minimized
-        PlaySound("Navigation", 0.08, 0.9)
+        PlaySound("Navigation", 0.3, 0.9)
         
-        local targetSize = self.Minimized and UDim2.new(0, windowConfig.Size.X.Offset, 0, 48) or windowConfig.Size
+        local targetSize = self.Minimized and UDim2.new(0, windowConfig.Size.X.Offset, 0, 40) or windowConfig.Size
         
-        SmoothTween(self.Container, {Size = targetSize}, 0.4, Enum.EasingStyle.Cubic)
+        SmoothTween(self.Container, {Size = targetSize}, 0.3, Enum.EasingStyle.Cubic)
         self.ContentFrame.Visible = not self.Minimized
     end
     
@@ -547,7 +557,7 @@ function FluentUI:CreateWindow(config)
             end
         end
         
-        PlaySound("Click", 0.1, 0.8)
+        PlaySound("Click", 0.3, 0.8)
         
         SmoothTween(self.Container, {
             Size = UDim2.new(0, 0, 0, 0),
@@ -571,23 +581,24 @@ function FluentUI:CreateWindow(config)
         
         local tabConfig = {
             Name = config.Name or "Tab",
-            Icon = config.Icon or "📄"
+            Icon = config.Icon or ""
         }
         
         self.TabCount = self.TabCount + 1
         local tabIndex = self.TabCount
         
+        -- Navigation Item - Microsoft style
         local NavItem = Instance.new("Frame")
         NavItem.Name = "NavItem_" .. tabConfig.Name
         NavItem.Parent = self.TabContainer
-        NavItem.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush
+        NavItem.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         NavItem.BackgroundTransparency = 1
         NavItem.BorderSizePixel = 0
-        NavItem.Position = UDim2.new(0, 0, 0, (tabIndex - 1) * 44)
-        NavItem.Size = UDim2.new(1, 0, 0, 40)
+        NavItem.Position = UDim2.new(0, 0, 0, (tabIndex - 1) * 36)
+        NavItem.Size = UDim2.new(1, 0, 0, 32)
         NavItem.ZIndex = 7
         
-        CreateCorner(6).Parent = NavItem
+        CreateCorner(4).Parent = NavItem
         
         local NavButton = Instance.new("TextButton")
         NavButton.Name = "NavButton"
@@ -598,27 +609,27 @@ function FluentUI:CreateWindow(config)
         NavButton.Text = ""
         NavButton.ZIndex = 8
         
+        -- Selection Indicator - Blue accent bar on left
         local SelectionIndicator = Instance.new("Frame")
         SelectionIndicator.Name = "SelectionIndicator"
         SelectionIndicator.Parent = NavItem
-        SelectionIndicator.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
+        SelectionIndicator.BackgroundColor3 = FluentUI.CurrentTheme.SystemAccentColor
         SelectionIndicator.BorderSizePixel = 0
-        SelectionIndicator.Position = UDim2.new(0, 0, 0.5, -10)
-        SelectionIndicator.Size = UDim2.new(0, 0, 0, 20)
+        SelectionIndicator.Position = UDim2.new(0, 0, 0, 0)
+        SelectionIndicator.Size = UDim2.new(0, 0, 1, 0)
         SelectionIndicator.ZIndex = 9
         
-        CreateCorner(2).Parent = SelectionIndicator
-        
+        -- Tab Icon and Text
         local TabIcon = Instance.new("TextLabel")
         TabIcon.Name = "Icon"
         TabIcon.Parent = NavItem
         TabIcon.BackgroundTransparency = 1
         TabIcon.Position = UDim2.new(0, 16, 0, 0)
-        TabIcon.Size = UDim2.new(0, 24, 1, 0)
-        TabIcon.Font = Enum.Font.GothamMedium
+        TabIcon.Size = UDim2.new(0, 16, 1, 0)
+        TabIcon.Font = Enum.Font.Gotham
         TabIcon.Text = tabConfig.Icon
-        TabIcon.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-        TabIcon.TextSize = 14
+        TabIcon.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+        TabIcon.TextSize = 12
         TabIcon.TextXAlignment = Enum.TextXAlignment.Center
         TabIcon.ZIndex = 8
         
@@ -626,15 +637,16 @@ function FluentUI:CreateWindow(config)
         TabText.Name = "Text"
         TabText.Parent = NavItem
         TabText.BackgroundTransparency = 1
-        TabText.Position = UDim2.new(0, 48, 0, 0)
-        TabText.Size = UDim2.new(1, -56, 1, 0)
-        TabText.Font = Enum.Font.GothamMedium
+        TabText.Position = UDim2.new(0, 40, 0, 0)
+        TabText.Size = UDim2.new(1, -48, 1, 0)
+        TabText.Font = Enum.Font.Gotham
         TabText.Text = tabConfig.Name
-        TabText.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-        TabText.TextSize = 13
+        TabText.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+        TabText.TextSize = 12
         TabText.TextXAlignment = Enum.TextXAlignment.Left
         TabText.ZIndex = 8
         
+        -- Tab Content
         local TabContent = Instance.new("ScrollingFrame")
         TabContent.Name = "TabContent_" .. tabConfig.Name
         TabContent.Parent = self.MainContent
@@ -642,12 +654,26 @@ function FluentUI:CreateWindow(config)
         TabContent.BorderSizePixel = 0
         TabContent.Position = UDim2.new(0, 24, 0, 24)
         TabContent.Size = UDim2.new(1, -48, 1, -48)
-        TabContent.ScrollBarThickness = 4
-        TabContent.ScrollBarImageColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
-        TabContent.ScrollBarImageTransparency = 0.4
+        TabContent.ScrollBarThickness = 3
+        TabContent.ScrollBarImageColor3 = FluentUI.CurrentTheme.SystemAccentColor
+        TabContent.ScrollBarImageTransparency = 0.6
         TabContent.CanvasSize = UDim2.new(0, 0, 0, 0)
         TabContent.Visible = false
         TabContent.ZIndex = 6
+        
+        -- Page Title like Microsoft
+        local PageTitle = Instance.new("TextLabel")
+        PageTitle.Name = "PageTitle"
+        PageTitle.Parent = TabContent
+        PageTitle.BackgroundTransparency = 1
+        PageTitle.Position = UDim2.new(0, 0, 0, 0)
+        PageTitle.Size = UDim2.new(1, 0, 0, 40)
+        PageTitle.Font = Enum.Font.GothamBold
+        PageTitle.Text = tabConfig.Name
+        PageTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
+        PageTitle.TextSize = 24
+        PageTitle.TextXAlignment = Enum.TextXAlignment.Left
+        PageTitle.ZIndex = 7
         
         local TabObject = {
             NavItem = NavItem,
@@ -656,15 +682,16 @@ function FluentUI:CreateWindow(config)
             Icon = TabIcon,
             Text = TabText,
             Content = TabContent,
+            PageTitle = PageTitle,
             Config = tabConfig,
             Active = false,
-            ElementCount = 0
+            ElementCount = 1 -- Start at 1 because of PageTitle
         }
         
         function TabObject:Activate()
             if self.Active then return end
             
-            PlaySound("Navigation", 0.06, 1.1)
+            PlaySound("Navigation", 0.3, 1.05)
             
             for _, tab in pairs(WindowObject.Tabs) do
                 if tab.Active then
@@ -675,10 +702,10 @@ function FluentUI:CreateWindow(config)
             self.Active = true
             WindowObject.CurrentTab = self
             
-            SmoothTween(self.NavItem, {BackgroundTransparency = 0.6}, 0.2)
-            SmoothTween(self.SelectionIndicator, {Size = UDim2.new(0, 3, 0, 20)}, 0.3, Enum.EasingStyle.Back)
-            SmoothTween(self.Icon, {TextColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush}, 0.2)
-            SmoothTween(self.Text, {TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush}, 0.2)
+            SmoothTween(self.NavItem, {BackgroundTransparency = 0.9}, 0.15)
+            SmoothTween(self.SelectionIndicator, {Size = UDim2.new(0, 3, 1, 0)}, 0.2, Enum.EasingStyle.Cubic)
+            SmoothTween(self.Icon, {TextColor3 = FluentUI.CurrentTheme.SystemAccentColor}, 0.15)
+            SmoothTween(self.Text, {TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush}, 0.15)
             
             self.Content.Visible = true
         end
@@ -686,113 +713,145 @@ function FluentUI:CreateWindow(config)
         function TabObject:Deactivate()
             self.Active = false
             
-            SmoothTween(self.NavItem, {BackgroundTransparency = 1}, 0.2)
-            SmoothTween(self.SelectionIndicator, {Size = UDim2.new(0, 0, 0, 20)}, 0.2)
-            SmoothTween(self.Icon, {TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush}, 0.2)
-            SmoothTween(self.Text, {TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush}, 0.2)
+            SmoothTween(self.NavItem, {BackgroundTransparency = 1}, 0.15)
+            SmoothTween(self.SelectionIndicator, {Size = UDim2.new(0, 0, 1, 0)}, 0.15)
+            SmoothTween(self.Icon, {TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush}, 0.15)
+            SmoothTween(self.Text, {TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush}, 0.15)
             
             self.Content.Visible = false
         end
         
-        -- COMPLETE UI ELEMENTS FOR EXECUTOR
+        -- Microsoft-style UI Elements
         
-        function TabObject:CreateSection(name)
-            local SectionFrame = Instance.new("Frame")
-            SectionFrame.Name = "Section_" .. name
-            SectionFrame.Parent = self.Content
-            SectionFrame.BackgroundTransparency = 1
-            SectionFrame.Position = UDim2.new(0, 0, 0, self.ElementCount * 90)
-            SectionFrame.Size = UDim2.new(1, 0, 0, 36)
-            SectionFrame.ZIndex = 7
+        function TabObject:CreateParagraph(config)
+            config = config or {}
             
-            local SectionLabel = Instance.new("TextLabel")
-            SectionLabel.Parent = SectionFrame
-            SectionLabel.BackgroundTransparency = 1
-            SectionLabel.Position = UDim2.new(0, 0, 0, 0)
-            SectionLabel.Size = UDim2.new(1, 0, 1, 0)
-            SectionLabel.Font = Enum.Font.GothamBold
-            SectionLabel.Text = name
-            SectionLabel.TextColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
-            SectionLabel.TextSize = 15
-            SectionLabel.TextXAlignment = Enum.TextXAlignment.Left
-            SectionLabel.ZIndex = 8
+            local paragraphConfig = {
+                Title = config.Title or "Paragraph",
+                Content = config.Content or "This is a paragraph\nSecond line!"
+            }
             
+            local yPos = self.ElementCount * 64 + 40
             self.ElementCount = self.ElementCount + 1
-            self:UpdateCanvasSize()
             
-            return SectionFrame
+            local ParagraphFrame = Instance.new("Frame")
+            ParagraphFrame.Name = "Paragraph_" .. paragraphConfig.Title
+            ParagraphFrame.Parent = self.Content
+            ParagraphFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
+            ParagraphFrame.BackgroundTransparency = 0
+            ParagraphFrame.BorderSizePixel = 0
+            ParagraphFrame.Position = UDim2.new(0, 0, 0, yPos)
+            ParagraphFrame.Size = UDim2.new(1, -12, 0, 56)
+            ParagraphFrame.ZIndex = 7
+            
+            CreateCorner(6).Parent = ParagraphFrame
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = ParagraphFrame
+            
+            local ParagraphTitle = Instance.new("TextLabel")
+            ParagraphTitle.Parent = ParagraphFrame
+            ParagraphTitle.BackgroundTransparency = 1
+            ParagraphTitle.Position = UDim2.new(0, 16, 0, 8)
+            ParagraphTitle.Size = UDim2.new(1, -32, 0, 16)
+            ParagraphTitle.Font = Enum.Font.GothamMedium
+            ParagraphTitle.Text = paragraphConfig.Title
+            ParagraphTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
+            ParagraphTitle.TextSize = 13
+            ParagraphTitle.TextXAlignment = Enum.TextXAlignment.Left
+            ParagraphTitle.ZIndex = 8
+            
+            local ParagraphContent = Instance.new("TextLabel")
+            ParagraphContent.Parent = ParagraphFrame
+            ParagraphContent.BackgroundTransparency = 1
+            ParagraphContent.Position = UDim2.new(0, 16, 0, 26)
+            ParagraphContent.Size = UDim2.new(1, -32, 0, 24)
+            ParagraphContent.Font = Enum.Font.Gotham
+            ParagraphContent.Text = paragraphConfig.Content
+            ParagraphContent.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            ParagraphContent.TextSize = 11
+            ParagraphContent.TextXAlignment = Enum.TextXAlignment.Left
+            ParagraphContent.TextYAlignment = Enum.TextYAlignment.Top
+            ParagraphContent.TextWrapped = true
+            ParagraphContent.ZIndex = 8
+            
+            self:UpdateCanvasSize()
+            return ParagraphFrame
         end
         
         function TabObject:CreateButton(config)
             config = config or {}
             
             local buttonConfig = {
-                Name = config.Name or "Button",
-                Description = config.Description or "",
+                Title = config.Title or "Button",
+                Description = config.Description or "Very important button",
                 Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 90
+            local yPos = self.ElementCount * 64 + 40
             self.ElementCount = self.ElementCount + 1
             
-            local ButtonCard = Instance.new("Frame")
-            ButtonCard.Name = "ButtonCard_" .. buttonConfig.Name
-            ButtonCard.Parent = self.Content
-            ButtonCard.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-            ButtonCard.BackgroundTransparency = 0.2
-            ButtonCard.BorderSizePixel = 0
-            ButtonCard.Position = UDim2.new(0, 0, 0, yPos)
-            ButtonCard.Size = UDim2.new(1, -8, 0, 80)
-            ButtonCard.ZIndex = 7
+            local ButtonFrame = Instance.new("Frame")
+            ButtonFrame.Name = "Button_" .. buttonConfig.Title
+            ButtonFrame.Parent = self.Content
+            ButtonFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
+            ButtonFrame.BackgroundTransparency = 0
+            ButtonFrame.BorderSizePixel = 0
+            ButtonFrame.Position = UDim2.new(0, 0, 0, yPos)
+            ButtonFrame.Size = UDim2.new(1, -12, 0, 56)
+            ButtonFrame.ZIndex = 7
             
-            CreateCorner(8).Parent = ButtonCard
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.6).Parent = ButtonCard
-            CreateDropShadow(ButtonCard, 2)
-            
-            local Button = Instance.new("TextButton")
-            Button.Name = "Button"
-            Button.Parent = ButtonCard
-            Button.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
-            Button.BorderSizePixel = 0
-            Button.Position = UDim2.new(1, -100, 0, 22)
-            Button.Size = UDim2.new(0, 85, 0, 36)
-            Button.Font = Enum.Font.GothamMedium
-            Button.Text = "Execute"
-            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Button.TextSize = 13
-            Button.ZIndex = 8
-            
-            CreateCorner(6).Parent = Button
-            CreateRevealEffect(Button)
-            CreatePressAnimation(Button)
+            CreateCorner(6).Parent = ButtonFrame
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = ButtonFrame
             
             local ButtonTitle = Instance.new("TextLabel")
-            ButtonTitle.Parent = ButtonCard
+            ButtonTitle.Parent = ButtonFrame
             ButtonTitle.BackgroundTransparency = 1
-            ButtonTitle.Position = UDim2.new(0, 20, 0, 18)
-            ButtonTitle.Size = UDim2.new(0.6, 0, 0, 24)
+            ButtonTitle.Position = UDim2.new(0, 16, 0, 8)
+            ButtonTitle.Size = UDim2.new(0.7, 0, 0, 16)
             ButtonTitle.Font = Enum.Font.GothamMedium
-            ButtonTitle.Text = buttonConfig.Name
+            ButtonTitle.Text = buttonConfig.Title
             ButtonTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            ButtonTitle.TextSize = 14
+            ButtonTitle.TextSize = 13
             ButtonTitle.TextXAlignment = Enum.TextXAlignment.Left
             ButtonTitle.ZIndex = 8
             
-            if buttonConfig.Description ~= "" then
-                local ButtonDesc = Instance.new("TextLabel")
-                ButtonDesc.Parent = ButtonCard
-                ButtonDesc.BackgroundTransparency = 1
-                ButtonDesc.Position = UDim2.new(0, 20, 0, 42)
-                ButtonDesc.Size = UDim2.new(0.6, 0, 0, 20)
-                ButtonDesc.Font = Enum.Font.Gotham
-                ButtonDesc.Text = buttonConfig.Description
-                ButtonDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-                ButtonDesc.TextSize = 11
-                ButtonDesc.TextXAlignment = Enum.TextXAlignment.Left
-                ButtonDesc.ZIndex = 8
-            end
+            local ButtonDesc = Instance.new("TextLabel")
+            ButtonDesc.Parent = ButtonFrame
+            ButtonDesc.BackgroundTransparency = 1
+            ButtonDesc.Position = UDim2.new(0, 16, 0, 26)
+            ButtonDesc.Size = UDim2.new(0.7, 0, 0, 24)
+            ButtonDesc.Font = Enum.Font.Gotham
+            ButtonDesc.Text = buttonConfig.Description
+            ButtonDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            ButtonDesc.TextSize = 11
+            ButtonDesc.TextXAlignment = Enum.TextXAlignment.Left
+            ButtonDesc.TextYAlignment = Enum.TextYAlignment.Top
+            ButtonDesc.TextWrapped = true
+            ButtonDesc.ZIndex = 8
             
-            Button.MouseButton1Click:Connect(function()
+            -- Chevron icon
+            local ChevronIcon = Instance.new("TextLabel")
+            ChevronIcon.Parent = ButtonFrame
+            ChevronIcon.BackgroundTransparency = 1
+            ChevronIcon.Position = UDim2.new(1, -32, 0, 0)
+            ChevronIcon.Size = UDim2.new(0, 24, 1, 0)
+            ChevronIcon.Font = Enum.Font.Gotham
+            ChevronIcon.Text = ">"
+            ChevronIcon.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            ChevronIcon.TextSize = 12
+            ChevronIcon.ZIndex = 8
+            
+            local ButtonClickable = Instance.new("TextButton")
+            ButtonClickable.Name = "ButtonClickable"
+            ButtonClickable.Parent = ButtonFrame
+            ButtonClickable.BackgroundTransparency = 1
+            ButtonClickable.Size = UDim2.new(1, 0, 1, 0)
+            ButtonClickable.Text = ""
+            ButtonClickable.ZIndex = 9
+            
+            CreateRevealEffect(ButtonClickable)
+            CreatePressAnimation(ButtonClickable)
+            
+            ButtonClickable.MouseButton1Click:Connect(function()
                 local success, err = pcall(buttonConfig.Callback)
                 if not success then
                     FluentUI:Notify({
@@ -804,58 +863,87 @@ function FluentUI:CreateWindow(config)
             end)
             
             self:UpdateCanvasSize()
-            return ButtonCard
+            return ButtonFrame
         end
         
         function TabObject:CreateToggle(config)
             config = config or {}
             
             local toggleConfig = {
-                Name = config.Name or "Toggle",
+                Title = config.Title or "Toggle",
                 Description = config.Description or "",
                 Default = config.Default or false,
                 Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 90
+            local yPos = self.ElementCount * 64 + 40
             self.ElementCount = self.ElementCount + 1
             
-            local ToggleCard = Instance.new("Frame")
-            ToggleCard.Name = "ToggleCard_" .. toggleConfig.Name
-            ToggleCard.Parent = self.Content
-            ToggleCard.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-            ToggleCard.BackgroundTransparency = 0.2
-            ToggleCard.BorderSizePixel = 0
-            ToggleCard.Position = UDim2.new(0, 0, 0, yPos)
-            ToggleCard.Size = UDim2.new(1, -8, 0, 80)
-            ToggleCard.ZIndex = 7
+            local ToggleFrame = Instance.new("Frame")
+            ToggleFrame.Name = "Toggle_" .. toggleConfig.Title
+            ToggleFrame.Parent = self.Content
+            ToggleFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
+            ToggleFrame.BackgroundTransparency = 0
+            ToggleFrame.BorderSizePixel = 0
+            ToggleFrame.Position = UDim2.new(0, 0, 0, yPos)
+            ToggleFrame.Size = UDim2.new(1, -12, 0, 56)
+            ToggleFrame.ZIndex = 7
             
-            CreateCorner(8).Parent = ToggleCard
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.6).Parent = ToggleCard
-            CreateDropShadow(ToggleCard, 2)
+            CreateCorner(6).Parent = ToggleFrame
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = ToggleFrame
             
+            local ToggleTitle = Instance.new("TextLabel")
+            ToggleTitle.Parent = ToggleFrame
+            ToggleTitle.BackgroundTransparency = 1
+            ToggleTitle.Position = UDim2.new(0, 16, 0, 8)
+            ToggleTitle.Size = UDim2.new(0.7, 0, 0, 16)
+            ToggleTitle.Font = Enum.Font.GothamMedium
+            ToggleTitle.Text = toggleConfig.Title
+            ToggleTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
+            ToggleTitle.TextSize = 13
+            ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
+            ToggleTitle.ZIndex = 8
+            
+            if toggleConfig.Description ~= "" then
+                local ToggleDesc = Instance.new("TextLabel")
+                ToggleDesc.Parent = ToggleFrame
+                ToggleDesc.BackgroundTransparency = 1
+                ToggleDesc.Position = UDim2.new(0, 16, 0, 26)
+                ToggleDesc.Size = UDim2.new(0.7, 0, 0, 24)
+                ToggleDesc.Font = Enum.Font.Gotham
+                ToggleDesc.Text = toggleConfig.Description
+                ToggleDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+                ToggleDesc.TextSize = 11
+                ToggleDesc.TextXAlignment = Enum.TextXAlignment.Left
+                ToggleDesc.TextYAlignment = Enum.TextYAlignment.Top
+                ToggleDesc.TextWrapped = true
+                ToggleDesc.ZIndex = 8
+            end
+            
+            -- Microsoft-style Toggle Switch
             local ToggleSwitch = Instance.new("Frame")
             ToggleSwitch.Name = "ToggleSwitch"
-            ToggleSwitch.Parent = ToggleCard
-            ToggleSwitch.BackgroundColor3 = toggleConfig.Default and FluentUI.CurrentTheme.SystemControlHighlightAccentBrush or FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            ToggleSwitch.Parent = ToggleFrame
+            ToggleSwitch.BackgroundColor3 = toggleConfig.Default and FluentUI.CurrentTheme.SystemAccentColor or FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
             ToggleSwitch.BorderSizePixel = 0
-            ToggleSwitch.Position = UDim2.new(1, -70, 0, 25)
-            ToggleSwitch.Size = UDim2.new(0, 60, 0, 30)
+            ToggleSwitch.Position = UDim2.new(1, -60, 0.5, -10)
+            ToggleSwitch.Size = UDim2.new(0, 40, 0, 20)
             ToggleSwitch.ZIndex = 8
             
-            CreateCorner(15).Parent = ToggleSwitch
+            CreateCorner(10).Parent = ToggleSwitch
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.7).Parent = ToggleSwitch
             
             local ToggleKnob = Instance.new("Frame")
             ToggleKnob.Name = "ToggleKnob"
             ToggleKnob.Parent = ToggleSwitch
             ToggleKnob.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ToggleKnob.BorderSizePixel = 0
-            ToggleKnob.Position = UDim2.new(0, toggleConfig.Default and 32 or 2, 0, 2)
-            ToggleKnob.Size = UDim2.new(0, 26, 0, 26)
+            ToggleKnob.Position = UDim2.new(0, toggleConfig.Default and 22 or 2, 0, 2)
+            ToggleKnob.Size = UDim2.new(0, 16, 0, 16)
             ToggleKnob.ZIndex = 9
             
-            CreateCorner(13).Parent = ToggleKnob
-            CreateDropShadow(ToggleKnob, 2)
+            CreateCorner(8).Parent = ToggleKnob
+            CreateDropShadow(ToggleKnob, 1)
             
             local ToggleButton = Instance.new("TextButton")
             ToggleButton.Name = "ToggleButton"
@@ -865,44 +953,18 @@ function FluentUI:CreateWindow(config)
             ToggleButton.Text = ""
             ToggleButton.ZIndex = 10
             
-            local ToggleTitle = Instance.new("TextLabel")
-            ToggleTitle.Parent = ToggleCard
-            ToggleTitle.BackgroundTransparency = 1
-            ToggleTitle.Position = UDim2.new(0, 20, 0, 18)
-            ToggleTitle.Size = UDim2.new(0.6, 0, 0, 24)
-            ToggleTitle.Font = Enum.Font.GothamMedium
-            ToggleTitle.Text = toggleConfig.Name
-            ToggleTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            ToggleTitle.TextSize = 14
-            ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
-            ToggleTitle.ZIndex = 8
-            
-            if toggleConfig.Description ~= "" then
-                local ToggleDesc = Instance.new("TextLabel")
-                ToggleDesc.Parent = ToggleCard
-                ToggleDesc.BackgroundTransparency = 1
-                ToggleDesc.Position = UDim2.new(0, 20, 0, 42)
-                ToggleDesc.Size = UDim2.new(0.6, 0, 0, 20)
-                ToggleDesc.Font = Enum.Font.Gotham
-                ToggleDesc.Text = toggleConfig.Description
-                ToggleDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-                ToggleDesc.TextSize = 11
-                ToggleDesc.TextXAlignment = Enum.TextXAlignment.Left
-                ToggleDesc.ZIndex = 8
-            end
-            
             local isToggled = toggleConfig.Default
             
             ToggleButton.MouseButton1Click:Connect(function()
                 isToggled = not isToggled
-                PlaySound("Click", 0.05, isToggled and 1.2 or 0.8)
+                PlaySound("Click", 0.2, isToggled and 1.1 or 0.9)
                 
                 SmoothTween(ToggleSwitch, {
-                    BackgroundColor3 = isToggled and FluentUI.CurrentTheme.SystemControlHighlightAccentBrush or FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+                    BackgroundColor3 = isToggled and FluentUI.CurrentTheme.SystemAccentColor or FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
                 }, 0.2)
                 
                 SmoothTween(ToggleKnob, {
-                    Position = UDim2.new(0, isToggled and 32 or 2, 0, 2)
+                    Position = UDim2.new(0, isToggled and 22 or 2, 0, 2)
                 }, 0.2, Enum.EasingStyle.Cubic)
                 
                 local success, err = pcall(toggleConfig.Callback, isToggled)
@@ -916,15 +978,15 @@ function FluentUI:CreateWindow(config)
             end)
             
             self:UpdateCanvasSize()
-            return ToggleCard
+            return ToggleFrame
         end
         
         function TabObject:CreateSlider(config)
             config = config or {}
             
             local sliderConfig = {
-                Name = config.Name or "Slider",
-                Description = config.Description or "",
+                Title = config.Title or "Slider",
+                Description = config.Description or "This is a slider",
                 Min = config.Min or 0,
                 Max = config.Max or 100,
                 Default = config.Default or 50,
@@ -932,101 +994,102 @@ function FluentUI:CreateWindow(config)
                 Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 90
+            local yPos = self.ElementCount * 64 + 40
             self.ElementCount = self.ElementCount + 1
             
-            local SliderCard = Instance.new("Frame")
-            SliderCard.Name = "SliderCard_" .. sliderConfig.Name
-            SliderCard.Parent = self.Content
-            SliderCard.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-            SliderCard.BackgroundTransparency = 0.2
-            SliderCard.BorderSizePixel = 0
-            SliderCard.Position = UDim2.new(0, 0, 0, yPos)
-            SliderCard.Size = UDim2.new(1, -8, 0, 80)
-            SliderCard.ZIndex = 7
+            local SliderFrame = Instance.new("Frame")
+            SliderFrame.Name = "Slider_" .. sliderConfig.Title
+            SliderFrame.Parent = self.Content
+            SliderFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
+            SliderFrame.BackgroundTransparency = 0
+            SliderFrame.BorderSizePixel = 0
+            SliderFrame.Position = UDim2.new(0, 0, 0, yPos)
+            SliderFrame.Size = UDim2.new(1, -12, 0, 56)
+            SliderFrame.ZIndex = 7
             
-            CreateCorner(8).Parent = SliderCard
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.6).Parent = SliderCard
-            CreateDropShadow(SliderCard, 2)
+            CreateCorner(6).Parent = SliderFrame
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = SliderFrame
             
             local SliderTitle = Instance.new("TextLabel")
-            SliderTitle.Parent = SliderCard
+            SliderTitle.Parent = SliderFrame
             SliderTitle.BackgroundTransparency = 1
-            SliderTitle.Position = UDim2.new(0, 20, 0, 12)
-            SliderTitle.Size = UDim2.new(0.5, 0, 0, 20)
+            SliderTitle.Position = UDim2.new(0, 16, 0, 8)
+            SliderTitle.Size = UDim2.new(0.7, 0, 0, 16)
             SliderTitle.Font = Enum.Font.GothamMedium
-            SliderTitle.Text = sliderConfig.Name
+            SliderTitle.Text = sliderConfig.Title
             SliderTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            SliderTitle.TextSize = 14
+            SliderTitle.TextSize = 13
             SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
             SliderTitle.ZIndex = 8
             
-            local ValueLabel = Instance.new("TextLabel")
-            ValueLabel.Parent = SliderCard
-            ValueLabel.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
-            ValueLabel.BorderSizePixel = 0
-            ValueLabel.Position = UDim2.new(1, -70, 0, 12)
-            ValueLabel.Size = UDim2.new(0, 60, 0, 20)
-            ValueLabel.Font = Enum.Font.GothamMedium
-            ValueLabel.Text = tostring(sliderConfig.Default)
-            ValueLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-            ValueLabel.TextSize = 12
-            ValueLabel.ZIndex = 8
-            
-            CreateCorner(4).Parent = ValueLabel
+            -- Value display
+            local ValueDisplay = Instance.new("TextLabel")
+            ValueDisplay.Parent = SliderFrame
+            ValueDisplay.BackgroundTransparency = 1
+            ValueDisplay.Position = UDim2.new(1, -50, 0, 8)
+            ValueDisplay.Size = UDim2.new(0, 40, 0, 16)
+            ValueDisplay.Font = Enum.Font.GothamMedium
+            ValueDisplay.Text = tostring(sliderConfig.Default)
+            ValueDisplay.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            ValueDisplay.TextSize = 12
+            ValueDisplay.TextXAlignment = Enum.TextXAlignment.Right
+            ValueDisplay.ZIndex = 8
             
             if sliderConfig.Description ~= "" then
                 local SliderDesc = Instance.new("TextLabel")
-                SliderDesc.Parent = SliderCard
+                SliderDesc.Parent = SliderFrame
                 SliderDesc.BackgroundTransparency = 1
-                SliderDesc.Position = UDim2.new(0, 20, 0, 32)
-                SliderDesc.Size = UDim2.new(0.7, 0, 0, 15)
+                SliderDesc.Position = UDim2.new(0, 16, 0, 26)
+                SliderDesc.Size = UDim2.new(0.7, 0, 0, 12)
                 SliderDesc.Font = Enum.Font.Gotham
                 SliderDesc.Text = sliderConfig.Description
-                SliderDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
+                SliderDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
                 SliderDesc.TextSize = 11
                 SliderDesc.TextXAlignment = Enum.TextXAlignment.Left
                 SliderDesc.ZIndex = 8
             end
             
+            -- Slider Track
             local SliderTrack = Instance.new("Frame")
             SliderTrack.Name = "SliderTrack"
-            SliderTrack.Parent = SliderCard
-            SliderTrack.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush
+            SliderTrack.Parent = SliderFrame
+            SliderTrack.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            SliderTrack.BackgroundTransparency = 0.3
             SliderTrack.BorderSizePixel = 0
-            SliderTrack.Position = UDim2.new(0, 20, 0, 55)
-            SliderTrack.Size = UDim2.new(1, -40, 0, 6)
+            SliderTrack.Position = UDim2.new(0, 16, 1, -12)
+            SliderTrack.Size = UDim2.new(1, -32, 0, 4)
             SliderTrack.ZIndex = 8
             
-            CreateCorner(3).Parent = SliderTrack
+            CreateCorner(2).Parent = SliderTrack
             
             local SliderFill = Instance.new("Frame")
             SliderFill.Name = "SliderFill"
             SliderFill.Parent = SliderTrack
-            SliderFill.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
+            SliderFill.BackgroundColor3 = FluentUI.CurrentTheme.SystemAccentColor
             SliderFill.BorderSizePixel = 0
             SliderFill.Size = UDim2.new((sliderConfig.Default - sliderConfig.Min) / (sliderConfig.Max - sliderConfig.Min), 0, 1, 0)
             SliderFill.ZIndex = 9
             
-            CreateCorner(3).Parent = SliderFill
+            CreateCorner(2).Parent = SliderFill
             
             local SliderKnob = Instance.new("Frame")
             SliderKnob.Name = "SliderKnob"
             SliderKnob.Parent = SliderTrack
-            SliderKnob.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
+            SliderKnob.BackgroundColor3 = FluentUI.CurrentTheme.SystemAccentColor
             SliderKnob.BorderSizePixel = 0
-            SliderKnob.Position = UDim2.new((sliderConfig.Default - sliderConfig.Min) / (sliderConfig.Max - sliderConfig.Min), -10, 0.5, -10)
-            SliderKnob.Size = UDim2.new(0, 20, 0, 20)
+            SliderKnob.Position = UDim2.new((sliderConfig.Default - sliderConfig.Min) / (sliderConfig.Max - sliderConfig.Min), -8, 0.5, -8)
+            SliderKnob.Size = UDim2.new(0, 16, 0, 16)
             SliderKnob.ZIndex = 10
             
-            CreateCorner(10).Parent = SliderKnob
-            CreateDropShadow(SliderKnob, 3)
+            CreateCorner(8).Parent = SliderKnob
+            CreateDropShadow(SliderKnob, 2)
             
             local SliderButton = Instance.new("TextButton")
             SliderButton.Name = "SliderButton"
             SliderButton.Parent = SliderTrack
             SliderButton.BackgroundTransparency = 1
-            SliderButton.Size = UDim2.new(1, 0, 1, 0)
+            SliderButton.Size = UDim2.new(1, 0, 3, 0)
+            SliderButton.Position = UDim2.new(0, 0, -1, 0)
             SliderButton.Text = ""
             SliderButton.ZIndex = 11
             
@@ -1046,9 +1109,9 @@ function FluentUI:CreateWindow(config)
                 local finalPercent = (currentValue - sliderConfig.Min) / (sliderConfig.Max - sliderConfig.Min)
                 
                 SmoothTween(SliderFill, {Size = UDim2.new(finalPercent, 0, 1, 0)}, 0.1)
-                SmoothTween(SliderKnob, {Position = UDim2.new(finalPercent, -10, 0.5, -10)}, 0.1)
+                SmoothTween(SliderKnob, {Position = UDim2.new(finalPercent, -8, 0.5, -8)}, 0.1)
                 
-                ValueLabel.Text = tostring(currentValue)
+                ValueDisplay.Text = tostring(currentValue)
                 
                 local success, err = pcall(sliderConfig.Callback, currentValue)
                 if not success then
@@ -1063,7 +1126,7 @@ function FluentUI:CreateWindow(config)
             SliderButton.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     isDragging = true
-                    PlaySound("Click", 0.03, 1.1)
+                    PlaySound("Click", 0.1, 1.05)
                     UpdateSlider(input)
                 end
             end)
@@ -1081,136 +1144,211 @@ function FluentUI:CreateWindow(config)
             end)
             
             self:UpdateCanvasSize()
-            return SliderCard
+            return SliderFrame
         end
         
         function TabObject:CreateDropdown(config)
             config = config or {}
             
             local dropdownConfig = {
-                Name = config.Name or "Dropdown",
-                Description = config.Description or "",
-                Options = config.Options or {"Option 1", "Option 2", "Option 3"},
+                Title = config.Title or "Dropdown",
+                Description = config.Description or "You can select multiple values",
+                Options = config.Options or {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven"},
                 Default = config.Default or config.Options[1],
+                Multi = config.Multi or false,
                 Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 90
+            local yPos = self.ElementCount * 64 + 40
             self.ElementCount = self.ElementCount + 1
             
-            local DropdownCard = Instance.new("Frame")
-            DropdownCard.Name = "DropdownCard_" .. dropdownConfig.Name
-            DropdownCard.Parent = self.Content
-            DropdownCard.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-            DropdownCard.BackgroundTransparency = 0.2
-            DropdownCard.BorderSizePixel = 0
-            DropdownCard.Position = UDim2.new(0, 0, 0, yPos)
-            DropdownCard.Size = UDim2.new(1, -8, 0, 80)
-            DropdownCard.ZIndex = 7
-            DropdownCard.ClipsDescendants = false
+            local DropdownFrame = Instance.new("Frame")
+            DropdownFrame.Name = "Dropdown_" .. dropdownConfig.Title
+            DropdownFrame.Parent = self.Content
+            DropdownFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
+            DropdownFrame.BackgroundTransparency = 0
+            DropdownFrame.BorderSizePixel = 0
+            DropdownFrame.Position = UDim2.new(0, 0, 0, yPos)
+            DropdownFrame.Size = UDim2.new(1, -12, 0, 56)
+            DropdownFrame.ZIndex = 7
+            DropdownFrame.ClipsDescendants = false
             
-            CreateCorner(8).Parent = DropdownCard
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.6).Parent = DropdownCard
-            CreateDropShadow(DropdownCard, 2)
+            CreateCorner(6).Parent = DropdownFrame
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = DropdownFrame
             
             local DropdownTitle = Instance.new("TextLabel")
-            DropdownTitle.Parent = DropdownCard
+            DropdownTitle.Parent = DropdownFrame
             DropdownTitle.BackgroundTransparency = 1
-            DropdownTitle.Position = UDim2.new(0, 20, 0, 12)
-            DropdownTitle.Size = UDim2.new(0.4, 0, 0, 20)
+            DropdownTitle.Position = UDim2.new(0, 16, 0, 8)
+            DropdownTitle.Size = UDim2.new(0.7, 0, 0, 16)
             DropdownTitle.Font = Enum.Font.GothamMedium
-            DropdownTitle.Text = dropdownConfig.Name
+            DropdownTitle.Text = dropdownConfig.Title
             DropdownTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            DropdownTitle.TextSize = 14
+            DropdownTitle.TextSize = 13
             DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
             DropdownTitle.ZIndex = 8
             
             if dropdownConfig.Description ~= "" then
                 local DropdownDesc = Instance.new("TextLabel")
-                DropdownDesc.Parent = DropdownCard
+                DropdownDesc.Parent = DropdownFrame
                 DropdownDesc.BackgroundTransparency = 1
-                DropdownDesc.Position = UDim2.new(0, 20, 0, 32)
-                DropdownDesc.Size = UDim2.new(0.4, 0, 0, 15)
+                DropdownDesc.Position = UDim2.new(0, 16, 0, 26)
+                DropdownDesc.Size = UDim2.new(0.7, 0, 0, 24)
                 DropdownDesc.Font = Enum.Font.Gotham
                 DropdownDesc.Text = dropdownConfig.Description
-                DropdownDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
+                DropdownDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
                 DropdownDesc.TextSize = 11
                 DropdownDesc.TextXAlignment = Enum.TextXAlignment.Left
+                DropdownDesc.TextYAlignment = Enum.TextYAlignment.Top
+                DropdownDesc.TextWrapped = true
                 DropdownDesc.ZIndex = 8
             end
             
+            -- Current selection display
+            local CurrentSelection = Instance.new("TextLabel")
+            CurrentSelection.Parent = DropdownFrame
+            CurrentSelection.BackgroundTransparency = 1
+            CurrentSelection.Position = UDim2.new(1, -120, 0, 8)
+            CurrentSelection.Size = UDim2.new(0, 100, 0, 16)
+            CurrentSelection.Font = Enum.Font.GothamMedium
+            CurrentSelection.Text = dropdownConfig.Default
+            CurrentSelection.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            CurrentSelection.TextSize = 12
+            CurrentSelection.TextXAlignment = Enum.TextXAlignment.Right
+            CurrentSelection.ZIndex = 8
+            
+            -- Chevron icon
+            local ChevronIcon = Instance.new("TextLabel")
+            ChevronIcon.Parent = DropdownFrame
+            ChevronIcon.BackgroundTransparency = 1
+            ChevronIcon.Position = UDim2.new(1, -32, 0, 0)
+            ChevronIcon.Size = UDim2.new(0, 24, 1, 0)
+            ChevronIcon.Font = Enum.Font.Gotham
+            ChevronIcon.Text = "⌄"
+            ChevronIcon.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            ChevronIcon.TextSize = 12
+            ChevronIcon.ZIndex = 8
+            
             local DropdownButton = Instance.new("TextButton")
             DropdownButton.Name = "DropdownButton"
-            DropdownButton.Parent = DropdownCard
-            DropdownButton.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush
-            DropdownButton.BorderSizePixel = 0
-            DropdownButton.Position = UDim2.new(0.5, 10, 0, 22)
-            DropdownButton.Size = UDim2.new(0.5, -30, 0, 36)
-            DropdownButton.Font = Enum.Font.GothamMedium
-            DropdownButton.Text = dropdownConfig.Default .. " ⌄"
-            DropdownButton.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            DropdownButton.TextSize = 12
-            DropdownButton.ZIndex = 8
+            DropdownButton.Parent = DropdownFrame
+            DropdownButton.BackgroundTransparency = 1
+            DropdownButton.Size = UDim2.new(1, 0, 1, 0)
+            DropdownButton.Text = ""
+            DropdownButton.ZIndex = 9
             
-            CreateCorner(6).Parent = DropdownButton
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.5).Parent = DropdownButton
             CreateRevealEffect(DropdownButton)
+            CreatePressAnimation(DropdownButton)
             
+            -- Dropdown List
             local DropdownList = Instance.new("Frame")
             DropdownList.Name = "DropdownList"
-            DropdownList.Parent = DropdownCard
+            DropdownList.Parent = DropdownFrame
             DropdownList.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
             DropdownList.BorderSizePixel = 0
-            DropdownList.Position = UDim2.new(0.5, 10, 0, 62)
-            DropdownList.Size = UDim2.new(0.5, -30, 0, 0)
+            DropdownList.Position = UDim2.new(0, 0, 1, 4)
+            DropdownList.Size = UDim2.new(1, 0, 0, 0)
             DropdownList.Visible = false
             DropdownList.ZIndex = 20
             DropdownList.ClipsDescendants = true
             
             CreateCorner(6).Parent = DropdownList
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlHighlightAccentBrush, 0.4).Parent = DropdownList
-            CreateDropShadow(DropdownList, 4)
+            CreateStroke(1, FluentUI.CurrentTheme.SystemAccentColor, 0.5).Parent = DropdownList
+            CreateDropShadow(DropdownList, 8)
             CreateAcrylicEffect(DropdownList)
             
+            local DropdownScrollFrame = Instance.new("ScrollingFrame")
+            DropdownScrollFrame.Parent = DropdownList
+            DropdownScrollFrame.BackgroundTransparency = 1
+            DropdownScrollFrame.BorderSizePixel = 0
+            DropdownScrollFrame.Size = UDim2.new(1, 0, 1, 0)
+            DropdownScrollFrame.ScrollBarThickness = 2
+            DropdownScrollFrame.ScrollBarImageColor3 = FluentUI.CurrentTheme.SystemAccentColor
+            DropdownScrollFrame.ScrollBarImageTransparency = 0.6
+            DropdownScrollFrame.CanvasSize = UDim2.new(0, 0, 0, #dropdownConfig.Options * 28)
+            DropdownScrollFrame.ZIndex = 21
+            
             local isOpen = false
-            local selectedOption = dropdownConfig.Default
+            local selectedOptions = dropdownConfig.Multi and {dropdownConfig.Default} or dropdownConfig.Default
             
             for i, option in ipairs(dropdownConfig.Options) do
+                local OptionFrame = Instance.new("Frame")
+                OptionFrame.Name = "Option_" .. option
+                OptionFrame.Parent = DropdownScrollFrame
+                OptionFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                OptionFrame.BackgroundTransparency = 1
+                OptionFrame.BorderSizePixel = 0
+                OptionFrame.Position = UDim2.new(0, 0, 0, (i-1) * 28)
+                OptionFrame.Size = UDim2.new(1, 0, 0, 28)
+                OptionFrame.ZIndex = 22
+                
                 local OptionButton = Instance.new("TextButton")
-                OptionButton.Name = "Option_" .. option
-                OptionButton.Parent = DropdownList
-                OptionButton.BackgroundColor3 = option == selectedOption and FluentUI.CurrentTheme.SystemControlHighlightAccentBrush or Color3.fromRGB(0, 0, 0)
-                OptionButton.BackgroundTransparency = option == selectedOption and 0.2 or 1
-                OptionButton.BorderSizePixel = 0
-                OptionButton.Position = UDim2.new(0, 0, 0, (i-1) * 32)
-                OptionButton.Size = UDim2.new(1, 0, 0, 32)
-                OptionButton.Font = Enum.Font.GothamMedium
+                OptionButton.Name = "OptionButton"
+                OptionButton.Parent = OptionFrame
+                OptionButton.BackgroundTransparency = 1
+                OptionButton.Size = UDim2.new(1, 0, 1, 0)
+                OptionButton.Font = Enum.Font.Gotham
                 OptionButton.Text = option
                 OptionButton.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
                 OptionButton.TextSize = 11
-                OptionButton.ZIndex = 21
+                OptionButton.TextXAlignment = Enum.TextXAlignment.Left
+                OptionButton.ZIndex = 23
+                
+                -- Selection indicator
+                local SelectionIndicator = Instance.new("Frame")
+                SelectionIndicator.Name = "SelectionIndicator"
+                SelectionIndicator.Parent = OptionFrame
+                SelectionIndicator.BackgroundColor3 = FluentUI.CurrentTheme.SystemAccentColor
+                SelectionIndicator.BorderSizePixel = 0
+                SelectionIndicator.Position = UDim2.new(0, 0, 0, 0)
+                SelectionIndicator.Size = UDim2.new(0, 0, 1, 0)
+                SelectionIndicator.ZIndex = 22
                 
                 CreateRevealEffect(OptionButton)
                 
+                -- Check if option is selected
+                if (dropdownConfig.Multi and table.find(selectedOptions, option)) or (not dropdownConfig.Multi and selectedOptions == option) then
+                    SelectionIndicator.Size = UDim2.new(0, 3, 1, 0)
+                end
+                
                 OptionButton.MouseButton1Click:Connect(function()
-                    selectedOption = option
-                    DropdownButton.Text = option .. " ⌄"
-                    PlaySound("Click", 0.05, 1.0)
+                    PlaySound("Click", 0.2, 1.05)
                     
-                    for _, btn in pairs(DropdownList:GetChildren()) do
-                        if btn:IsA("TextButton") then
-                            SmoothTween(btn, {
-                                BackgroundTransparency = btn.Text == option and 0.2 or 1
-                            })
+                    if dropdownConfig.Multi then
+                        local index = table.find(selectedOptions, option)
+                        if index then
+                            table.remove(selectedOptions, index)
+                            SmoothTween(SelectionIndicator, {Size = UDim2.new(0, 0, 1, 0)}, 0.15)
+                        else
+                            table.insert(selectedOptions, option)
+                            SmoothTween(SelectionIndicator, {Size = UDim2.new(0, 3, 1, 0)}, 0.15)
                         end
+                        CurrentSelection.Text = #selectedOptions > 0 and #selectedOptions .. " selected" or "None"
+                    else
+                        selectedOptions = option
+                        CurrentSelection.Text = option
+                        
+                        -- Update all indicators
+                        for _, optFrame in pairs(DropdownScrollFrame:GetChildren()) do
+                            if optFrame:IsA("Frame") then
+                                local indicator = optFrame:FindFirstChild("SelectionIndicator")
+                                if indicator then
+                                    SmoothTween(indicator, {
+                                        Size = UDim2.new(0, optFrame.Name == "Option_" .. option and 3 or 0, 1, 0)
+                                    }, 0.15)
+                                end
+                            end
+                        end
+                        
+                        -- Close dropdown
+                        isOpen = false
+                        ChevronIcon.Text = "⌄"
+                        SmoothTween(DropdownList, {Size = UDim2.new(1, 0, 0, 0)}, 0.2, nil, nil, function()
+                            DropdownList.Visible = false
+                        end)
                     end
                     
-                    isOpen = false
-                    SmoothTween(DropdownList, {Size = UDim2.new(0.5, -30, 0, 0)}, 0.2, nil, nil, function()
-                        DropdownList.Visible = false
-                    end)
-                    
-                    local success, err = pcall(dropdownConfig.Callback, option)
+                    local success, err = pcall(dropdownConfig.Callback, selectedOptions)
                     if not success then
                         FluentUI:Notify({
                             Title = "Error",
@@ -1223,309 +1361,90 @@ function FluentUI:CreateWindow(config)
             
             DropdownButton.MouseButton1Click:Connect(function()
                 isOpen = not isOpen
-                PlaySound("Click", 0.05, 1.0)
+                PlaySound("Click", 0.2, 1.0)
                 
                 if isOpen then
-                    DropdownButton.Text = selectedOption .. " ⌃"
+                    ChevronIcon.Text = "⌃"
                     DropdownList.Visible = true
-                    SmoothTween(DropdownList, {Size = UDim2.new(0.5, -30, 0, #dropdownConfig.Options * 32)}, 0.2, Enum.EasingStyle.Back)
+                    local listHeight = math.min(#dropdownConfig.Options * 28, 200)
+                    SmoothTween(DropdownList, {Size = UDim2.new(1, 0, 0, listHeight)}, 0.2, Enum.EasingStyle.Cubic)
                 else
-                    DropdownButton.Text = selectedOption .. " ⌄"
-                    SmoothTween(DropdownList, {Size = UDim2.new(0.5, -30, 0, 0)}, 0.2, nil, nil, function()
+                    ChevronIcon.Text = "⌄"
+                    SmoothTween(DropdownList, {Size = UDim2.new(1, 0, 0, 0)}, 0.2, nil, nil, function()
                         DropdownList.Visible = false
                     end)
                 end
             end)
             
             self:UpdateCanvasSize()
-            return DropdownCard
+            return DropdownFrame
         end
         
-        function TabObject:CreateTextbox(config)
-            config = config or {}
-            
-            local textboxConfig = {
-                Name = config.Name or "Textbox",
-                Description = config.Description or "",
-                PlaceholderText = config.PlaceholderText or "Enter text...",
-                Callback = config.Callback or function() end
-            }
-            
-            local yPos = self.ElementCount * 90
-            self.ElementCount = self.ElementCount + 1
-            
-            local TextboxCard = Instance.new("Frame")
-            TextboxCard.Name = "TextboxCard_" .. textboxConfig.Name
-            TextboxCard.Parent = self.Content
-            TextboxCard.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-            TextboxCard.BackgroundTransparency = 0.2
-            TextboxCard.BorderSizePixel = 0
-            TextboxCard.Position = UDim2.new(0, 0, 0, yPos)
-            TextboxCard.Size = UDim2.new(1, -8, 0, 80)
-            TextboxCard.ZIndex = 7
-            
-            CreateCorner(8).Parent = TextboxCard
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.6).Parent = TextboxCard
-            CreateDropShadow(TextboxCard, 2)
-            
-            local TextboxTitle = Instance.new("TextLabel")
-            TextboxTitle.Parent = TextboxCard
-            TextboxTitle.BackgroundTransparency = 1
-            TextboxTitle.Position = UDim2.new(0, 20, 0, 12)
-            TextboxTitle.Size = UDim2.new(0.4, 0, 0, 20)
-            TextboxTitle.Font = Enum.Font.GothamMedium
-            TextboxTitle.Text = textboxConfig.Name
-            TextboxTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            TextboxTitle.TextSize = 14
-            TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
-            TextboxTitle.ZIndex = 8
-            
-            if textboxConfig.Description ~= "" then
-                local TextboxDesc = Instance.new("TextLabel")
-                TextboxDesc.Parent = TextboxCard
-                TextboxDesc.BackgroundTransparency = 1
-                TextboxDesc.Position = UDim2.new(0, 20, 0, 32)
-                TextboxDesc.Size = UDim2.new(0.4, 0, 0, 15)
-                TextboxDesc.Font = Enum.Font.Gotham
-                TextboxDesc.Text = textboxConfig.Description
-                TextboxDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-                TextboxDesc.TextSize = 11
-                TextboxDesc.TextXAlignment = Enum.TextXAlignment.Left
-                TextboxDesc.ZIndex = 8
-            end
-            
-            local Textbox = Instance.new("TextBox")
-            Textbox.Name = "Textbox"
-            Textbox.Parent = TextboxCard
-            Textbox.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush
-            Textbox.BorderSizePixel = 0
-            Textbox.Position = UDim2.new(0.5, 10, 0, 22)
-            Textbox.Size = UDim2.new(0.5, -30, 0, 36)
-            Textbox.Font = Enum.Font.GothamMedium
-            Textbox.PlaceholderText = textboxConfig.PlaceholderText
-            Textbox.PlaceholderColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseLowBrush
-            Textbox.Text = ""
-            Textbox.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            Textbox.TextSize = 12
-            Textbox.ZIndex = 8
-            
-            CreateCorner(6).Parent = Textbox
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.5).Parent = Textbox
-            
-            Textbox.Focused:Connect(function()
-                SmoothTween(Textbox:FindFirstChild("UIStroke"), {
-                    Color = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush,
-                    Transparency = 0
-                }, 0.2)
-            end)
-            
-            Textbox.FocusLost:Connect(function(enterPressed)
-                SmoothTween(Textbox:FindFirstChild("UIStroke"), {
-                    Color = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush,
-                    Transparency = 0.5
-                }, 0.2)
-                
-                if enterPressed then
-                    local success, err = pcall(textboxConfig.Callback, Textbox.Text)
-                    if not success then
-                        FluentUI:Notify({
-                            Title = "Error",
-                            Description = "Textbox error: " .. tostring(err),
-                            Type = "Error"
-                        })
-                    end
-                end
-            end)
-            
-            self:UpdateCanvasSize()
-            return TextboxCard
-        end
-        
-        function TabObject:CreateKeybind(config)
-            config = config or {}
-            
-            local keybindConfig = {
-                Name = config.Name or "Keybind",
-                Description = config.Description or "",
-                Default = config.Default or Enum.KeyCode.E,
-                Callback = config.Callback or function() end
-            }
-            
-            local yPos = self.ElementCount * 90
-            self.ElementCount = self.ElementCount + 1
-            
-            local KeybindCard = Instance.new("Frame")
-            KeybindCard.Name = "KeybindCard_" .. keybindConfig.Name
-            KeybindCard.Parent = self.Content
-            KeybindCard.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-            KeybindCard.BackgroundTransparency = 0.2
-            KeybindCard.BorderSizePixel = 0
-            KeybindCard.Position = UDim2.new(0, 0, 0, yPos)
-            KeybindCard.Size = UDim2.new(1, -8, 0, 80)
-            KeybindCard.ZIndex = 7
-            
-            CreateCorner(8).Parent = KeybindCard
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.6).Parent = KeybindCard
-            CreateDropShadow(KeybindCard, 2)
-            
-            local KeybindTitle = Instance.new("TextLabel")
-            KeybindTitle.Parent = KeybindCard
-            KeybindTitle.BackgroundTransparency = 1
-            KeybindTitle.Position = UDim2.new(0, 20, 0, 18)
-            KeybindTitle.Size = UDim2.new(0.6, 0, 0, 24)
-            KeybindTitle.Font = Enum.Font.GothamMedium
-            KeybindTitle.Text = keybindConfig.Name
-            KeybindTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            KeybindTitle.TextSize = 14
-            KeybindTitle.TextXAlignment = Enum.TextXAlignment.Left
-            KeybindTitle.ZIndex = 8
-            
-            if keybindConfig.Description ~= "" then
-                local KeybindDesc = Instance.new("TextLabel")
-                KeybindDesc.Parent = KeybindCard
-                KeybindDesc.BackgroundTransparency = 1
-                KeybindDesc.Position = UDim2.new(0, 20, 0, 42)
-                KeybindDesc.Size = UDim2.new(0.6, 0, 0, 20)
-                KeybindDesc.Font = Enum.Font.Gotham
-                KeybindDesc.Text = keybindConfig.Description
-                KeybindDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-                KeybindDesc.TextSize = 11
-                KeybindDesc.TextXAlignment = Enum.TextXAlignment.Left
-                KeybindDesc.ZIndex = 8
-            end
-            
-            local KeybindButton = Instance.new("TextButton")
-            KeybindButton.Name = "KeybindButton"
-            KeybindButton.Parent = KeybindCard
-            KeybindButton.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush
-            KeybindButton.BorderSizePixel = 0
-            KeybindButton.Position = UDim2.new(1, -100, 0, 22)
-            KeybindButton.Size = UDim2.new(0, 85, 0, 36)
-            KeybindButton.Font = Enum.Font.GothamMedium
-            KeybindButton.Text = keybindConfig.Default.Name
-            KeybindButton.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            KeybindButton.TextSize = 12
-            KeybindButton.ZIndex = 8
-            
-            CreateCorner(6).Parent = KeybindButton
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.5).Parent = KeybindButton
-            CreateRevealEffect(KeybindButton)
-            CreatePressAnimation(KeybindButton)
-            
-            local currentKey = keybindConfig.Default
-            local listening = false
-            
-            KeybindButton.MouseButton1Click:Connect(function()
-                if listening then return end
-                
-                listening = true
-                KeybindButton.Text = "Press key..."
-                KeybindButton.TextColor3 = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush
-                PlaySound("Click", 0.05, 1.2)
-                
-                local connection
-                connection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
-                    if gameProcessed then return end
-                    
-                    if input.UserInputType == Enum.UserInputType.Keyboard then
-                        currentKey = input.KeyCode
-                        KeybindButton.Text = input.KeyCode.Name
-                        KeybindButton.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-                        listening = false
-                        connection:Disconnect()
-                        
-                        PlaySound("Success", 0.05, 1.1)
-                    end
-                end)
-            end)
-            
-            -- Bind the keybind functionality
-            local keybindConnection
-            keybindConnection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
-                if gameProcessed then return end
-                
-                if input.KeyCode == currentKey then
-                    local success, err = pcall(keybindConfig.Callback)
-                    if not success then
-                        FluentUI:Notify({
-                            Title = "Error", 
-                            Description = "Keybind error: " .. tostring(err),
-                            Type = "Error"
-                        })
-                    end
-                end
-            end)
-            
-            table.insert(FluentUI.Connections, keybindConnection)
-            
-            self:UpdateCanvasSize()
-            return KeybindCard
-        end
-        
-        function TabObject:CreateColorPicker(config)
+        function TabObject:CreateColorpicker(config)
             config = config or {}
             
             local colorConfig = {
-                Name = config.Name or "Color Picker",
-                Description = config.Description or "",
-                Default = config.Default or Color3.fromRGB(255, 255, 255),
+                Title = config.Title or "Colorpicker",
+                Description = config.Description or "but you can change the transparency",
+                Default = config.Default or Color3.fromRGB(96, 205, 255),
                 Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 90
+            local yPos = self.ElementCount * 64 + 40
             self.ElementCount = self.ElementCount + 1
             
-            local ColorCard = Instance.new("Frame")
-            ColorCard.Name = "ColorCard_" .. colorConfig.Name
-            ColorCard.Parent = self.Content
-            ColorCard.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-            ColorCard.BackgroundTransparency = 0.2
-            ColorCard.BorderSizePixel = 0
-            ColorCard.Position = UDim2.new(0, 0, 0, yPos)
-            ColorCard.Size = UDim2.new(1, -8, 0, 80)
-            ColorCard.ZIndex = 7
+            local ColorFrame = Instance.new("Frame")
+            ColorFrame.Name = "Colorpicker_" .. colorConfig.Title
+            ColorFrame.Parent = self.Content
+            ColorFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
+            ColorFrame.BackgroundTransparency = 0
+            ColorFrame.BorderSizePixel = 0
+            ColorFrame.Position = UDim2.new(0, 0, 0, yPos)
+            ColorFrame.Size = UDim2.new(1, -12, 0, 56)
+            ColorFrame.ZIndex = 7
             
-            CreateCorner(8).Parent = ColorCard
-            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.6).Parent = ColorCard
-            CreateDropShadow(ColorCard, 2)
+            CreateCorner(6).Parent = ColorFrame
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = ColorFrame
             
             local ColorTitle = Instance.new("TextLabel")
-            ColorTitle.Parent = ColorCard
+            ColorTitle.Parent = ColorFrame
             ColorTitle.BackgroundTransparency = 1
-            ColorTitle.Position = UDim2.new(0, 20, 0, 18)
-            ColorTitle.Size = UDim2.new(0.6, 0, 0, 24)
+            ColorTitle.Position = UDim2.new(0, 16, 0, 8)
+            ColorTitle.Size = UDim2.new(0.7, 0, 0, 16)
             ColorTitle.Font = Enum.Font.GothamMedium
-            ColorTitle.Text = colorConfig.Name
+            ColorTitle.Text = colorConfig.Title
             ColorTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            ColorTitle.TextSize = 14
+            ColorTitle.TextSize = 13
             ColorTitle.TextXAlignment = Enum.TextXAlignment.Left
             ColorTitle.ZIndex = 8
             
             if colorConfig.Description ~= "" then
                 local ColorDesc = Instance.new("TextLabel")
-                ColorDesc.Parent = ColorCard
+                ColorDesc.Parent = ColorFrame
                 ColorDesc.BackgroundTransparency = 1
-                ColorDesc.Position = UDim2.new(0, 20, 0, 42)
-                ColorDesc.Size = UDim2.new(0.6, 0, 0, 20)
+                ColorDesc.Position = UDim2.new(0, 16, 0, 26)
+                ColorDesc.Size = UDim2.new(0.7, 0, 0, 24)
                 ColorDesc.Font = Enum.Font.Gotham
                 ColorDesc.Text = colorConfig.Description
-                ColorDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
+                ColorDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
                 ColorDesc.TextSize = 11
                 ColorDesc.TextXAlignment = Enum.TextXAlignment.Left
+                ColorDesc.TextYAlignment = Enum.TextYAlignment.Top
+                ColorDesc.TextWrapped = true
                 ColorDesc.ZIndex = 8
             end
             
             local ColorDisplay = Instance.new("Frame")
             ColorDisplay.Name = "ColorDisplay"
-            ColorDisplay.Parent = ColorCard
+            ColorDisplay.Parent = ColorFrame
             ColorDisplay.BackgroundColor3 = colorConfig.Default
             ColorDisplay.BorderSizePixel = 0
-            ColorDisplay.Position = UDim2.new(1, -85, 0, 22)
-            ColorDisplay.Size = UDim2.new(0, 70, 0, 36)
+            ColorDisplay.Position = UDim2.new(1, -60, 0.5, -12)
+            ColorDisplay.Size = UDim2.new(0, 48, 0, 24)
             ColorDisplay.ZIndex = 8
             
-            CreateCorner(6).Parent = ColorDisplay
-            CreateStroke(2, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumLowBrush, 0.3).Parent = ColorDisplay
+            CreateCorner(4).Parent = ColorDisplay
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.7).Parent = ColorDisplay
             CreateDropShadow(ColorDisplay, 2)
             
             local ColorButton = Instance.new("TextButton")
@@ -1542,9 +1461,9 @@ function FluentUI:CreateWindow(config)
             local currentColor = colorConfig.Default
             
             ColorButton.MouseButton1Click:Connect(function()
-                PlaySound("Click", 0.05, 1.1)
+                PlaySound("Click", 0.2, 1.1)
                 
-                -- Simple color randomizer for demo (in real implementation, you'd want a full color picker)
+                -- Simple color randomizer (in real implementation, you'd want a proper color picker)
                 local newColor = Color3.fromRGB(
                     math.random(0, 255),
                     math.random(0, 255), 
@@ -1552,7 +1471,7 @@ function FluentUI:CreateWindow(config)
                 )
                 
                 currentColor = newColor
-                SmoothTween(ColorDisplay, {BackgroundColor3 = newColor}, 0.3)
+                SmoothTween(ColorDisplay, {BackgroundColor3 = newColor}, 0.2)
                 
                 local success, err = pcall(colorConfig.Callback, newColor)
                 if not success then
@@ -1565,62 +1484,251 @@ function FluentUI:CreateWindow(config)
             end)
             
             self:UpdateCanvasSize()
-            return ColorCard
+            return ColorFrame
         end
         
-        function TabObject:CreateLabel(config)
+        function TabObject:CreateKeybind(config)
             config = config or {}
             
-            local labelConfig = {
-                Name = config.Name or "Label",
-                Description = config.Description or ""
+            local keybindConfig = {
+                Title = config.Title or "KeyBind",
+                Description = config.Description or "",
+                Default = config.Default or Enum.KeyCode.MB2,
+                Callback = config.Callback or function() end
             }
             
-            local yPos = self.ElementCount * 90
+            local yPos = self.ElementCount * 64 + 40
             self.ElementCount = self.ElementCount + 1
             
-            local LabelFrame = Instance.new("Frame")
-            LabelFrame.Name = "Label_" .. labelConfig.Name
-            LabelFrame.Parent = self.Content
-            LabelFrame.BackgroundTransparency = 1
-            LabelFrame.Position = UDim2.new(0, 0, 0, yPos)
-            LabelFrame.Size = UDim2.new(1, 0, 0, 60)
-            LabelFrame.ZIndex = 7
+            local KeybindFrame = Instance.new("Frame")
+            KeybindFrame.Name = "Keybind_" .. keybindConfig.Title
+            KeybindFrame.Parent = self.Content
+            KeybindFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
+            KeybindFrame.BackgroundTransparency = 0
+            KeybindFrame.BorderSizePixel = 0
+            KeybindFrame.Position = UDim2.new(0, 0, 0, yPos)
+            KeybindFrame.Size = UDim2.new(1, -12, 0, 56)
+            KeybindFrame.ZIndex = 7
             
-            local LabelTitle = Instance.new("TextLabel")
-            LabelTitle.Parent = LabelFrame
-            LabelTitle.BackgroundTransparency = 1
-            LabelTitle.Position = UDim2.new(0, 0, 0, 10)
-            LabelTitle.Size = UDim2.new(1, 0, 0, 24)
-            LabelTitle.Font = Enum.Font.GothamBold
-            LabelTitle.Text = labelConfig.Name
-            LabelTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-            LabelTitle.TextSize = 16
-            LabelTitle.TextXAlignment = Enum.TextXAlignment.Left
-            LabelTitle.ZIndex = 8
+            CreateCorner(6).Parent = KeybindFrame
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = KeybindFrame
             
-            if labelConfig.Description ~= "" then
-                local LabelDesc = Instance.new("TextLabel")
-                LabelDesc.Parent = LabelFrame
-                LabelDesc.BackgroundTransparency = 1
-                LabelDesc.Position = UDim2.new(0, 0, 0, 34)
-                LabelDesc.Size = UDim2.new(1, 0, 0, 20)
-                LabelDesc.Font = Enum.Font.Gotham
-                LabelDesc.Text = labelConfig.Description
-                LabelDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-                LabelDesc.TextSize = 12
-                LabelDesc.TextXAlignment = Enum.TextXAlignment.Left
-                LabelDesc.TextWrapped = true
-                LabelDesc.ZIndex = 8
+            local KeybindTitle = Instance.new("TextLabel")
+            KeybindTitle.Parent = KeybindFrame
+            KeybindTitle.BackgroundTransparency = 1
+            KeybindTitle.Position = UDim2.new(0, 16, 0, 8)
+            KeybindTitle.Size = UDim2.new(0.7, 0, 0, 16)
+            KeybindTitle.Font = Enum.Font.GothamMedium
+            KeybindTitle.Text = keybindConfig.Title
+            KeybindTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
+            KeybindTitle.TextSize = 13
+            KeybindTitle.TextXAlignment = Enum.TextXAlignment.Left
+            KeybindTitle.ZIndex = 8
+            
+            if keybindConfig.Description ~= "" then
+                local KeybindDesc = Instance.new("TextLabel")
+                KeybindDesc.Parent = KeybindFrame
+                KeybindDesc.BackgroundTransparency = 1
+                KeybindDesc.Position = UDim2.new(0, 16, 0, 26)
+                KeybindDesc.Size = UDim2.new(0.7, 0, 0, 24)
+                KeybindDesc.Font = Enum.Font.Gotham
+                KeybindDesc.Text = keybindConfig.Description
+                KeybindDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+                KeybindDesc.TextSize = 11
+                KeybindDesc.TextXAlignment = Enum.TextXAlignment.Left
+                KeybindDesc.TextYAlignment = Enum.TextYAlignment.Top
+                KeybindDesc.TextWrapped = true
+                KeybindDesc.ZIndex = 8
             end
             
+            local KeybindDisplay = Instance.new("TextLabel")
+            KeybindDisplay.Parent = KeybindFrame
+            KeybindDisplay.BackgroundTransparency = 1
+            KeybindDisplay.Position = UDim2.new(1, -60, 0, 8)
+            KeybindDisplay.Size = UDim2.new(0, 50, 0, 16)
+            KeybindDisplay.Font = Enum.Font.GothamMedium
+            KeybindDisplay.Text = keybindConfig.Default.Name
+            KeybindDisplay.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            KeybindDisplay.TextSize = 12
+            KeybindDisplay.TextXAlignment = Enum.TextXAlignment.Right
+            KeybindDisplay.ZIndex = 8
+            
+            local KeybindButton = Instance.new("TextButton")
+            KeybindButton.Name = "KeybindButton"
+            KeybindButton.Parent = KeybindFrame
+            KeybindButton.BackgroundTransparency = 1
+            KeybindButton.Size = UDim2.new(1, 0, 1, 0)
+            KeybindButton.Text = ""
+            KeybindButton.ZIndex = 9
+            
+            CreateRevealEffect(KeybindButton)
+            CreatePressAnimation(KeybindButton)
+            
+            local currentKey = keybindConfig.Default
+            local listening = false
+            
+            KeybindButton.MouseButton1Click:Connect(function()
+                if listening then return end
+                
+                listening = true
+                KeybindDisplay.Text = "..."
+                KeybindDisplay.TextColor3 = FluentUI.CurrentTheme.SystemAccentColor
+                PlaySound("Click", 0.2, 1.2)
+                
+                local connection
+                connection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+                    if gameProcessed then return end
+                    
+                    if input.UserInputType == Enum.UserInputType.Keyboard or input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.MouseButton2 then
+                        currentKey = input.KeyCode ~= Enum.KeyCode.Unknown and input.KeyCode or input.UserInputType
+                        KeybindDisplay.Text = currentKey.Name or "Unknown"
+                        KeybindDisplay.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+                        listening = false
+                        connection:Disconnect()
+                        
+                        PlaySound("Success", 0.2, 1.1)
+                    end
+                end)
+            end)
+            
+            -- Bind the keybind functionality
+            local keybindConnection
+            keybindConnection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+                if gameProcessed then return end
+                
+                if (input.KeyCode == currentKey) or (input.UserInputType == currentKey) then
+                    local success, err = pcall(keybindConfig.Callback)
+                    if not success then
+                        FluentUI:Notify({
+                            Title = "Error", 
+                            Description = "Keybind error: " .. tostring(err),
+                            Type = "Error"
+                        })
+                    end
+                end
+            end)
+            
+            table.insert(FluentUI.Connections, keybindConnection)
+            
             self:UpdateCanvasSize()
-            return LabelFrame
+            return KeybindFrame
+        end
+        
+        function TabObject:CreateInput(config)
+            config = config or {}
+            
+            local inputConfig = {
+                Title = config.Title or "Input",
+                Description = config.Description or "",
+                Default = config.Default or "Default",
+                PlaceholderText = config.PlaceholderText or "Type here...",
+                Numeric = config.Numeric or false,
+                Callback = config.Callback or function() end
+            }
+            
+            local yPos = self.ElementCount * 64 + 40
+            self.ElementCount = self.ElementCount + 1
+            
+            local InputFrame = Instance.new("Frame")
+            InputFrame.Name = "Input_" .. inputConfig.Title
+            InputFrame.Parent = self.Content
+            InputFrame.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
+            InputFrame.BackgroundTransparency = 0
+            InputFrame.BorderSizePixel = 0
+            InputFrame.Position = UDim2.new(0, 0, 0, yPos)
+            InputFrame.Size = UDim2.new(1, -12, 0, 56)
+            InputFrame.ZIndex = 7
+            
+            CreateCorner(6).Parent = InputFrame
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.9).Parent = InputFrame
+            
+            local InputTitle = Instance.new("TextLabel")
+            InputTitle.Parent = InputFrame
+            InputTitle.BackgroundTransparency = 1
+            InputTitle.Position = UDim2.new(0, 16, 0, 8)
+            InputTitle.Size = UDim2.new(0.5, 0, 0, 16)
+            InputTitle.Font = Enum.Font.GothamMedium
+            InputTitle.Text = inputConfig.Title
+            InputTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
+            InputTitle.TextSize = 13
+            InputTitle.TextXAlignment = Enum.TextXAlignment.Left
+            InputTitle.ZIndex = 8
+            
+            if inputConfig.Description ~= "" then
+                local InputDesc = Instance.new("TextLabel")
+                InputDesc.Parent = InputFrame
+                InputDesc.BackgroundTransparency = 1
+                InputDesc.Position = UDim2.new(0, 16, 0, 26)
+                InputDesc.Size = UDim2.new(0.5, 0, 0, 24)
+                InputDesc.Font = Enum.Font.Gotham
+                InputDesc.Text = inputConfig.Description
+                InputDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+                InputDesc.TextSize = 11
+                InputDesc.TextXAlignment = Enum.TextXAlignment.Left
+                InputDesc.TextYAlignment = Enum.TextYAlignment.Top
+                InputDesc.TextWrapped = true
+                InputDesc.ZIndex = 8
+            end
+            
+            local InputBox = Instance.new("TextBox")
+            InputBox.Name = "InputBox"
+            InputBox.Parent = InputFrame
+            InputBox.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush
+            InputBox.BackgroundTransparency = 0.3
+            InputBox.BorderSizePixel = 0
+            InputBox.Position = UDim2.new(0.5, 8, 0, 16)
+            InputBox.Size = UDim2.new(0.5, -24, 0, 24)
+            InputBox.Font = Enum.Font.Gotham
+            InputBox.PlaceholderText = inputConfig.PlaceholderText
+            InputBox.PlaceholderColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+            InputBox.Text = inputConfig.Default
+            InputBox.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
+            InputBox.TextSize = 12
+            InputBox.ZIndex = 8
+            
+            CreateCorner(4).Parent = InputBox
+            CreateStroke(1, FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush, 0.7).Parent = InputBox
+            
+            -- Focus effects
+            InputBox.Focused:Connect(function()
+                SmoothTween(InputBox:FindFirstChild("UIStroke"), {
+                    Color = FluentUI.CurrentTheme.SystemAccentColor,
+                    Transparency = 0.3
+                }, 0.2)
+                SmoothTween(InputBox, {BackgroundTransparency = 0.1}, 0.2)
+            end)
+            
+            InputBox.FocusLost:Connect(function(enterPressed)
+                SmoothTween(InputBox:FindFirstChild("UIStroke"), {
+                    Color = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush,
+                    Transparency = 0.7
+                }, 0.2)
+                SmoothTween(InputBox, {BackgroundTransparency = 0.3}, 0.2)
+                
+                if enterPressed then
+                    local value = InputBox.Text
+                    if inputConfig.Numeric then
+                        value = tonumber(value) or 0
+                    end
+                    
+                    local success, err = pcall(inputConfig.Callback, value)
+                    if not success then
+                        FluentUI:Notify({
+                            Title = "Error",
+                            Description = "Input error: " .. tostring(err),
+                            Type = "Error"
+                        })
+                    end
+                end
+            end)
+            
+            self:UpdateCanvasSize()
+            return InputFrame
         end
         
         function TabObject:UpdateCanvasSize()
-            local contentSize = self.ElementCount * 95 + 24
-            SmoothTween(self.Content, {CanvasSize = UDim2.new(0, 0, 0, contentSize)}, 0.2)
+            local contentSize = self.ElementCount * 70 + 60
+            SmoothTween(self.Content, {CanvasSize = UDim2.new(0, 0, 0, contentSize)}, 0.1)
         end
         
         CreateRevealEffect(NavButton)
@@ -1635,7 +1743,7 @@ function FluentUI:CreateWindow(config)
             TabObject:Activate()
         end
         
-        self.TabContainer.CanvasSize = UDim2.new(0, 0, 0, self.TabCount * 44 + 8)
+        self.TabContainer.CanvasSize = UDim2.new(0, 0, 0, self.TabCount * 36 + 8)
         
         return TabObject
     end
@@ -1697,12 +1805,12 @@ function FluentUI:CreateWindow(config)
     SmoothTween(Container, {
         Size = windowConfig.Size,
         Position = UDim2.new(0.5, -windowConfig.Size.X.Offset/2, 0.5, -windowConfig.Size.Y.Offset/2)
-    }, 0.5, Enum.EasingStyle.Back)
+    }, 0.4, Enum.EasingStyle.Back)
     
-    SmoothTween(MainFrame, {BackgroundTransparency = 0.1}, 0.3)
-    SmoothTween(BackgroundOverlay, {BackgroundTransparency = 0.3}, 0.3)
+    SmoothTween(MainFrame, {BackgroundTransparency = 0}, 0.25)
+    SmoothTween(BackgroundOverlay, {BackgroundTransparency = 0.4}, 0.25)
     
-    PlaySound("Success", 0.1, 1.2)
+    PlaySound("Success", 0.4, 1.1)
     
     table.insert(FluentUI.Windows, WindowObject)
     return WindowObject
@@ -1726,7 +1834,7 @@ function FluentUI:Notify(config)
     }
     
     local typeColors = {
-        Info = FluentUI.CurrentTheme.SystemControlHighlightAccentBrush,
+        Info = FluentUI.CurrentTheme.SystemAccentColor,
         Success = FluentUI.CurrentTheme.SystemFillColorSuccess,
         Warning = FluentUI.CurrentTheme.SystemFillColorCaution,
         Error = FluentUI.CurrentTheme.SystemFillColorCritical
@@ -1740,37 +1848,37 @@ function FluentUI:Notify(config)
     local NotifCard = Instance.new("Frame")
     NotifCard.Parent = NotifGui
     NotifCard.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumLowBrush
-    NotifCard.BackgroundTransparency = 0.1
+    NotifCard.BackgroundTransparency = 0
     NotifCard.BorderSizePixel = 0
     NotifCard.Position = UDim2.new(1, 20, 1, -110 - (#FluentUI.Notifications * 120))
-    NotifCard.Size = UDim2.new(0, 400, 0, 100)
+    NotifCard.Size = UDim2.new(0, 380, 0, 100)
     NotifCard.ZIndex = 100
     
-    CreateCorner(8).Parent = NotifCard
-    CreateStroke(1, typeColors[notifConfig.Type] or typeColors.Info, 0.4).Parent = NotifCard
-    CreateDropShadow(NotifCard, 6)
+    CreateCorner(6).Parent = NotifCard
+    CreateStroke(1, typeColors[notifConfig.Type] or typeColors.Info, 0.6).Parent = NotifCard
+    CreateDropShadow(NotifCard, 8)
     CreateAcrylicEffect(NotifCard)
     
     local NotifIcon = Instance.new("TextLabel")
     NotifIcon.Parent = NotifCard
     NotifIcon.BackgroundTransparency = 1
     NotifIcon.Position = UDim2.new(0, 20, 0, 20)
-    NotifIcon.Size = UDim2.new(0, 30, 0, 30)
+    NotifIcon.Size = UDim2.new(0, 24, 0, 24)
     NotifIcon.Font = Enum.Font.GothamBold
     NotifIcon.Text = typeIcons[notifConfig.Type] or typeIcons.Info
     NotifIcon.TextColor3 = typeColors[notifConfig.Type] or typeColors.Info
-    NotifIcon.TextSize = 18
+    NotifIcon.TextSize = 16
     NotifIcon.ZIndex = 101
     
     local NotifTitle = Instance.new("TextLabel")
     NotifTitle.Parent = NotifCard
     NotifTitle.BackgroundTransparency = 1
-    NotifTitle.Position = UDim2.new(0, 60, 0, 15)
-    NotifTitle.Size = UDim2.new(1, -80, 0, 25)
+    NotifTitle.Position = UDim2.new(0, 54, 0, 16)
+    NotifTitle.Size = UDim2.new(1, -74, 0, 20)
     NotifTitle.Font = Enum.Font.GothamBold
     NotifTitle.Text = notifConfig.Title
     NotifTitle.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseHighBrush
-    NotifTitle.TextSize = 14
+    NotifTitle.TextSize = 13
     NotifTitle.TextXAlignment = Enum.TextXAlignment.Left
     NotifTitle.TextTruncate = Enum.TextTruncate.AtEnd
     NotifTitle.ZIndex = 101
@@ -1778,12 +1886,12 @@ function FluentUI:Notify(config)
     local NotifDesc = Instance.new("TextLabel")
     NotifDesc.Parent = NotifCard
     NotifDesc.BackgroundTransparency = 1
-    NotifDesc.Position = UDim2.new(0, 60, 0, 40)
-    NotifDesc.Size = UDim2.new(1, -80, 0, 45)
+    NotifDesc.Position = UDim2.new(0, 54, 0, 36)
+    NotifDesc.Size = UDim2.new(1, -74, 0, 50)
     NotifDesc.Font = Enum.Font.Gotham
     NotifDesc.Text = notifConfig.Description
-    NotifDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-    NotifDesc.TextSize = 12
+    NotifDesc.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+    NotifDesc.TextSize = 11
     NotifDesc.TextXAlignment = Enum.TextXAlignment.Left
     NotifDesc.TextWrapped = true
     NotifDesc.TextYAlignment = Enum.TextYAlignment.Top
@@ -1791,25 +1899,25 @@ function FluentUI:Notify(config)
     
     local CloseNotifBtn = Instance.new("TextButton")
     CloseNotifBtn.Parent = NotifCard
-    CloseNotifBtn.BackgroundColor3 = FluentUI.CurrentTheme.SystemControlBackgroundChromeMediumBrush
+    CloseNotifBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     CloseNotifBtn.BackgroundTransparency = 1
     CloseNotifBtn.BorderSizePixel = 0
-    CloseNotifBtn.Position = UDim2.new(1, -35, 0, 10)
-    CloseNotifBtn.Size = UDim2.new(0, 25, 0, 25)
-    CloseNotifBtn.Font = Enum.Font.GothamMedium
-    CloseNotifBtn.Text = "×"
-    CloseNotifBtn.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumHighBrush
-    CloseNotifBtn.TextSize = 14
+    CloseNotifBtn.Position = UDim2.new(1, -28, 0, 8)
+    CloseNotifBtn.Size = UDim2.new(0, 20, 0, 20)
+    CloseNotifBtn.Font = Enum.Font.Gotham
+    CloseNotifBtn.Text = "✕"
+    CloseNotifBtn.TextColor3 = FluentUI.CurrentTheme.SystemControlForegroundBaseMediumBrush
+    CloseNotifBtn.TextSize = 10
     CloseNotifBtn.ZIndex = 102
     
-    CreateCorner(6).Parent = CloseNotifBtn
+    CreateCorner(4).Parent = CloseNotifBtn
     CreateRevealEffect(CloseNotifBtn)
     
     CloseNotifBtn.MouseButton1Click:Connect(function()
         SmoothTween(NotifCard, {
             Position = UDim2.new(1, 20, NotifCard.Position.Y.Scale, NotifCard.Position.Y.Offset),
             Size = UDim2.new(0, 0, 0, 100)
-        }, 0.3, nil, nil, function()
+        }, 0.25, nil, nil, function()
             for i, notif in ipairs(FluentUI.Notifications) do
                 if notif == NotifGui then
                     table.remove(FluentUI.Notifications, i)
@@ -1823,10 +1931,10 @@ function FluentUI:Notify(config)
     table.insert(FluentUI.Notifications, NotifGui)
     
     SmoothTween(NotifCard, {
-        Position = UDim2.new(1, -410, 1, -110 - ((#FluentUI.Notifications-1) * 120))
-    }, 0.4, Enum.EasingStyle.Back)
+        Position = UDim2.new(1, -390, 1, -110 - ((#FluentUI.Notifications-1) * 120))
+    }, 0.3, Enum.EasingStyle.Back)
     
-    PlaySound(notifConfig.Type == "Error" and "Error" or "Success", 0.08, 1.1)
+    PlaySound(notifConfig.Type == "Error" and "Error" or "Success", 0.3, 1.05)
     
     spawn(function()
         wait(notifConfig.Duration)
