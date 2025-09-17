@@ -1,0 +1,323 @@
+-- ========================================
+-- SAVE MANAGER SYSTEM (GLOBAL) - INSTANT SAVE/LOAD
+-- ========================================
+
+-- Services
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+
+-- Variables
+local LocalPlayer = Players.LocalPlayer
+local PlayerName = LocalPlayer.Name
+local ConfigFileName = PlayerName .. ".json"
+
+-- Default Config Template
+local DefaultConfig = {
+    -- Main Tab Settings
+    autoFishing = false,
+    autoSell = false,
+    autoQuest = false,
+    autoBuyRods = false,
+    autoBuyBaits = false,
+    sellThreshold = 500,
+    selectedRodId = 1,
+    selectedBaitId = 2,
+    
+    -- Farm Resource Settings
+    farmEnchant = false,
+    farmMoney = false,
+    autoFavorite = false,
+    enchantTargetAmount = 100,
+    moneyTargetAmount = 1000000,
+    
+    -- Teleport Settings
+    selectedIsland = nil,
+    
+    -- UI Settings
+    uiKeybind = "Insert",
+    theme = "Dark",
+    
+    -- Version Info
+    configVersion = "1.0",
+    lastSaved = 0
+}
+
+-- Global SaveManager
+_G.SaveManager = {
+    Config = {},
+    InstantSave = true, -- เปิดการบันทึกทันที
+    DebugMode = false   -- เปิดเพื่อดู debug messages
+}
+
+-- Debug print function
+local function debugPrint(message)
+    if _G.SaveManager.DebugMode then
+        print("[SaveManager Debug] " .. message)
+    end
+end
+
+-- Deep copy function for tables
+function _G.SaveManager.DeepCopy(original)
+    local copy = {}
+    for key, value in pairs(original) do
+        if type(value) == "table" then
+            copy[key] = _G.SaveManager.DeepCopy(value)
+        else
+            copy[key] = value
+        end
+    end
+    return copy
+end
+
+-- Get config value with instant load check
+function _G.SaveManager.Get(key, defaultValue)
+    local value = _G.SaveManager.Config[key]
+    if value ~= nil then
+        debugPrint("Get " .. key .. " = " .. tostring(value))
+        return value
+    else
+        debugPrint("Get " .. key .. " = " .. tostring(defaultValue) .. " (default)")
+        return defaultValue
+    end
+end
+
+-- Set config value with INSTANT save
+function _G.SaveManager.Set(key, value)
+    local oldValue = _G.SaveManager.Config[key]
+    
+    if oldValue ~= value then
+        _G.SaveManager.Config[key] = value
+        _G.SaveManager.Config.lastSaved = tick()
+        
+        debugPrint("Set " .. key .. ": " .. tostring(oldValue) .. " -> " .. tostring(value))
+        
+        -- INSTANT SAVE ทันที
+        if _G.SaveManager.InstantSave then
+            _G.SaveManager.Save()
+        end
+    end
+end
+
+-- Set multiple config values with INSTANT save
+function _G.SaveManager.SetMultiple(configTable)
+    local hasChanges = false
+    local changes = {}
+    
+    for key, value in pairs(configTable) do
+        local oldValue = _G.SaveManager.Config[key]
+        if oldValue ~= value then
+            _G.SaveManager.Config[key] = value
+            hasChanges = true
+            table.insert(changes, key .. ": " .. tostring(oldValue) .. " -> " .. tostring(value))
+        end
+    end
+    
+    if hasChanges then
+        _G.SaveManager.Config.lastSaved = tick()
+        
+        debugPrint("SetMultiple changes: " .. table.concat(changes, ", "))
+        
+        -- INSTANT SAVE ทันที
+        if _G.SaveManager.InstantSave then
+            _G.SaveManager.Save()
+        end
+    end
+end
+
+-- Save config to file (ทันที)
+function _G.SaveManager.Save()
+    local success, result = pcall(function()
+        -- Update timestamp
+        _G.SaveManager.Config.lastSaved = tick()
+        
+        -- Convert config to JSON
+        local jsonString = HttpService:JSONEncode(_G.SaveManager.Config)
+        
+        -- Write to file using executor API
+        if writefile then
+            writefile(ConfigFileName, jsonString)
+            debugPrint("Config saved to " .. ConfigFileName)
+            return true
+        else
+            warn("SaveManager: writefile function not available")
+            return false
+        end
+    end)
+    
+    if success and result then
+        return true
+    else
+        warn("SaveManager: Failed to save config - " .. tostring(result))
+        return false
+    end
+end
+
+-- Load config from file (ทันที)
+function _G.SaveManager.Load()
+    local success, result = pcall(function()
+        -- Check if file exists
+        if not isfile or not isfile(ConfigFileName) then
+            return false, "Config file not found"
+        end
+        
+        -- Read file using executor API
+        if readfile then
+            local jsonString = readfile(ConfigFileName)
+            
+            -- Parse JSON
+            local loadedConfig = HttpService:JSONDecode(jsonString)
+            
+            -- Validate and merge with default config
+            _G.SaveManager.Config = _G.SaveManager.MergeWithDefault(loadedConfig)
+            
+            debugPrint("Config loaded from " .. ConfigFileName)
+            return true, "Config loaded successfully"
+        else
+            return false, "readfile function not available"
+        end
+    end)
+    
+    if success and result then
+        print("SaveManager: Config loaded for " .. PlayerName)
+        return true
+    else
+        print("SaveManager: Creating new config for " .. PlayerName)
+        _G.SaveManager.Config = _G.SaveManager.DeepCopy(DefaultConfig)
+        
+        -- Save default config ทันที
+        _G.SaveManager.Save()
+        return false
+    end
+end
+
+-- Merge loaded config with default config
+function _G.SaveManager.MergeWithDefault(loadedConfig)
+    local merged = _G.SaveManager.DeepCopy(DefaultConfig)
+    
+    if type(loadedConfig) == "table" then
+        for key, value in pairs(loadedConfig) do
+            if merged[key] ~= nil then
+                merged[key] = value
+                debugPrint("Merged " .. key .. " = " .. tostring(value))
+            end
+        end
+    end
+    
+    return merged
+end
+
+-- Reset config to defaults (ทันที)
+function _G.SaveManager.Reset()
+    _G.SaveManager.Config = _G.SaveManager.DeepCopy(DefaultConfig)
+    _G.SaveManager.Save() -- บันทึกทันที
+    print("SaveManager: Config reset to defaults")
+end
+
+-- Delete config file
+function _G.SaveManager.Delete()
+    local success = pcall(function()
+        if delfile and isfile and isfile(ConfigFileName) then
+            delfile(ConfigFileName)
+            return true
+        end
+        return false
+    end)
+    
+    if success then
+        print("SaveManager: Config file deleted")
+        _G.SaveManager.Reset()
+    else
+        warn("SaveManager: Failed to delete config file")
+    end
+end
+
+-- Force save (สำหรับกรณีฉุกเฉิน)
+function _G.SaveManager.ForceSave()
+    return _G.SaveManager.Save()
+end
+
+-- Get all config data
+function _G.SaveManager.GetAll()
+    return _G.SaveManager.DeepCopy(_G.SaveManager.Config)
+end
+
+-- Check if config file exists
+function _G.SaveManager.Exists()
+    if isfile then
+        return isfile(ConfigFileName)
+    end
+    return false
+end
+
+-- Get config file name
+function _G.SaveManager.GetFileName()
+    return ConfigFileName
+end
+
+-- Print config for debugging
+function _G.SaveManager.Print()
+    print("SaveManager Config for " .. PlayerName .. ":")
+    for key, value in pairs(_G.SaveManager.Config) do
+        print("  " .. tostring(key) .. ": " .. tostring(value))
+    end
+end
+
+-- Toggle debug mode
+function _G.SaveManager.SetDebug(enabled)
+    _G.SaveManager.DebugMode = enabled
+    print("SaveManager: Debug mode " .. (enabled and "enabled" or "disabled"))
+end
+
+-- Toggle instant save (normally always on)
+function _G.SaveManager.SetInstantSave(enabled)
+    _G.SaveManager.InstantSave = enabled
+    _G.SaveManager.Set("instantSaveEnabled", enabled) -- บันทึกการตั้งค่านี้ด้วย
+    print("SaveManager: Instant save " .. (enabled and "enabled" or "disabled"))
+end
+
+-- Get config stats
+function _G.SaveManager.GetStats()
+    return {
+        fileName = ConfigFileName,
+        fileExists = _G.SaveManager.Exists(),
+        lastSaved = _G.SaveManager.Config.lastSaved or 0,
+        configCount = 0, -- จะนับจำนวน keys
+        instantSave = _G.SaveManager.InstantSave,
+        debugMode = _G.SaveManager.DebugMode
+    }
+end
+
+-- Initialize SaveManager
+function _G.SaveManager.Initialize()
+    print("SaveManager: Initializing for " .. PlayerName)
+    
+    -- Set default config first
+    _G.SaveManager.Config = _G.SaveManager.DeepCopy(DefaultConfig)
+    
+    -- Try to load existing config ทันที
+    _G.SaveManager.Load()
+    
+    -- Verify instant save is enabled
+    local instantSaveStatus = _G.SaveManager.Get("instantSaveEnabled", true)
+    _G.SaveManager.InstantSave = instantSaveStatus
+    
+    print("SaveManager: Ready! Instant save: " .. tostring(_G.SaveManager.InstantSave))
+end
+
+-- Auto-initialize when script loads
+_G.SaveManager.Initialize()
+
+-- Helper functions for easy toggle management
+function _G.SaveManager.SaveToggle(toggleName, value)
+    _G.SaveManager.Set(toggleName, value)
+    debugPrint("Toggle " .. toggleName .. " = " .. tostring(value))
+end
+
+function _G.SaveManager.LoadToggle(toggleName, defaultValue)
+    local value = _G.SaveManager.Get(toggleName, defaultValue or false)
+    debugPrint("Load toggle " .. toggleName .. " = " .. tostring(value))
+    return value
+end
+
+-- Return SaveManager for optional local use
+return _G.SaveManager
